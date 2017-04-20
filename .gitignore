@@ -1,3 +1,3 @@
-Zonnebloem-API/node_modules/
-Zonnebloem-API/.nyc_output/
-Zonnebloem-API/coverage/
+*/node_modules/
+*/.nyc_output/
+*/coverage/
