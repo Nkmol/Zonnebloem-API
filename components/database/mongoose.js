@@ -1,5 +1,5 @@
 let mongoose = require('mongoose'),
-    config = require('../../config/config'),
+    config = require('../config/config'),
     chalk = require('chalk');
 
 class Mongoose {

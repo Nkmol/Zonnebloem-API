@@ -5,11 +5,10 @@ let express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     chalk = require('chalk'),
-    mongoose = require('./components/database/mongoose'),
-    util = require('./components/utilities');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+    mongoose = require('./components/database/mongoose'),
+    util = require('./components/utilities'),
+    config = require('./components/config/config');
 
 let app = express();
 
@@ -20,7 +19,7 @@ module.exports.start = () => {
     .then(() => {
       // Load models
       console.log(chalk.green('Loading models...'));
-      return util.requireAll('components/**/models/*.model.js');
+      return util.requireAll(config.models);
     })
     .then(() => {
       // view engine setup
@@ -61,7 +60,6 @@ module.exports.start = () => {
     })
     .then(() => {
       // Setup routing
-      app.use('/', index);
-      app.use('/users', users);
+ 
     })
   };
