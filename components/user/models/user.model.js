@@ -40,15 +40,14 @@ let userSchema = new Schema ({
     roles: [
         {type: ObjectId, ref: "Role"}
     ],
-    created_at: {
-        type: Date,
-        default: Date.now()
-    },
-    updated_at: {
-        type: Date
-    },
     profile_image: {
         type: ObjectId, ref: 'Image'
+    }
+},
+{
+    timestamps: { 
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
     }
 });
 
