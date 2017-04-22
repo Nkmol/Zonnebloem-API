@@ -7,14 +7,18 @@ let mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.Types.ObjectId;
 
-
 let userSchema = new Schema ({
     username: {
         type: String,
+        minlength: 5,
+        maxlength: 25,
+        index: { unique: true },
         required: true
     }, 
     password: {
         type: String,
+        minlength: 5,
+        maxlength: 25,
         required: true
     },
     email: {
