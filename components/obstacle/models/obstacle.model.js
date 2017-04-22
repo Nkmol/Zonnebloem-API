@@ -1,5 +1,11 @@
 'use strict';
 
+
+const GOOD = 'GOOD';
+const BAD = 'BAD';
+const IN_PORGRESS = 'IN_PROGRESS';
+const FIXED = 'FIXED';
+
 /**
  * Module dependencies
  */
@@ -20,8 +26,8 @@ let obstacleSchema = new Schema ({
         type: String,
         required: true
     },
-    coordinates: {
-        type: ObjectId, ref: 'Coordinate'
+    location: {
+        type: [Number], index: '2dsphere'
     },
     created_by: { 
         type: ObjectId, ref: 'User'
@@ -30,7 +36,10 @@ let obstacleSchema = new Schema ({
         { type: ObjectId, ref: 'Image' }
     ],
     state: {
-        type: ObjectId, ref: 'State',
+        type: String,
+        enum: {
+            values: [GOOD, BAD, IN_PORGRESS, FIXED]
+        },
         required: true
     },
     factor: {
@@ -41,7 +50,8 @@ let obstacleSchema = new Schema ({
     timestamps: { 
         createdAt: 'created_at',
         updatedAt: 'updated_at'
-    }
+    },
+    
 });
 
 // Used to load state as the default state
