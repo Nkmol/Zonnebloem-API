@@ -10,15 +10,15 @@ let mongoose = require('mongoose'),
 let userSchema = new Schema ({
     username: {
         type: String,
-        minlength: 5,
-        maxlength: 25,
+        // minlength: 5,
+        // maxlength: 25,
         index: { unique: true },
         required: true
     }, 
     password: {
         type: String,
-        minlength: 5,
-        maxlength: 25,
+        // minlength: 5,
+        // maxlength: 25,
         required: true
     },
     email: {
@@ -57,7 +57,7 @@ let userSchema = new Schema ({
 
 // Used to load user role as the default role
 userSchema.pre('save', function(next) {
-
+    next();
 });
 
 mongoose.model('User', userSchema);

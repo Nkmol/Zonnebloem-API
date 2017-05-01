@@ -19,7 +19,8 @@ module.exports.start = () => {
     .then(() => {
       // Load models
       console.log(chalk.green('Loading models...'));
-      return util.requireAll(config.models);
+      return util.requireAll(config.models)
+        .then(() => console.log(chalk.green('Loaded all models')));
     })
     .then(() => {
       // view engine setup
@@ -39,6 +40,13 @@ module.exports.start = () => {
         sourceMap: true
       }));
       app.use(express.static(path.join(__dirname, 'public')));
+    })
+    .then(() => {
+      // Setup routing
+      console.log(chalk.green('Setting up routers'));
+
+      let UserController = require('./components/user/controllers/user.controller');
+      app.post('/login', UserController.login.bind(UserController));
 
       // catch 404 and forward to error handler
       app.use((req, res, next) => {
@@ -58,8 +66,8 @@ module.exports.start = () => {
         res.render('error');
       });  
     })
-    .then(() => {
-      // Setup routing
- 
+    .then(() => console.log(chalk.green('done!')))
+    .catch(err => {
+      console.error(chalk.red(err));
     })
   };
