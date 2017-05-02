@@ -1,11 +1,13 @@
 'use strict'
 
 let mongoose = require('mongoose'),
-    User = mongoose.model('User');
+    User = mongoose.model('User'),
+    BaseController = require('./../../base.controller');
 
-class UserController {
+class UserController extends BaseController{
     constructor() {
-
+        super();
+        this._model = User;
     }
 
     login(req, res, next) {
