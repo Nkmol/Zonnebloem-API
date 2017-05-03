@@ -5,6 +5,8 @@ let seeder = require('mongoose-seed'),
 var data = [
     require('./departments.json'),
     require('./users.json'),
+    require('./obstacles.json')
+
 ];
 
 seeder.connect(config.db.uri, () => {
@@ -13,7 +15,7 @@ seeder.connect(config.db.uri, () => {
         .then(modelPaths => {
             seeder.loadModels(modelPaths);
 
-            seeder.clearModels(['Department', 'User'], function () {
+            seeder.clearModels(['Department', 'User', 'Obstacle'], function () {
                 seeder.populateModels(data, () => { });
             });
         });

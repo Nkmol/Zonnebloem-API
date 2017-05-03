@@ -26,9 +26,9 @@ let imageSchema = new Schema({
     }
 })
 
-let obstacleSchema = new Schema ({
+let obstacleSchema = new Schema({
 
-    _id: { 
+    _id: {
         type: ObjectId
     },
     title: {
@@ -39,13 +39,15 @@ let obstacleSchema = new Schema ({
         type: String,
         required: true
     },
-    location: {
-        type: [Number], index: '2dsphere'
+    location_coordinates: {
+        type: { type: String },
+        coordinates: [Number]
+
     },
-    created_by: { 
+    created_by: {
         type: ObjectId, ref: 'User'
     },
-    images: [imageSchema],
+    images: [String],
     state: {
         type: String,
         enum: {
@@ -63,17 +65,14 @@ let obstacleSchema = new Schema ({
         required: true
     }
 },
-{
-    timestamps: { 
-        createdAt: 'created_at',
-        updatedAt: 'updated_at'
-    },
-    
-});
+    {
+        timestamps: {
+            createdAt: 'created_at',
+            updatedAt: 'updated_at'
+        },
 
-// Used to load state as the default state
-obstacleSchema.pre('save', function(next) {
+    });
 
-});
+obstacleSchema.index({ location_coordinates: '2dsphere' })
 
 mongoose.model('Obstacle', obstacleSchema);

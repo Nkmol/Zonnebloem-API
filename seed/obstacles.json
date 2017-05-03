@@ -1,0 +1,24 @@
+{
+    "model": "Obstacle",
+    "documents": [
+        {
+            "_id": "507f1f77bcf86cd799439022",
+            "title": "Alleen maar rondjes",
+            "description": "een vorm die lijkt op een cirkel, een cilinder of een bol",
+            "location_coordinates": {
+                "type": "Point",
+                "coordinates": [
+                    51.6874208,
+                    5.2849161
+                ]
+            },
+            "images": [
+                "https://futurism.com/wp-content/uploads/2013/09/001.jpg",
+                "https://futurism.com/wp-content/uploads/2013/09/001.jpg",
+                "https://futurism.com/wp-content/uploads/2013/09/001.jpg"
+            ],
+            "state": "NEW",
+            "factor": "MEDIUM"
+        }
+    ]
+}
