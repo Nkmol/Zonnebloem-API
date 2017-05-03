@@ -1,0 +1,23 @@
+{
+    "model": "User",
+    "documents": [
+        {
+            "_id": "507f1f77bcf86cd799439012",
+            "username": "testtest",
+            "password": "testtest",
+            "email": "test@test.nl",
+            "firstname": "lastname",
+            "tel": "0720023123",
+            "is_active": true
+        },
+        {
+            "_id": "307f1f77bcf86cd799439012",
+            "username": "TobyWanKanobi",
+            "password": "testtest",
+            "email": "tobywankanobi@avans.nl",
+            "firstname": "Maipauw",
+            "tel": "07213371337",
+            "is_active": true
+        }
+    ]
+}

@@ -55,9 +55,4 @@ let userSchema = new Schema ({
     }
 });
 
-// Used to load user role as the default role
-userSchema.pre('save', function(next) {
-
-});
-
 mongoose.model('User', userSchema);

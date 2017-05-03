@@ -8,9 +8,9 @@ let mongoose = require('mongoose'),
     ObjectId = Schema.Types.ObjectId;
 
 
-let departmentSchema = new Schema ({
+let departmentSchema = new Schema({
 
-    _id: { 
+    _id: {
         type: ObjectId
     },
     name: {
@@ -19,19 +19,17 @@ let departmentSchema = new Schema ({
     tel: {
         type: String
     },
-    coordinates: {
-        type: ObjectId, ref: 'Coordinate'
+    location_coordinates: {
+        type: { type: String },
+        coordinates: [Number]
+
     },
     address: {
         type: ObjectId, ref: 'Address'
     },
-    region: { type: ObjectId, ref: 'Region'
-    }
+    region: { type: ObjectId, ref: 'Region' }
 });
 
-// Used to load state as the default state
-departmentSchema.pre('save', function(next) {
-
-});
+departmentSchema.index({ location_coordinates: '2dsphere' })
 
 mongoose.model('Department', departmentSchema);

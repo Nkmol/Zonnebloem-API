@@ -1,0 +1,17 @@
+{
+    "model": "Department",
+    "documents": [
+        {
+            "_id": "507f1f77bcf86cd799439011",
+            "name": "Test",
+            "tel": "0720023123",
+            "location_coordinates": {
+                "type": "Point",
+                "coordinates": [
+                    51.6886659,
+                    5.284784
+                ]
+            }
+        }
+    ]
+}
