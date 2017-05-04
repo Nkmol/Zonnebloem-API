@@ -8,7 +8,10 @@ let express = require('express'),
 
     mongoose = require('./components/database/mongoose'),
     util = require('./components/utilities'),
-    config = require('./components/config/config');
+    config = require('./components/config/config'),
+    
+    passport = require('passport'),
+    PassportJWT = require('./components/passport/jwt');
 
 let app = express();
 
@@ -42,12 +45,16 @@ module.exports.start = () => {
       app.use(express.static(path.join(__dirname, 'public')));
     })
     .then(() => {
+      new PassportJWT(passport);
+    })
+    .then(() => {
       // Setup routing
       console.log(chalk.green('Setting up routers'));
 
-      let UserController = require('./components/user/controllers/user.controller');
-      app.post('/login', UserController.login.bind(UserController));
-
+      let RoutesConfigurator = require('./components/config/routes.config');
+      let routesConfigurator = new RoutesConfigurator(app);
+      routesConfigurator.configureRoutes();
+     
       // catch 404 and forward to error handler
       app.use((req, res, next) => {
         const err = new Error('Not Found');
