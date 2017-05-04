@@ -49,7 +49,6 @@ module.exports.start = () => {
       let UserController = util.LoadComponent('user', 'controller');
       app.post('/login', UserController.login);
 
-      // app.post('/users', require('./components/user/controller.'))
       // catch 404 and forward to error handler
       app.use((req, res, next) => {
         const err = new Error('Not Found');
@@ -69,7 +68,5 @@ module.exports.start = () => {
       });  
     })
     .then(() => console.log(chalk.green('done!')))
-    .catch(err => {
-      console.error(chalk.red(err));
-    })
+    .catch(err => console.error(chalk.red(err)))
   };
