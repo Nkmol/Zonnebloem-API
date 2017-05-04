@@ -45,9 +45,12 @@ module.exports.start = () => {
       // Setup routing
       console.log(chalk.green('Setting up routers'));
 
-      let UserController = require('./components/user/controllers/user.controller');
+      // let UserController = require('./components/user/controllers/user.controller');
+      let UserController = util.LoadComponent('user', 'controller');
       app.post('/login', UserController.login.bind(UserController));
 
+      
+      // app.post('/users', require('./components/user/controller.'))
       // catch 404 and forward to error handler
       app.use((req, res, next) => {
         const err = new Error('Not Found');
