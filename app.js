@@ -47,9 +47,8 @@ module.exports.start = () => {
 
       // let UserController = require('./components/user/controllers/user.controller');
       let UserController = util.LoadComponent('user', 'controller');
-      app.post('/login', UserController.login.bind(UserController));
+      app.post('/login', UserController.login);
 
-      
       // app.post('/users', require('./components/user/controller.'))
       // catch 404 and forward to error handler
       app.use((req, res, next) => {
