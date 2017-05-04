@@ -9,9 +9,9 @@ let express = require('express'),
     mongoose = require('./components/database/mongoose'),
     util = require('./components/utilities'),
     config = require('./components/config/config'),
-    
-    passport = require('passport'),
-    PassportJWT = require('./components/passport/jwt');
+
+    passport = require('passport');
+
 
 let app = express();
 
@@ -45,7 +45,9 @@ module.exports.start = () => {
       app.use(express.static(path.join(__dirname, 'public')));
     })
     .then(() => {
-      new PassportJWT(passport);
+      // initialize passport 
+      app.use(passport.initialize());
+      require('./components/passport/jwt'); // implement JWT strategy
     })
     .then(() => {
       // Setup routing

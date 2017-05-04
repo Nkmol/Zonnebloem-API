@@ -1,5 +1,6 @@
 let JWTConfig = require('../config/config').jwt; 
 let User = require('../user/models/user.model');
+let passport = require('passport');
 
 let {Strategy, ExtractJwt} = require('passport-jwt');
 let options = {
@@ -9,11 +10,11 @@ let options = {
 
 class PassportJWT {
 
-    constructor(passport) {
-        this.setupStrategy(passport);
+    constructor() {
+      this.setupStrategy();
     }
 
-    setupStrategy(passport) {
+    setupStrategy() {
         passport.use(new Strategy(options, (payload, done) => {
             User.findOne({_id: payload.id}).then(user => {
                 if (!user) 
@@ -37,4 +38,4 @@ class PassportJWT {
 
 }
 
-module.exports = PassportJWT;
+module.exports = new PassportJWT();

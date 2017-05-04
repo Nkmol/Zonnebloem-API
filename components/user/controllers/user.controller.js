@@ -27,9 +27,10 @@ class UserController {
             return res.status(400).json({message: "Please provide 'username' and 'password'"});
 
         // Find user by username and password
-        return User.findOne({username: body.username, password: body.password})
+        return User.findOne({username: body.username})
             .then(doc => {
-                if(!doc) {
+
+                if(!doc || !doc.validatePassword(body.password)) {
                     throw {
                         json: {
                             message: "The given combination of password and username did not exist."
@@ -123,3 +124,4 @@ class UserController {
 }
 
 module.exports = new UserController();
+
