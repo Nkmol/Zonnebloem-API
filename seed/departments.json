@@ -2,6 +2,24 @@
     "model": "Department",
     "documents": [
         {
+            "_id": "407f1f77bcf86cd799439011",
+            "name": "Zonnebloem Breda",
+            "tel": "076 564 6464",
+            "location_coordinates": {
+                "type": "Point",
+                "coordinates": [
+                    51.5728461,
+                    4.8129334
+                ]
+            },
+            "address": {
+                "street": "Test",
+                "house_number": 1,
+                "city": "Breda",
+                "zip_code": "1232GV"
+            }
+        },
+        {
             "_id": "507f1f77bcf86cd799439011",
             "name": "Test",
             "tel": "0720023123",

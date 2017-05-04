@@ -8,6 +8,12 @@
             "email": "test@test.nl",
             "firstname": "lastname",
             "tel": "0720023123",
+            "address": {
+                "street": "Onderwijsboulevard",
+                "house_number": 265,
+                "city": "'s-Hertogenbosch",
+                "zip_code": "5223ED"
+            },
             "is_active": true
         },
         {

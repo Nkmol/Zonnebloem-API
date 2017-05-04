@@ -5,8 +5,8 @@
  */
 let mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    ObjectId = Schema.Types.ObjectId;
-
+    ObjectId = Schema.Types.ObjectId,
+    addressSchema = require('../../shared/address.schema');
 
 let departmentSchema = new Schema({
 
@@ -24,9 +24,7 @@ let departmentSchema = new Schema({
         coordinates: [Number]
 
     },
-    address: {
-        type: ObjectId, ref: 'Address'
-    },
+    address: addressSchema,
     region: { type: ObjectId, ref: 'Region' }
 });
 

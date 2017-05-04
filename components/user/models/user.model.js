@@ -5,7 +5,8 @@
  */
 let mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    ObjectId = Schema.Types.ObjectId;
+    ObjectId = Schema.Types.ObjectId,
+    addressSchema = require('../../shared/address.schema');
 
 let userSchema = new Schema ({
     username: {
@@ -34,9 +35,7 @@ let userSchema = new Schema ({
     tel: {
         type: String
     },
-    address: {
-        type: ObjectId, ref: 'Address'
-    },
+    address: addressSchema,
     is_active: {
         type: Boolean
     },
@@ -45,7 +44,7 @@ let userSchema = new Schema ({
         {type: ObjectId, ref: "Role"}
     ],
     profile_image: {
-        type: ObjectId, ref: 'Image'
+        type: String
     }
 },
 {

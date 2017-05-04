@@ -1,17 +1,8 @@
-'use strict';
-
-/**
- * Module dependencies
- */
 let mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.Types.ObjectId;
+    Schema = mongoose.Schema;
 
-let addressSchema = new Schema ({
+let addressSchema = new Schema({
 
-    _id: { 
-        type: ObjectId
-    },
     street: {
         type: String,
         required: true
@@ -24,10 +15,10 @@ let addressSchema = new Schema ({
         type: String,
         required: true
     },
-    zipe_code: {
+    zip_code: {
         type: String,
         required: true
     }
-});
+}, { _id: false });
 
-mongoose.model('Address', addressSchema);
+module.exports = addressSchema;
