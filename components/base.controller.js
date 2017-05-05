@@ -20,27 +20,39 @@ class BaseController {
     }
 
     // Todo 2 times status
-    _combine(toCombine, status = 200) {
+    _combineStatus(toCombine) {
         let response = {
-            success: status == 200,
-            status: status
+            success: toCombine.status == 200
         }
 
         return Object.assign(this._BaseResponse, toCombine, response);
     }
 
+    throw(msg, status) {
+        throw {
+            message: msg,
+            status: status
+        }
+    }
+    
     get(req, res, next) {
         return this._model.find(req.params)
             .then(doc => {
-                res.json(this._combine({data: doc}));
+                res.json(this._combineStatus({data: doc}));
                 return doc;
             });
     }
 
     getOne(req, res, next) {
         // Early exit
-        if(!this._isValidId(req.params.id));
-            res.status(400).json(this._combine({message: `Please provide a valid 'id'`}), 400);
+        if(!this._isValidId(req.params.id)) {
+            let response = {
+                message: `Please provide a valid 'id'`, 
+                status: 400
+            }
+
+            res.status(400).json(this._combineStatus(response));
+        }
 
     }
 }

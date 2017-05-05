@@ -11,18 +11,9 @@ class UserController extends BaseController{
     constructor() {
         super();
         this._model = User;
-    }
-
-    _createResponseObject(data) {
-        let defaultReponse = {
-            success: false,
-            status: 400,
-            message: null,
-            data: null,
+        this._BaseResponse = Object.assign(this._BaseResponse, {
             token: null
-        }
-
-        return Object.assign({}, defaultReponse, data);
+        })
     }
 
     isLoggedIn(req, res, next) {
@@ -39,20 +30,14 @@ class UserController extends BaseController{
 
         // Early exit
         if(!(body.username && body.password))
-            return res.status(400).json({message: "Please provide 'username' and 'password'"});
+            return res.status(400).json(this._combineStatus({message: "Please provide 'username' and 'password'"}));
 
         // Find user by username and password
         return User.findOne({username: body.username})
             .then(doc => {
                 // 'Validate' username
-                if(!doc) { 
-                    throw {
-                        json: {
-                            message: "The given combination of password and username did not exist."
-                        },
-                        status: 401
-                    };
-                }
+                if(!doc) 
+                   this.throw("The given combination of password and username did not exist.", 401);
 
                 return doc;
             })
@@ -60,14 +45,8 @@ class UserController extends BaseController{
                 // Validate password
                 return doc.validatePassword(body.password)
                     .then(result => {
-                        if(!result) {
-                            throw {
-                                json: {
-                                    message: "The given combination of password and username did not exist."
-                                },
-                                status: 401
-                            }
-                        }
+                        if(!result)
+                            this.throw("The given combination of password and username did not exist.", 401);
                     })
                     .then(() => doc); // continue doc chain
             })
@@ -76,17 +55,11 @@ class UserController extends BaseController{
                 var payload = {id: doc._id};
 			    var token = jwt.sign(payload, JWTConfig.secret);
                 
-                let response = {
-                    success: true,
-                    status: 200,
-                    data: doc,
-                    token: token
-                };
-                res.json(this._createResponseObject(response))
+                res.json(this._combineStatus({token: token}))
             })
             .catch(error => {
                 // TODO : Always work with normal string error (with default thow "")
-                res.status(error.status).json(this._createResponseObject(error.json));
+                res.status(error.status).json(this._combineStatus(error));
             })
     }
 
@@ -103,30 +76,16 @@ class UserController extends BaseController{
         let user = new User(body);
 
         return user.save().then(doc => {
-            console.log('doc', doc);
-            if(!doc) {
-                throw {
-                    json: {
-                        message: "The registration of the user has failed."
-                    }, 
-                    status: 400
-                };
-            }
+            if(!doc) 
+                this.throw("The registration of the user has failed.", 400);
+            
             return doc;
         }).then(user => {
-
-            var payload = {id: user._id};
-            var token = jwt.sign(payload, JWTConfig.secret);
+            let token = jwt.sign({id: user._id}, JWTConfig.secret);
             
-            let response = {
-                success: true,
-                status: 200,
-                data: user,
-                token: token
-            };
-            return res.json(this._createResponseObject(response));
+            return res.json(this._combineStatus({token: token}));
         }).catch(error => {
-            return res.status(error.status).json(this._createResponseObject(error.json));
+            return res.status(error.status).json(this._combineStatus(error));
         })
 
     }
@@ -138,19 +97,6 @@ class UserController extends BaseController{
         // TODO: implement this route
         res.json({user: "me"})
     }
-
-    _createResponseObject(data) {
-        let defaultReponse = {
-            success: false,
-            status: 400,
-            message: null,
-            data: null,
-            token: null
-        }
-
-        return Object.assign({}, defaultReponse, data);
-    }
-   
 }
 
 module.exports = new UserController();
