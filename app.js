@@ -8,7 +8,10 @@ let express = require('express'),
 
     mongoose = require('./components/database/mongoose'),
     util = require('./components/utilities'),
-    config = require('./components/config/config');
+    config = require('./components/config/config'),
+
+    passport = require('passport');
+
 
 let app = express();
 
@@ -49,6 +52,14 @@ module.exports.start = () => {
       let UserController = util.LoadComponent('user', 'controller');
       app.post('/login', UserController.login);
 
+      // initialize passport 
+      app.use(passport.initialize());
+      require('./components/passport/jwt'); // implement JWT strategy
+
+      let RoutesConfigurator = require('./components/config/routes.config');
+      let routesConfigurator = new RoutesConfigurator(app);
+      routesConfigurator.configureRoutes();
+     
       // catch 404 and forward to error handler
       app.use((req, res, next) => {
         const err = new Error('Not Found');

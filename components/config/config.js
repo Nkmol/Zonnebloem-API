@@ -15,4 +15,9 @@ config.db.options = {
     
 };
 
+// -- JWT --
+config.jwt = {};
+config.jwt.secret = "zonnebloem-secret-8291828373";
+config.jwt.invalidTokenMessage = "Token is invalid or not provided";
+
 module.exports = config;
