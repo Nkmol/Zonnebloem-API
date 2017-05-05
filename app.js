@@ -48,11 +48,7 @@ module.exports.start = () => {
       // Setup routing
       console.log(chalk.green('Setting up routers'));
 
-      // let UserController = require('./components/user/controllers/user.controller');
-      let UserController = util.LoadComponent('user', 'controller');
-      app.post('/login', UserController.login);
-
-      // initialize passport 
+       // initialize passport 
       app.use(passport.initialize());
       require('./components/passport/jwt'); // implement JWT strategy
 
