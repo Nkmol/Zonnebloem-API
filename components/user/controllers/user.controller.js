@@ -57,37 +57,45 @@ class UserController extends BaseController{
                 
                 res.json(this._combineStatus({token: token}))
             })
-            .catch(error => {
-                // TODO : Always work with normal string error (with default thow "")
-                res.status(error.status).json(this._combineStatus(error));
-            })
+            .catch(error => this._errorHandler(res, error))
     }
 
     register(req, res, next) {
-
         let body = req.body;
+        return new Promise((resolve, reject) => {
+            // Check input
+            if (!(body.username && body.password && body.email)) {
+                this.throw("Please provide all the fields required 'username', 'password' and 'email'", 400);
+            }
 
-        if (!(body.username && body.password && body.email))
-            return res.status(400).json({message: "Please provide all the fields required 'username', 'password' and 'email'"});
-
-        body.password = User.generateHash(body.password);
-        body.roles = null; // TODO: add a default role when creating a new user 
-
-        let user = new User(body);
-
-        return user.save().then(doc => {
-            if(!doc) 
-                this.throw("The registration of the user has failed.", 400);
-            
-            return doc;
-        }).then(user => {
-            let token = jwt.sign({id: user._id}, JWTConfig.secret);
-            
-            return res.json(this._combineStatus({token: token}));
-        }).catch(error => {
-            return res.status(error.status).json(this._combineStatus(error));
+            resolve();
         })
+        .then(() => User.generateHash(body.password))
+        .then(hash => {
+            // create user and save
+            body.password = hash;
+            body.roles = null; // TODO: add a default role when creating a new user 
 
+            let user = new User(body);
+
+            return user.save();
+        })
+        .then(doc => {
+            // Check if user is saved
+            if(!doc) {
+                this.throw("The registration of the user has failed.", 400);
+            }
+
+            return doc;
+        })
+        .then(doc => {
+            // Generate valid token and return response
+            let token = jwt.sign({id: user._id}, JWTConfig.secret);
+
+            return res.json(this._combineStatus({token: token})); // Add token to default response
+        })
+        .catch(error => this._errorHandler(res, error))
+        .catch(console.log)
     }
 
      me(req, res, next) {

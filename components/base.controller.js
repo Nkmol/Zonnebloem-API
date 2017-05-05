@@ -28,6 +28,32 @@ class BaseController {
         return Object.assign(this._BaseResponse, toCombine, response);
     }
 
+    _errorHandler(res, error) {
+        // Assume this is now a MongoError
+        if(error.constructor == Error) {
+            let mongoError = this._createMongoError(error);
+            
+            // create new object (will be restructured according the _BaseResponse as expected)
+            error = {}; 
+            error.mongo = mongoError;
+        }
+
+        // Assume when to json error object has given (that is structural incorrect), that something wrong happend internally
+        error.status = error.status || 500
+
+        return res.status(error.status).json(this._combineStatus(error));
+    } 
+
+    _createMongoError(errorMongo) {
+        errorMongo = errorMongo.toJSON();
+
+        // Delete properties then we do not want to expose
+        delete errorMongo.op;
+        delete errorMongo.index;
+
+        return errorMongo;
+    }
+
     throw(msg, status) {
         throw {
             message: msg,
@@ -53,7 +79,6 @@ class BaseController {
 
             res.status(400).json(this._combineStatus(response));
         }
-
     }
 }
 
