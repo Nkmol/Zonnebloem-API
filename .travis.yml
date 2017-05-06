@@ -1,12 +1,6 @@
 language: node_js
 install: npm install
 node_js:
-  - "7.1.0"
+  - "7.7.1"
 services:
   - mongodb
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
