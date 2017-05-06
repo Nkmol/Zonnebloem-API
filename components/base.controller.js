@@ -41,8 +41,17 @@ class BaseController {
             error = {}; 
             error.mongo = mongoError;
         }
+        
+        // Any other special exception will just be shown as a string (for example a ReferenceError)
+        else if(error.constructor != Object) {
+            console.error(error);
 
-        // Assume when to json error object has given (that is structural incorrect), that something wrong happend internally
+            let message = error.toString();
+            error = {};
+            error.message = message;
+        }
+            
+        // Assume when the json error object has given (that is structural incorrect), that something wrong happend internally
         error.status = error.status || 500
 
         return res.status(error.status).json(this._combineStatus(error));
