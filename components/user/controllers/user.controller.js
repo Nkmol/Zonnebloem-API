@@ -38,7 +38,7 @@ class UserController extends BaseController{
 
             resolve();
         })
-        .then(User.findOne({username: body.username}))
+        .then(() => User.findOne({username: body.username}))
         .then(doc => {
             // 'Validate' username
             if(!doc)
@@ -87,13 +87,12 @@ class UserController extends BaseController{
         })
         .then(doc => {
             // Check if user is saved
-            if(!doc) {
+            if(!doc)
                 this.throw("The registration of the user has failed.", 400);
-            }
 
             return doc;
         })
-        .then(doc => {
+        .then(user => {
             // Generate valid token and return response
             let token = jwt.sign({id: user._id}, JWTConfig.secret);
 
