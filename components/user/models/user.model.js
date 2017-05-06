@@ -6,7 +6,7 @@
 let mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     ObjectId = Schema.Types.ObjectId, 
-    bcrypt = require('bcrypt');
+    bcrypt = require('bcrypt-nodejs');
 
 
 let userSchema = new Schema ({
@@ -63,11 +63,21 @@ userSchema.pre('save', function(next) {
 });
 
 userSchema.statics.generateHash = function(password) {
-    return bcrypt.hash(password, 8);
+    return new Promise((resolve, reject) => { 
+        bcrypt.hash(password, bcrypt.genSaltSync(8), null, (err, data) => {
+             if(err !== null) return reject(err);
+             resolve(data);
+         });
+    });
 }
 
 userSchema.methods.validatePassword = function(password) {
-    return bcrypt.compare(password, this.password);
+    return new Promise((resolve, reject) => { 
+        bcrypt.compare(password, this.password, (err, data) => {
+             if(err !== null) return reject(err);
+             resolve(data);
+         });
+    });
 }
 
 module.exports = mongoose.model('User', userSchema);
