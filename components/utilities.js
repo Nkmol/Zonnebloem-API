@@ -33,3 +33,20 @@ exports.requirePromise = (file, debug = true) => {
             }
     })
 }
+
+// Name is entity name
+// Type is Controller || Route || Seed || Model
+// @Return the requested module
+exports.LoadComponent = function(nameComponent, typeComponent) {
+    validType = ['route', 'seed', 'model', 'controller'].indexOf(typeComponent.toLowerCase()) > 0;
+    if(!validType)
+        throw new Error('This type component does not exist.')
+
+    let component = nameComponent.toLowerCase(),
+        type      = typeComponent.toLowerCase();
+
+    let path = `./components/${component}/${type}s/${component}.${type}`;
+
+    console.log(chalk.green(`   Loaded ${type}: ${path}`))
+    return rootRequire(path);
+}

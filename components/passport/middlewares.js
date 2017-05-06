@@ -1,10 +1,13 @@
 let config = require('../config/config');
 let passport = require('passport');
+let autoBind = require('auto-bind');
 
 class JWTMiddleware {
 
     constructor(passport) {
         this.passport = passport;    
+
+        autoBind(this); // Bind all methods to itself
     }
 
     authenticate(req, res, next) {
