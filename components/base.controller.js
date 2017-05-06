@@ -4,15 +4,19 @@ let mongoose = require('mongoose'),
 
 class BaseController {
     constructor() {
-        this._BaseResponse = {
+        this._model = null;
+
+        autoBind(this); // Bind all methods to itself
+    }
+
+    // Use a getter so the response is 'reset' on every request
+    get _BaseResponse() {
+        return {
             success: true,
             status: 200,
             message: null,
             data: null,
         }
-        this._model = null;
-
-        autoBind(this); // Bind all methods to itself
     }
 
     _isValidId(id) {
@@ -32,7 +36,7 @@ class BaseController {
         // Assume this is now a MongoError
         if(error.constructor == Error) {
             let mongoError = this._createMongoError(error);
-            
+
             // create new object (will be restructured according the _BaseResponse as expected)
             error = {}; 
             error.mongo = mongoError;

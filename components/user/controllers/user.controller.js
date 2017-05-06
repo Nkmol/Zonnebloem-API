@@ -11,7 +11,11 @@ class UserController extends BaseController{
     constructor() {
         super();
         this._model = User;
-        this._BaseResponse = Object.assign(this._BaseResponse, {
+    }
+
+    get _BaseResponse() {
+        // Extend baseresponse with default token value
+        return Object.assign(super._BaseResponse, {
             token: null
         })
     }
@@ -27,37 +31,38 @@ class UserController extends BaseController{
 
     login(req, res, next) {
         let body = req.body;
+        return new Promise((resolve, reject) => {
+            // Early exit
+            if(!(body.username && body.password))
+                this.throw("Please provide 'username' and 'password'", 400);
 
-        // Early exit
-        if(!(body.username && body.password))
-            return res.status(400).json(this._combineStatus({message: "Please provide 'username' and 'password'"}));
+            resolve();
+        })
+        .then(User.findOne({username: body.username}))
+        .then(doc => {
+            // 'Validate' username
+            if(!doc)
+                this.throw("The given combination of password and username did not exist.", 401);
 
-        // Find user by username and password
-        return User.findOne({username: body.username})
-            .then(doc => {
-                // 'Validate' username
-                if(!doc) 
-                   this.throw("The given combination of password and username did not exist.", 401);
-
-                return doc;
-            })
-            .then(doc => {
-                // Validate password
-                return doc.validatePassword(body.password)
-                    .then(result => {
-                        if(!result)
-                            this.throw("The given combination of password and username did not exist.", 401);
-                    })
-                    .then(() => doc); // continue doc chain
-            })
-            .then(doc => {
-                // Create payload
-                var payload = {id: doc._id};
-			    var token = jwt.sign(payload, JWTConfig.secret);
-                
-                res.json(this._combineStatus({token: token}))
-            })
-            .catch(error => this._errorHandler(res, error))
+            return doc;
+        })
+        .then(doc => {
+            // Validate password
+            return doc.validatePassword(body.password)
+                .then(result => {
+                    if(!result)
+                        this.throw("The given combination of password and username did not exist.", 401);
+                })
+                .then(() => doc); // continue doc chain
+        })
+        .then(doc => {
+            // Create payload
+            var payload = {id: doc._id};
+            var token = jwt.sign(payload, JWTConfig.secret);
+            
+            res.json(this._combineStatus({token: token}))
+        })
+        .catch(error => this._errorHandler(res, error))
     }
 
     register(req, res, next) {
@@ -95,7 +100,6 @@ class UserController extends BaseController{
             return res.json(this._combineStatus({token: token})); // Add token to default response
         })
         .catch(error => this._errorHandler(res, error))
-        .catch(console.log)
     }
 
      me(req, res, next) {
