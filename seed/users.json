@@ -6,7 +6,8 @@
             "username": "testtest",
             "password": "testtest",
             "email": "test@test.nl",
-            "firstname": "lastname",
+            "firstname": "Test",
+            "lastname": "Tset",
             "tel": "0720023123",
             "address": {
                 "street": "Onderwijsboulevard",
@@ -14,6 +15,12 @@
                 "city": "'s-Hertogenbosch",
                 "zip_code": "5223ED"
             },
+            "roles": [
+                {
+                    "role": "VOLUNTEER",
+                    "department": "407f1f77bcf86cd799439011"
+                }
+            ],
             "is_active": true
         },
         {
@@ -21,7 +28,8 @@
             "username": "TobyWanKanobi",
             "password": "testtest",
             "email": "tobywankanobi@avans.nl",
-            "firstname": "Maipauw",
+            "firstname": "Tobias",
+            "lastname": "Maipauw",
             "tel": "07213371337",
             "is_active": true
         }
