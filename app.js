@@ -45,13 +45,12 @@ module.exports.start = () => {
       app.use(express.static(path.join(__dirname, 'public')));
     })
     .then(() => {
-      // initialize passport 
-      app.use(passport.initialize());
-      require('./components/passport/jwt'); // implement JWT strategy
-    })
-    .then(() => {
       // Setup routing
       console.log(chalk.green('Setting up routers'));
+
+       // initialize passport 
+      app.use(passport.initialize());
+      require('./components/passport/jwt'); // implement JWT strategy
 
       let RoutesConfigurator = require('./components/config/routes.config');
       let routesConfigurator = new RoutesConfigurator(app);
@@ -76,7 +75,5 @@ module.exports.start = () => {
       });  
     })
     .then(() => console.log(chalk.green('done!')))
-    .catch(err => {
-      console.error(chalk.red(err));
-    })
+    .catch(err => console.error(chalk.red(err)))
   };

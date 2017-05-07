@@ -1,5 +1,3 @@
-
-
 class RoutesConfigurator {
 
     constructor(app) {
@@ -7,19 +5,20 @@ class RoutesConfigurator {
     }
 
     configureRoutes() {
-         let UserController = require('../user/controllers/user.controller');
-         let JWTAuthenticator = require('../passport/middlewares');
-        // TODO: Check if this can be done in a better way
+        let UserController = require('../user/controllers/user.controller');
+        let JWTAuthenticator = require('../passport/middlewares');
+
         this.app.post('/login', 
-            UserController.isLoggedIn.bind(UserController), 
-            UserController.login.bind(UserController));
+            UserController.isLoggedIn, 
+            UserController.login);
         this.app.post('/register', 
-            UserController.isLoggedIn.bind(UserController), 
-            UserController.register.bind(UserController));
-            // TODO: Use unless function to authenticate with JWT
+            UserController.isLoggedIn, 
+            UserController.register);
+
+        // TODO: Use unless function to authenticate with JWT
         this.app.get('/me', 
-            JWTAuthenticator.authenticate.bind(JWTAuthenticator), 
-            UserController.me.bind(UserController));
+            JWTAuthenticator.authenticate, 
+            UserController.me);
     }
 
 }

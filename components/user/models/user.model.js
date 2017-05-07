@@ -63,11 +63,21 @@ userSchema.pre('save', function(next) {
 });
 
 userSchema.statics.generateHash = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    return new Promise((resolve, reject) => { 
+        bcrypt.hash(password, bcrypt.genSaltSync(8), null, (err, data) => {
+             if(err !== null) return reject(err);
+             resolve(data);
+         });
+    });
 }
 
 userSchema.methods.validatePassword = function(password) {
-    return bcrypt.compareSync(password, this.password);
+    return new Promise((resolve, reject) => { 
+        bcrypt.compare(password, this.password, (err, data) => {
+             if(err !== null) return reject(err);
+             resolve(data);
+         });
+    });
 }
 
 module.exports = mongoose.model('User', userSchema);
