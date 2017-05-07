@@ -18,9 +18,4 @@ let regionSchema = new Schema ({
     }
 });
 
-// Used to load state as the default state
-regionSchema.pre('save', function(next) {
-
-});
-
 mongoose.model('Region', regionSchema);
