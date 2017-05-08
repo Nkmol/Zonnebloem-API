@@ -1,3 +1,5 @@
+let util = require('../utilities');
+
 class RoutesConfigurator {
 
     constructor(app) {
@@ -19,6 +21,12 @@ class RoutesConfigurator {
         this.app.get('/me', 
             JWTAuthenticator.authenticate, 
             UserController.me);
+
+        // Obstacle
+        let ObstacleController = util.LoadComponent('obstacle', 'controller');
+        this.app.get('/obstacles',
+            JWTAuthenticator.authenticate,
+            ObstacleController.get.bind(ObstacleController)) // TODO: Fix AutoBind on child class
     }
 
 }
