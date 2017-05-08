@@ -26,7 +26,7 @@ class BaseController {
     // Todo 2 times status
     _combineStatus(toCombine) {
         let response = {
-            success: toCombine.status == 200
+          success: toCombine.status || this._BaseResponse.status == 200
         }
 
         return Object.assign(this._BaseResponse, toCombine, response);
