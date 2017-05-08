@@ -39,7 +39,7 @@ exports.requirePromise = (file, debug = true) => {
 // Name is entity name
 // Type is Controller || Route || Seed || Model
 // @Return the requested module
-exports.LoadComponent = function(nameComponent, typeComponent) {
+exports.loadComponent = (nameComponent, typeComponent) => {
     let isValidType = [ "route", "seed", "model", "controller" ].indexOf(typeComponent.toLowerCase()) > 0;
 
     if (!isValidType) {
@@ -53,4 +53,37 @@ exports.LoadComponent = function(nameComponent, typeComponent) {
 
     console.log(chalk.green(`   Loaded ${type}: ${path}`));
     return rootRequire(path);
+};
+
+exports.autoBind = (self) => {
+    let obj = self;
+    let props = [];
+
+    // Get all methods
+    do {
+        const l = Object.getOwnPropertyNames(obj)
+            .concat(Object.getOwnPropertySymbols(obj).map((s) => s.toString()))
+            .sort()
+            .filter((p, i, arr) =>
+                typeof obj[ p ] === "function"      // only the methods
+                && p !== "constructor"              // not the constructor
+                && (i === 0 || p !== arr[ i - 1 ])  // not overriding in this prototype
+                && props.indexOf(p) === -1          // not overridden in a child
+            );
+
+        props = props.concat(l);
+    }
+    while (
+        (obj = Object.getPrototypeOf(obj)) &&   // walk-up the prototype chain
+        Object.getPrototypeOf(obj)              // not the the Object prototype methods (hasOwnProperty, etc...)
+    );
+
+    // Bind all methods to itself
+    props.forEach(x => {
+        let val = self[ x ];
+
+        self[ x ] = val.bind(self);
+    });
+
+    return self;
 };

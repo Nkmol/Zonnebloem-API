@@ -23,11 +23,11 @@ class RoutesConfigurator {
             UserController.me);
 
         // Obstacle
-        let ObstacleController = util.LoadComponent("obstacle", "controller");
+        let ObstacleController = util.loadComponent("obstacle", "controller");
 
         this.app.get("/obstacles",
             JWTAuthenticator.authenticate,
-            ObstacleController.get.bind(ObstacleController)); // TODO: Fix AutoBind on child class
+            ObstacleController.get);
     }
 
 }

@@ -1,4 +1,4 @@
-let autoBind = require("auto-bind");
+let autoBind = require("./utilities").autoBind;
 let ExtendableError = require("./exterror");
 
 // Not exported

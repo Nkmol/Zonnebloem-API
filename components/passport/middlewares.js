@@ -1,6 +1,6 @@
 let config = require("../config/config");
 let passport = require("passport");
-let autoBind = require("auto-bind");
+let autoBind = require("../utilities").autoBind;
 
 class JWTMiddleware {
 
