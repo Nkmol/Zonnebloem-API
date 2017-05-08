@@ -1,21 +1,21 @@
-'use strict';
+
 
 /**
  * Module dependencies
  */
-let mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.Types.ObjectId;
+let mongoose = require("mongoose");
+let Schema = mongoose.Schema;
+let ObjectId = Schema.Types.ObjectId;
 
-let roleSchema = new Schema ({
+let roleSchema = new Schema({
 
-    _id: { 
-        type: ObjectId
+    "_id": {
+        "type": ObjectId
     },
-    title: {
-        type: String,
-        required: true
+    "title": {
+        "type": String,
+        "required": true
     }
 });
 
-mongoose.model('Role', roleSchema);
+mongoose.model("Role", roleSchema);

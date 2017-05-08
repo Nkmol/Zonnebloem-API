@@ -1,6 +1,6 @@
-let mongoose = require('mongoose'),
-    config = require('../config/config'),
-    chalk = require('chalk');
+let mongoose = require("mongoose");
+let config = require("../config/config");
+let chalk = require("chalk");
 
 class Mongoose {
     constructor() {
@@ -8,14 +8,14 @@ class Mongoose {
     }
 
     connect() {
-        mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+        mongoose.connection.on("error", console.error.bind(console, "connection error:"));
         return mongoose.connect(config.db.uri, config.db.options)
             .then(() => console.log(chalk.green(`Connected with MongoDB! [${mongoose.connection.readyState}]`)))
-            .catch(err => { 
-                console.error(chalk.red('Could not connect to MongoDB!'));
+            .catch((err) => {
+                console.error(chalk.red("Could not connect to MongoDB!"));
                 console.error(chalk.red(config.db.uri));
-                console.log(err); 
-            })
+                console.log(err);
+            });
     }
 
     disconnect() {

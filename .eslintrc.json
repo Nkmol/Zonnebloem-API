@@ -3,6 +3,10 @@
     "node": true,
     "es6": true
   },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
   "ecmaFeatures": {
     "impliedStrict": true,
     "arrowFunctions": true,
@@ -97,12 +101,12 @@
     "no-catch-shadow": 2,
     "no-delete-var": 2,
     "no-shadow-restricted-names": 2,
-    "no-shadow": 2,
+    "no-shadow": 0,
     "no-undef-init": 2,
     "no-unused-vars": 1,
     "no-use-before-define": 2,
 
-    "global-require": 2,
+    "global-require": 1,
     "handle-callback-err": 1,
     "no-new-require": 2,
 
@@ -141,7 +145,7 @@
     "keyword-spacing": ["error", { "before": true }],
     "space-before-blocks": [ 2, "always" ],
     "space-before-function-paren": [ 2, "never" ],
-    "space-in-parens": [ 2, "always" ],
+    "space-in-parens": [ 2, "never" ],
     "space-infix-ops": 2,
     "space-unary-ops": [ 2, { "words": true, "nonwords": false } ],
     "spaced-comment": [ 2, "always" ],

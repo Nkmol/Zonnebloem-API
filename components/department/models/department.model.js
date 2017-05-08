@@ -1,37 +1,30 @@
-'use strict';
-
 /**
  * Module dependencies
  */
-let mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.Types.ObjectId;
+let mongoose = require("mongoose");
+let Schema = mongoose.Schema;
+let ObjectId = Schema.Types.ObjectId;
 
 
-let departmentSchema = new Schema ({
+let departmentSchema = new Schema({
 
-    _id: { 
-        type: ObjectId
+    "_id": {
+        "type": ObjectId
     },
-    name: {
-        type: String
+    "name": {
+        "type": String
     },
-    tel: {
-        type: String
+    "tel": {
+        "type": String
     },
-    coordinates: {
-        type: ObjectId, ref: 'Coordinate'
+    "coordinates": {
+        "type": ObjectId, "ref": "Coordinate"
     },
-    address: {
-        type: ObjectId, ref: 'Address'
+    "address": {
+        "type": ObjectId, "ref": "Address"
     },
-    region: { type: ObjectId, ref: 'Region'
+    "region": { "type": ObjectId, "ref": "Region"
     }
 });
 
-// Used to load state as the default state
-departmentSchema.pre('save', function(next) {
-
-});
-
-mongoose.model('Department', departmentSchema);
+mongoose.model("Department", departmentSchema);

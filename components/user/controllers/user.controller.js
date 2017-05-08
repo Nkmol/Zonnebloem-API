@@ -1,12 +1,10 @@
-'use strict'
+let mongoose = require("mongoose");
+let User = mongoose.model("User");
+let BaseController = require("./../../base.controller");
+let jwt = require("jsonwebtoken");
+let JWTConfig = require("./../../config/config").jwt;
 
-let mongoose = require('mongoose'),
-    User = mongoose.model('User'),
-    BaseController = require('./../../base.controller'),
-    jwt = require('jsonwebtoken'),
-    JWTConfig = require('./../../config/config').jwt;
-
-class UserController extends BaseController{
+class UserController extends BaseController {
     constructor() {
         super();
         this._model = User;
@@ -15,57 +13,63 @@ class UserController extends BaseController{
     get _BaseResponse() {
         // Extend baseresponse with default token value
         return Object.assign(super._BaseResponse, {
-            token: null
-        })
+            "token": null
+        });
     }
 
     isLoggedIn(req, res, next) {
-        if(req.user) {
+        if (req.user) {
             res.status(200);
             res.send({ "message": "User is already logged in!" });
-        } else {
+        }
+        else {
             next();
         }
     }
 
     login(req, res, next) {
         let body = req.body;
+
         return new Promise((resolve, reject) => {
             // Early exit
-            if(!(body.username && body.password))
+            if (!(body.username && body.password)) {
                 this.throw("Please provide 'username' and 'password'", 400);
+            }
 
             resolve();
         })
-        .then(() => User.findOne({username: body.username}))
-        .then(doc => {
+        .then(() => User.findOne({ "username": body.username }))
+        .then((doc) => {
             // 'Validate' username
-            if(!doc)
+            if (!doc) {
                 this.throw("The given combination of password and username did not exist.", 401);
+            }
 
             return doc;
         })
-        .then(doc => {
+        .then((doc) => {
             // Validate password
             return doc.validatePassword(body.password)
-                .then(result => {
-                    if(!result)
+                .then((result) => {
+                    if (!result) {
                         this.throw("The given combination of password and username did not exist.", 401);
+                    }
                 })
                 .then(() => doc); // continue doc chain
         })
-        .then(doc => {
+        .then((doc) => {
             // Create payload
-            var payload = {id: doc._id};
-            var token = jwt.sign(payload, JWTConfig.secret);
+            let payload = { "id": doc._id };
+            let token = jwt.sign(payload, JWTConfig.secret);
             
-            res.json(this._combineStatus({token: token}))
+            res.json(this._combineStatus({ "token": token }));
         })
-        .catch(error => this._errorHandler(res, error))
+        .catch((error) => this._errorHandler(res, error));
     }
 
     register(req, res, next) {
         let body = req.body;
+
         return new Promise((resolve, reject) => {
             // Check input
             if (!(body.username && body.password && body.email)) {
@@ -74,38 +78,40 @@ class UserController extends BaseController{
 
             resolve();
         })
+        // @ts-ignore
         .then(() => User.generateHash(body.password))
-        .then(hash => {
+        .then((hash) => {
             // create user and save
             body.password = hash;
-            body.roles = null; // TODO: add a default role when creating a new user 
+            body.roles = null; // TODO: add a default role when creating a new user
 
             let user = new User(body);
 
             return user.save();
         })
-        .then(doc => {
+        .then((doc) => {
             // Check if user is saved
-            if(!doc)
+            if (!doc) {
                 this.throw("The registration of the user has failed.", 400);
+            }
 
             return doc;
         })
-        .then(user => {
+        .then((user) => {
             // Generate valid token and return response
-            let token = jwt.sign({id: user._id}, JWTConfig.secret);
+            let token = jwt.sign({ "id": user._id }, JWTConfig.secret);
 
-            return res.json(this._combineStatus({token: token})); // Add token to default response
+            return res.json(this._combineStatus({ "token": token })); // Add token to default response
         })
-        .catch(error => this._errorHandler(res, error))
+        .catch((error) => this._errorHandler(res, error));
     }
 
-     me(req, res, next) {
-        console.log('req', req);
-        console.log('res', res);
-        console.log('next', next);
+    me(req, res, next) {
+        console.log("req", req);
+        console.log("res", res);
+        console.log("next", next);
         // TODO: implement this route
-        res.json({user: "me"})
+        res.json({ "user": "me" });
     }
 }
 

@@ -1,10 +1,10 @@
-let autoBind = require( "auto-bind" );
-let ExtendableError = require( "./exterror" );
+let autoBind = require("auto-bind");
+let ExtendableError = require("./exterror");
 
 // Not exported
 class ResponseError extends ExtendableError {
-    constructor( msg, status ) {
-        super( msg );
+    constructor(msg, status) {
+        super(msg);
         this.status = status;
     }
 }
@@ -13,7 +13,7 @@ class BaseController {
     constructor() {
         this._model = null;
 
-        autoBind( this ); // Bind all methods to itself
+        autoBind(this); // Bind all methods to itself
     }
 
     // Use a getter so the response is 'reset' on every request
@@ -26,23 +26,23 @@ class BaseController {
         };
     }
 
-    _isValidId( id ) {
-        return id && id.match( /^[0-9a-fA-F]{24}$/ );
+    _isValidId(id) {
+        return id && id.match(/^[0-9a-fA-F]{24}$/);
     }
 
     // Todo 2 times status
-    _combineStatus( toCombine ) {
+    _combineStatus(toCombine) {
         let response = {
             "success": toCombine.status === 200
         };
 
-        return Object.assign( this._BaseResponse, toCombine, response );
+        return Object.assign(this._BaseResponse, toCombine, response);
     }
 
-    _errorHandler( res, error ) {
+    _errorHandler(res, error) {
         // Assume this is now a MongoError
-        if ( error.constructor === Error ) {
-            let mongoError = this._createMongoError( error );
+        if (error.constructor === Error) {
+            let mongoError = this._createMongoError(error);
 
             // create new object (will be restructured according the _BaseResponse as expected)
             error = {};
@@ -50,8 +50,8 @@ class BaseController {
         }
         
         // Any other special exception will just be shown as a string (for example a ReferenceError)
-        else if ( error.constructor !== Object ) {
-            console.error( error );
+        else if (error.constructor !== Object) {
+            console.error(error);
 
             let message = error.toString();
 
@@ -62,10 +62,10 @@ class BaseController {
         // Assume when the json error object has given (that is structural incorrect), that something wrong happend internally
         error.status = error.status || 500;
 
-        return res.status( error.status ).json( this._combineStatus( error ) );
+        return res.status(error.status).json(this._combineStatus(error));
     }
 
-    _createMongoError( errorMongo ) {
+    _createMongoError(errorMongo) {
         errorMongo = errorMongo.toJSON();
 
         // Delete properties then we do not want to expose
@@ -75,27 +75,27 @@ class BaseController {
         return errorMongo;
     }
 
-    throw( msg, status ) {
-        throw new ResponseError( msg, status );
+    throw(msg, status) {
+        throw new ResponseError(msg, status);
     }
     
-    get( req, res, next ) {
-        return this._model.find( req.params )
-            .then( ( doc ) => {
-                res.json( this._combineStatus( { "data": doc } ) );
+    get(req, res, next) {
+        return this._model.find(req.params)
+            .then((doc) => {
+                res.json(this._combineStatus({ "data": doc }));
                 return doc;
-            } );
+            });
     }
 
-    getOne( req, res, next ) {
+    getOne(req, res, next) {
         // Early exit
-        if ( !this._isValidId( req.params.id ) ) {
+        if (!this._isValidId(req.params.id)) {
             let response = {
                 "message": "Please provide a valid 'id'",
                 "status": 400
             };
 
-            res.status( 400 ).json( this._combineStatus( response ) );
+            res.status(400).json(this._combineStatus(response));
         }
     }
 }
