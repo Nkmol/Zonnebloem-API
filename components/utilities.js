@@ -40,7 +40,7 @@ exports.requirePromise = (file, debug = true) => {
 // Type is Controller || Route || Seed || Model
 // @Return the requested module
 exports.loadComponent = (nameComponent, typeComponent) => {
-    let isValidType = [ "route", "seed", "model", "controller" ].indexOf(typeComponent.toLowerCase()) > 0;
+    let isValidType = [ "route", "seed", "model", "controller" ].indexOf(typeComponent.toLowerCase()) >= 0;
 
     if (!isValidType) {
         throw new Error("This type component does not exist.");

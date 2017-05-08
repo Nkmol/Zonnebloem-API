@@ -23,11 +23,9 @@ class RoutesConfigurator {
             UserController.me);
 
         // Obstacle
-        let ObstacleController = util.loadComponent("obstacle", "controller");
-
-        this.app.get("/obstacles",
+        this.app.use("/obstacles",
             JWTAuthenticator.authenticate,
-            ObstacleController.get);
+            util.loadComponent("obstacle", "route"));
     }
 
 }
