@@ -6,7 +6,6 @@ let mongoose = require('mongoose'),
     jwt = require('jsonwebtoken'),
     JWTConfig = require('./../../config/config').jwt;
 
-
 class UserController extends BaseController{
     constructor() {
         super();
