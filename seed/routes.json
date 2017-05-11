@@ -1,0 +1,40 @@
+{
+    "model": "Route",
+    "documents": [
+        {
+            "_id": "507f1f77bcf36cd799439022",
+            "name": "Rondje grote markt Breda",
+            "walked_by": "507f1f77bcf86cd799439012",
+            "start_time": "2017-05-01T13:00:00.929Z",
+            "end_time": "2017-05-01T13:30:00.929Z",
+            "waypoints": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        51.58819,
+                        4.77528
+                    ],
+                    [
+                        51.58828,
+                        4.77614
+                    ],
+                    [
+                        51.58739,
+                        4.77652
+                    ],
+                    [
+                        51.58717,
+                        4.77579
+                    ],
+                    [
+                        51.58811,
+                        4.77529
+                    ]
+                ]
+            },
+            "obstacles": [
+                "507f1f77bcf86cd799439022"
+            ]
+        }
+    ]
+}
