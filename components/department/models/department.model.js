@@ -14,14 +14,19 @@ let departmentSchema = new Schema({
         type: ObjectId
     },
     name: {
-        type: String
+        type: String,
+        required: true
+    },
+    code: {
+        type: String,
+        required: false
     },
     tel: {
         type: String
     },
     location_coordinates: {
-        type: { type: String },
-        coordinates: [Number]
+        type: { type: String, default: 'Point' },
+        coordinates: { type: [Number], default: [0,0] }
 
     },
     address: addressSchema,
