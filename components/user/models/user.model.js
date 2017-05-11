@@ -1,13 +1,28 @@
-
-
 /**
  * Module dependencies
  */
 let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId;
+let addressSchema = require("../../shared/address.schema");
 let bcrypt = require("bcrypt-nodejs");
 
+// User roles
+let ROLES = [ "ADMIN", "MODERATOR", "CONTROLER", "VOLUNTEER" ];
+
+let userRoleSchema = new Schema({
+    "role": {
+        "type": String,
+        "enum": {
+            "values": ROLES,
+            "message": "`{VALUE}` is not a valid user role."
+        }
+    },
+    "department": {
+        "type": ObjectId,
+        "ref": "Department"
+    }
+}, { "_id": false });
 
 let userSchema = new Schema({
     "username": {
@@ -36,30 +51,21 @@ let userSchema = new Schema({
     "tel": {
         "type": String
     },
-    "address": {
-        "type": ObjectId, "ref": "Address"
+    "address": addressSchema,
+    "roles": [ userRoleSchema ],
+    "profile_image": {
+        "type": String
     },
     "is_active": {
         "type": Boolean
-    },
-
-    "roles": [
-        { "type": ObjectId, "ref": "Role" }
-    ],
-    "profile_image": {
-        "type": ObjectId, "ref": "Image"
     }
-}, {
-    "timestamps": {
-        "createdAt": "created_at",
-        "updatedAt": "updated_at"
-    }
-});
-
-// Used to load user role as the default role
-userSchema.pre("save", (next) => {
-    next();
-});
+},
+    {
+        "timestamps": {
+            "createdAt": "created_at",
+            "updatedAt": "updated_at"
+        }
+    });
 
 userSchema.statics.generateHash = function(password) {
     return new Promise((resolve, reject) => {

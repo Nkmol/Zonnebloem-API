@@ -17,12 +17,12 @@ const HIGH = "HIGH";
 const MEDIUM = "MEDIUM";
 const LOW = "LOW";
 
-let imageSchema = new Schema({
-    "url": {
-        "type": String,
-        "required": true
-    }
-});
+// let imageSchema = new Schema({
+//     "url": {
+//         "type": String,
+//         "required": true
+//     }
+// });
 
 let obstacleSchema = new Schema({
     "_id": {
@@ -36,13 +36,15 @@ let obstacleSchema = new Schema({
         "type": String,
         "required": true
     },
-    "location": {
-        "type": [ Number ], "index": "2dsphere"
+    "location_coordinates": {
+        "type": { "type": String },
+        "coordinates": [ Number ]
+
     },
     "created_by": {
         "type": ObjectId, "ref": "User"
     },
-    "images": [ imageSchema ],
+    "images": [ String ],
     "state": {
         "type": String,
         "enum": {
@@ -65,5 +67,7 @@ let obstacleSchema = new Schema({
         "updatedAt": "updated_at"
     }
 });
+
+obstacleSchema.index({ "location_coordinates": "2dsphere" });
 
 mongoose.model("Obstacle", obstacleSchema);

@@ -1,0 +1,13 @@
+{
+    "model": "Region",
+    "documents": [
+        {
+            "_id": "507f1f88bcf86cd799439022",
+            "name": "Regio Brabant"
+        },
+        {
+            "_id": "507f3f88bcf86cd744439022",
+            "name": "Regio Noord-Holland"
+        }
+    ]
+}

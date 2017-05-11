@@ -3,12 +3,9 @@
  */
 let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
-let ObjectId = Schema.Types.ObjectId;
 
 let addressSchema = new Schema({
-    "_id": {
-        "type": ObjectId
-    },
+
     "street": {
         "type": String,
         "required": true
@@ -21,10 +18,10 @@ let addressSchema = new Schema({
         "type": String,
         "required": true
     },
-    "zipe_code": {
+    "zip_code": {
         "type": String,
         "required": true
     }
-});
+}, { "_id": false });
 
-mongoose.model("Address", addressSchema);
+module.exports = addressSchema;

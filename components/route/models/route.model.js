@@ -7,9 +7,7 @@ let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId;
 
-
 let routeSchema = new Schema({
-
     "_id": {
         "type": ObjectId
     },
@@ -24,11 +22,13 @@ let routeSchema = new Schema({
     "end_time": {
         "type": Date
     },
-    "waypoints": [
-        {
-            "type": ObjectId, "ref": "Coordinate"
+    "waypoints": {
+        "type": { "type": String, "enum": [ "LineString" ], "required": true },
+        "coordinates": {
+            "type": Array,
+            "required": true
         }
-    ],
+    },
     "obstacles": [
         { "type": ObjectId, "ref": "Obstacle" }
     ]
@@ -38,5 +38,7 @@ let routeSchema = new Schema({
         "updatedAt": "updated_at"
     }
 });
+
+routeSchema.index({ "waypoints": "2dsphere" });
 
 mongoose.model("Route", routeSchema);

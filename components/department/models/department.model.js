@@ -1,30 +1,36 @@
 /**
  * Module dependencies
  */
+
 let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId;
-
+let addressSchema = require("../../shared/address.schema");
 
 let departmentSchema = new Schema({
-
     "_id": {
         "type": ObjectId
     },
     "name": {
-        "type": String
+        "type": String,
+        "required": true
+    },
+    "code": {
+        "type": String,
+        "required": false
     },
     "tel": {
         "type": String
     },
-    "coordinates": {
-        "type": ObjectId, "ref": "Coordinate"
+    "location_coordinates": {
+        "type": { "type": String, "default": "Point" },
+        "coordinates": { "type": [ Number ], "default": [ 0, 0 ] }
+
     },
-    "address": {
-        "type": ObjectId, "ref": "Address"
-    },
-    "region": { "type": ObjectId, "ref": "Region"
-    }
+    "address": addressSchema,
+    "region": { "type": ObjectId, "ref": "Region" }
 });
+
+departmentSchema.index({ "location_coordinates": "2dsphere" });
 
 mongoose.model("Department", departmentSchema);
