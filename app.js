@@ -8,7 +8,10 @@ let express = require('express'),
 
     mongoose = require('./components/database/mongoose'),
     util = require('./components/utilities'),
-    config = require('./components/config/config');
+    config = require('./components/config/config'),
+
+    passport = require('passport');
+
 
 let app = express();
 
@@ -19,7 +22,8 @@ module.exports.start = () => {
     .then(() => {
       // Load models
       console.log(chalk.green('Loading models...'));
-      return util.requireAll(config.models);
+      return util.requireAll(config.models)
+        .then(() => console.log(chalk.green('Loaded all models')));
     })
     .then(() => {
       // view engine setup
@@ -39,7 +43,19 @@ module.exports.start = () => {
         sourceMap: true
       }));
       app.use(express.static(path.join(__dirname, 'public')));
+    })
+    .then(() => {
+      // Setup routing
+      console.log(chalk.green('Setting up routers'));
 
+       // initialize passport 
+      app.use(passport.initialize());
+      require('./components/passport/jwt'); // implement JWT strategy
+
+      let RoutesConfigurator = require('./components/config/routes.config');
+      let routesConfigurator = new RoutesConfigurator(app);
+      routesConfigurator.configureRoutes();
+     
       // catch 404 and forward to error handler
       app.use((req, res, next) => {
         const err = new Error('Not Found');
@@ -58,8 +74,6 @@ module.exports.start = () => {
         res.render('error');
       });  
     })
-    .then(() => {
-      // Setup routing
- 
-    })
+    .then(() => console.log(chalk.green('done!')))
+    .catch(err => console.error(chalk.red(err)))
   };
