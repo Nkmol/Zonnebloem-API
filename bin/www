@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* eslint-disable */
+
 var normalizePort = val => {
   var port = parseInt(val, 10);
 
@@ -60,11 +62,11 @@ var onListening = () => {
  * Module dependencies.
  */
 
-let app = require('../app'),
+let {app, start} = require('../app'),
     debug = require('debug')('zonnebloem-api:server'),
     http = require('http');
 
-app.start();
+start();
 /**
  * Get port from environment and store in Express.
  */

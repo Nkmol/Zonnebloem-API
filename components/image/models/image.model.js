@@ -1,5 +1,3 @@
-
-
 /**
  * Module dependencies
  */
@@ -7,15 +5,14 @@ let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId;
 
-let roleSchema = new Schema({
 
+let imageSchema = new Schema({
     "_id": {
         "type": ObjectId
     },
-    "title": {
-        "type": String,
-        "required": true
+    "url": {
+        "type": String
     }
 });
 
-mongoose.model("Role", roleSchema);
+mongoose.model("Image", imageSchema);

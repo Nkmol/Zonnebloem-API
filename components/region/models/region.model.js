@@ -1,21 +1,21 @@
-'use strict';
+
 
 /**
  * Module dependencies
  */
-let mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.Types.ObjectId;
+let mongoose = require("mongoose");
+let Schema = mongoose.Schema;
+let ObjectId = Schema.Types.ObjectId;
 
 
-let regionSchema = new Schema ({
+let regionSchema = new Schema({
 
-    _id: { 
-        type: ObjectId
+    "_id": {
+        "type": ObjectId
     },
-    name: {
-        type: String
+    "name": {
+        "type": String
     }
 });
 
-mongoose.model('Region', regionSchema);
+mongoose.model("Region", regionSchema);
