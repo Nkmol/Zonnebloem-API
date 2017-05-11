@@ -39,7 +39,7 @@ class UserController extends BaseController {
             resolve();
         })
         .then(() => User.findOne({ "username": body.username }))
-        .then((doc) => {
+        .then(doc => {
             // 'Validate' username
             if (!doc) {
                 this.throw("The given combination of password and username did not exist.", 401);
@@ -47,24 +47,24 @@ class UserController extends BaseController {
 
             return doc;
         })
-        .then((doc) => {
+        .then(doc => {
             // Validate password
             return doc.validatePassword(body.password)
-                .then((result) => {
+                .then(result => {
                     if (!result) {
                         this.throw("The given combination of password and username did not exist.", 401);
                     }
                 })
                 .then(() => doc); // continue doc chain
         })
-        .then((doc) => {
+        .then(doc => {
             // Create payload
             let payload = { "id": doc._id };
             let token = jwt.sign(payload, JWTConfig.secret);
             
             res.json(this._combineStatus({ "token": token }));
         })
-        .catch((error) => this._errorHandler(res, error));
+        .catch(error => this._errorHandler(res, error));
     }
 
     register(req, res, next) {
@@ -80,7 +80,7 @@ class UserController extends BaseController {
         })
         // @ts-ignore
         .then(() => User.generateHash(body.password))
-        .then((hash) => {
+        .then(hash => {
             // create user and save
             body.password = hash;
             body.roles = null; // TODO: add a default role when creating a new user
@@ -89,7 +89,7 @@ class UserController extends BaseController {
 
             return user.save();
         })
-        .then((doc) => {
+        .then(doc => {
             // Check if user is saved
             if (!doc) {
                 this.throw("The registration of the user has failed.", 400);
@@ -97,13 +97,13 @@ class UserController extends BaseController {
 
             return doc;
         })
-        .then((user) => {
+        .then(user => {
             // Generate valid token and return response
             let token = jwt.sign({ "id": user._id }, JWTConfig.secret);
 
             return res.json(this._combineStatus({ "token": token })); // Add token to default response
         })
-        .catch((error) => this._errorHandler(res, error));
+        .catch(error => this._errorHandler(res, error));
     }
 
     me(req, res, next) {

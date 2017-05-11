@@ -51,14 +51,11 @@ class BaseController {
         
         // Any other special exception will just be shown as a string (for example a ReferenceError)
         else if (error.constructor !== Object) {
-            console.error(error);
-
-            let message = error.toString();
-
-            error = {};
-            error.message = message;
+            // The message need to be called through 'Error.prototype.message'
+            error = { "status": error.status, "message": error.message };
         }
             
+        console.log(error);
         // Assume when the json error object has given (that is structural incorrect), that something wrong happend internally
         error.status = error.status || 500;
 
