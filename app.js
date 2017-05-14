@@ -5,6 +5,7 @@ let logger = require("morgan");
 let cookieParser = require("cookie-parser");
 let bodyParser = require("body-parser");
 let chalk = require("chalk");
+let cors = require('cors');
 
 let mongoose = require("./components/database/mongoose");
 let util = require("./components/utilities");
@@ -41,6 +42,7 @@ let start = () => {
             "sourceMap": true
         }));
         app.use(express.static(path.join(__dirname, "public")));
+        app.use(cors());
     })
     .then(() => {
       // Setup routing
