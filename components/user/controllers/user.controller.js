@@ -52,6 +52,33 @@ class UserController extends BaseController {
         })
     }
 
+    create(req, res, next) {
+        super.create(req, res, next);
+    }
+
+    update(req, res, next) {
+        super.update(req, res, next);
+
+        let id = req.params.id;
+        let body = req.body;
+    
+        // Exclude fields from update
+        delete body.username;
+        delete body.password;
+
+        this._model.findByIdAndUpdate(id, { $set: body}, { new: true })
+        .then(doc => {
+            return res.json(this._combineStatus({data: doc}));
+        })
+        .catch(e => {
+            // TODO: handle errors
+        })
+    }
+
+    delete(req, res, next) {
+        super.delete(req, res, next);
+    }
+
     me(req, res, next) {
         let user = req.user;
         if (user) {

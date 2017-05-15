@@ -95,6 +95,34 @@ class BaseController {
             res.status(400).json(this._combineStatus(response));
         }
     }
+
+    create(req, res, next) {
+        
+    }
+
+    update(req, res, next) {
+        // Early exit
+        if (!this._isValidId(req.params.id)) {
+            let response = {
+                "message": "Please provide a valid 'id'",
+                "status": 400
+            };
+
+            res.status(400).json(this._combineStatus(response));
+        }
+    }
+
+    delete(req, res, next) {
+        // Early exit
+        if (!this._isValidId(req.params.id)) {
+            let response = {
+                "message": "Please provide a valid 'id'",
+                "status": 400
+            };
+
+            res.status(400).json(this._combineStatus(response));
+        }
+    }
 }
 
 module.exports = BaseController;
