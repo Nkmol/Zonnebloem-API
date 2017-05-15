@@ -82,6 +82,7 @@ class UserController extends BaseController {
     me(req, res, next) {
         let user = req.user;
         if (user) {
+            user = user.toObject();
             delete user.password;
         }
         return res.json(this._combineStatus({data: user}));

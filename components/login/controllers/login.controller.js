@@ -39,7 +39,7 @@ class LoginController extends BaseController {
 
             resolve();
         })
-        .then(() => User.findOne({ "username": body.username }))
+        .then(() => User.findOne({ "username": body.username }).select("+password"))
         .then(doc => {
             // 'Validate' username
             if (!doc) {
@@ -49,9 +49,13 @@ class LoginController extends BaseController {
             return doc;
         })
         .then(doc => {
+
             // Validate password
             return doc.validatePassword(body.password)
                 .then(result => {
+
+                    console.log('result', result);
+
                     if (!result) {
                         this.throw("The given combination of password and username did not exist.", 401);
                     }
