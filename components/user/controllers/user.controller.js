@@ -21,7 +21,6 @@ class UserController extends BaseController {
         super.get(req, res, next);
         
         this._model.find({})
-        .select("-password") //execlude the password field
         .then(doc => {
             return res.json(this._combineStatus({data: doc}));
         }).catch(e => {
@@ -34,7 +33,6 @@ class UserController extends BaseController {
         let id = req.params.id;
 
         this._model.findById(id)
-        .select("-password") //execlude the password field
         .then(doc => {
             return res.json(this._combineStatus({data: doc}));
         }).catch(e => {
