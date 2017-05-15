@@ -21,8 +21,14 @@ class UserController extends BaseController {
         super.get(req, res, next);
         
         this._model.find({})
-        .then(doc => {
-            return res.json(this._combineStatus({data: doc}));
+        .then(docs => {
+            if (!docs) {
+                return res.status(404).json(this._combineStatus({
+                    status: res.statusCode,
+                    message: "No users found"
+                }));
+            }
+            return res.json(this._combineStatus({data: docs}));
         }).catch(e => {
             // TODO: send an error response
         })
@@ -34,9 +40,15 @@ class UserController extends BaseController {
 
         this._model.findById(id)
         .then(doc => {
+            if (!doc) {       
+                return res.status(404).json(this._combineStatus({
+                    status: res.statusCode,
+                    message: "User does not exist"
+                }))
+            }
             return res.json(this._combineStatus({data: doc}));
         }).catch(e => {
-
+            
         })
     }
 
