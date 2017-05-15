@@ -1,37 +1,36 @@
-'use strict';
-
 /**
  * Module dependencies
  */
-let mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.Types.ObjectId;
 
+let mongoose = require("mongoose");
+let Schema = mongoose.Schema;
+let ObjectId = Schema.Types.ObjectId;
+let addressSchema = require("../../shared/address.schema");
 
-let departmentSchema = new Schema ({
+let departmentSchema = new Schema({
+    "_id": {
+        "type": ObjectId
+    },
+    "name": {
+        "type": String,
+        "required": true
+    },
+    "code": {
+        "type": String,
+        "required": false
+    },
+    "tel": {
+        "type": String
+    },
+    "location_coordinates": {
+        "type": { "type": String, "default": "Point" },
+        "coordinates": { "type": [ Number ], "default": [ 0, 0 ] }
 
-    _id: { 
-        type: ObjectId
     },
-    name: {
-        type: String
-    },
-    tel: {
-        type: String
-    },
-    coordinates: {
-        type: ObjectId, ref: 'Coordinate'
-    },
-    address: {
-        type: ObjectId, ref: 'Address'
-    },
-    region: { type: ObjectId, ref: 'Region'
-    }
+    "address": addressSchema,
+    "region": { "type": ObjectId, "ref": "Region" }
 });
 
-// Used to load state as the default state
-departmentSchema.pre('save', function(next) {
+departmentSchema.index({ "location_coordinates": "2dsphere" });
 
-});
-
-mongoose.model('Department', departmentSchema);
+mongoose.model("Department", departmentSchema);

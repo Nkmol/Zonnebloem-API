@@ -1,26 +1,21 @@
-'use strict';
+
 
 /**
  * Module dependencies
  */
-let mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.Types.ObjectId;
+let mongoose = require("mongoose");
+let Schema = mongoose.Schema;
+let ObjectId = Schema.Types.ObjectId;
 
 
-let regionSchema = new Schema ({
+let regionSchema = new Schema({
 
-    _id: { 
-        type: ObjectId
+    "_id": {
+        "type": ObjectId
     },
-    name: {
-        type: String
+    "name": {
+        "type": String
     }
 });
 
-// Used to load state as the default state
-regionSchema.pre('save', function(next) {
-
-});
-
-mongoose.model('Region', regionSchema);
+mongoose.model("Region", regionSchema);

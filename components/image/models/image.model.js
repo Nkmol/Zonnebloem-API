@@ -1,21 +1,18 @@
-'use strict';
-
 /**
  * Module dependencies
  */
-let mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    ObjectId = Schema.Types.ObjectId;
+let mongoose = require("mongoose");
+let Schema = mongoose.Schema;
+let ObjectId = Schema.Types.ObjectId;
 
 
-let imageSchema = new Schema ({
-
-    _id: { 
-        type: ObjectId
+let imageSchema = new Schema({
+    "_id": {
+        "type": ObjectId
     },
-    url: {
-        type: String
+    "url": {
+        "type": String
     }
 });
 
-mongoose.model('Image', imageSchema);
+mongoose.model("Image", imageSchema);

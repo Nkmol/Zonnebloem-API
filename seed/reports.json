@@ -1,0 +1,22 @@
+{
+    "model": "Report",
+    "documents": [
+        {
+            "_id": "337f1f77bcf86cd799439666",
+            "title": "Report: dit is een test rapport",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquam justo at sodales rutrum. Aenean quis tempor nisl. Etiam at est eu arcu blandit lacinia vel sed ex. ",
+            "created_by": "307f1f77bcf86cd799439012",
+            "obstacles": [
+                "507f1f77bcf86cd799439022"
+            ],
+            "department": [
+                "407f1f77bcf86cd799439011"
+            ],
+            "attachments": [
+                {
+                    "url": "http://www.robots.ox.ac.uk/~az/lectures/ml/lect2.pdf"
+                }
+            ]
+        }
+    ]
+}

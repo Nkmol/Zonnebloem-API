@@ -1,0 +1,24 @@
+{
+    "model": "Obstacle",
+    "documents": [
+        {
+            "_id": "507f1f77bcf86cd799439022",
+            "title": "Gat in wegdek markt",
+            "description": "Best wel raar geval",
+            "location_coordinates": {
+                "type": "Point",
+                "coordinates": [
+                    51.58821,
+                    4.77571
+                ]
+            },
+            "images": [
+                "https://futurism.com/wp-content/uploads/2013/09/001.jpg",
+                "https://futurism.com/wp-content/uploads/2013/09/001.jpg",
+                "https://futurism.com/wp-content/uploads/2013/09/001.jpg"
+            ],
+            "state": "NEW",
+            "factor": "MEDIUM"
+        }
+    ]
+}

@@ -1,6 +1,13 @@
-let mongoose = require('mongoose'),
-    chalk = require('chalk'),
-    autoBind = require('auto-bind');
+let autoBind = require("./utilities").autoBind;
+let ExtendableError = require("./exterror");
+
+// Not exported
+class ResponseError extends ExtendableError {
+    constructor(msg, status) {
+        super(msg);
+        this.status = status;
+    }
+}
 
 class BaseController {
     constructor() {
@@ -12,11 +19,11 @@ class BaseController {
     // Use a getter so the response is 'reset' on every request
     get _BaseResponse() {
         return {
-            success: true,
-            status: 200,
-            message: null,
-            data: null,
-        }
+            "success": true,
+            "status": 200,
+            "message": null,
+            "data": null
+        };
     }
 
     _isValidId(id) {
@@ -26,36 +33,34 @@ class BaseController {
     // Todo 2 times status
     _combineStatus(toCombine) {
         let response = {
-          success: (toCombine.status || this._BaseResponse.status) == 200
-        }
+            "success": (toCombine.status || this._BaseResponse.status) === 200
+        };
 
         return Object.assign(this._BaseResponse, toCombine, response);
     }
 
     _errorHandler(res, error) {
         // Assume this is now a MongoError
-        if(error.constructor == Error) {
+        if (error.constructor === Error) {
             let mongoError = this._createMongoError(error);
 
             // create new object (will be restructured according the _BaseResponse as expected)
-            error = {}; 
+            error = {};
             error.mongo = mongoError;
         }
         
         // Any other special exception will just be shown as a string (for example a ReferenceError)
-        else if(error.constructor != Object) {
-            console.error(error);
-
-            let message = error.toString();
-            error = {};
-            error.message = message;
+        else if (error.constructor !== Object) {
+            // The message need to be called through 'Error.prototype.message'
+            error = { "status": error.status, "message": error.message };
         }
             
+        console.log(error);
         // Assume when the json error object has given (that is structural incorrect), that something wrong happend internally
-        error.status = error.status || 500
+        error.status = error.status || 500;
 
         return res.status(error.status).json(this._combineStatus(error));
-    } 
+    }
 
     _createMongoError(errorMongo) {
         errorMongo = errorMongo.toJSON();
@@ -68,27 +73,24 @@ class BaseController {
     }
 
     throw(msg, status) {
-        throw {
-            message: msg,
-            status: status
-        }
+        throw new ResponseError(msg, status);
     }
     
     get(req, res, next) {
         return this._model.find(req.params)
             .then(doc => {
-                res.json(this._combineStatus({data: doc}));
+                res.json(this._combineStatus({ "data": doc }));
                 return doc;
             });
     }
 
     getOne(req, res, next) {
         // Early exit
-        if(!this._isValidId(req.params.id)) {
+        if (!this._isValidId(req.params.id)) {
             let response = {
-                message: `Please provide a valid 'id'`, 
-                status: 400
-            }
+                "message": "Please provide a valid 'id'",
+                "status": 400
+            };
 
             res.status(400).json(this._combineStatus(response));
         }

@@ -1,6 +1,6 @@
-let BaseController = require('./../../base.controller');
-let mongoose = require('mongoose');
-let Obstacle = mongoose.model('Obstacle');
+let mongoose = require("mongoose");
+let Obstacle = mongoose.model("Obstacle");
+let BaseController = require("../../base.controller");
 
 class ObstacleController extends BaseController {
     constructor() {
