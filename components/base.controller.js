@@ -1,6 +1,7 @@
-let MongooseError = require("mongoose").Error;
+let { Mongoose, "Error": MongooseError } = require("mongoose");
 let autoBind = require("./utilities").autoBind;
 let ExtendableError = require("./exterror");
+let Util = require("./utilities");
 
 // Not exported
 class ResponseError extends ExtendableError {
@@ -86,7 +87,7 @@ class BaseController {
 
     create(req, res, next) {
         let model = new this._model(req.body);
-        
+
         return model.save()
             .then(() => {
                 return res.json(this._combineStatus());
@@ -108,16 +109,41 @@ class BaseController {
         }
     }
 
-    delete(req, res, next) {
-        // Early exit
-        if (!this._isValidId(req.params.id)) {
-            let response = {
-                "message": "Please provide a valid 'id'",
-                "status": 400
-            };
+    /*
+    * PUT request
+    *
+    * Replaces the entity IF the entity already exists with the given id.
+    * Will create a new entity when this is not true
+    */
+    put(req, res, next) {
+        return new Promise((resolve, reject) => {
+            // Early exit
+            if (!this._isValidId(req.params._id)) {
+                this.throw("Please provide a valid 'id'", 400);
+            }
+            
+            if (Util.objectIsEmpty(req.body)) {
+                this.throw("Please provide values with your PUT request", 204);
+            }
 
-            res.status(400).json(this._combineStatus(response));
-        }
+            if (Util.objectIsEmpty(req.params)) {
+                this.throw("Please provide a valid parameter to this PUT request", 400);
+            }
+
+            resolve();
+        })
+        .then(() => {
+            // Upsert = If the _id does not exists, create a new document
+            if (!req.body._id) {
+                req.body._id = req.params._id;
+            }
+            console.log(req.body);
+            return this._model.update({ "_id": req.params._id }, req.body, { "upsert": true })
+                .then(() => {
+                    res.json(this._combineStatus({ "data": req.body }));
+                });
+        })
+        .catch(err => this._errorHandler(res, err));
     }
 }
 
