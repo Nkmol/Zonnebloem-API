@@ -90,7 +90,7 @@ class BaseController {
 
         return model.save()
             .then(() => {
-                return res.json(this._combineStatus());
+                return res.json(this._combineStatus({ "data": model }));
             })
             .catch(err => {
                 this._errorHandler(res, err);
@@ -138,15 +138,49 @@ class BaseController {
         })
         .then(() => {
             // Upsert = If the _id does not exists, create a new document
-            if (!req.body._id) {
-                req.body._id = req.params._id;
-            }
-            console.log(req.body);
-            return this._model.update({ "_id": req.params._id }, req.body, { "upsert": true })
-                .then(() => {
-                    res.json(this._combineStatus({ "data": req.body }));
-                });
+            return this._model.update({ "_id": req.params._id }, req.body, { "upsert": true });
         })
+        .then(() => {
+            let newDoc = Object.assign(req.body, { "_id": req.params._id });
+
+            return res.json(this._combineStatus({ "data": newDoc }));
+        })
+        .catch(err => this._errorHandler(res, err));
+    }
+
+     /*
+    * PATCH request
+    *
+    * Replaces the given data with an existing document
+    */
+    patch(req, res, next) {
+        return new Promise((resolve, reject) => {
+            // Early exit
+            if (!this._isValidId(req.params._id)) {
+                this.throw("Please provide a valid 'id'", 400);
+            }
+            
+            if (Util.objectIsEmpty(req.body)) {
+                this.throw("Please provide values with your PUT request", 204);
+            }
+
+            if (Util.objectIsEmpty(req.params)) {
+                this.throw("Please provide a valid parameter to this PUT request", 400);
+            }
+
+            resolve();
+        })
+        .then(() => this._model.findOne({ "_id": req.params._id }))
+        .then(doc => doc == null ? this.throw(`Could not find entity with ${JSON.stringify(req.params)}`, 404) : doc)
+        .then(doc => {
+            let newDoc = Object.assign(doc, req.body);
+
+            console.log(newDoc);
+
+            return this._model.update({ "_id": req.params._id }, newDoc)
+                .then(() => newDoc); // Continue to next chain;
+        })
+        .then(newDoc => res.json(this._combineStatus({ "data": newDoc })))
         .catch(err => this._errorHandler(res, err));
     }
 }
