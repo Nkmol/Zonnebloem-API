@@ -97,16 +97,20 @@ class BaseController {
             });
     }
 
-    update(req, res, next) {
-        // Early exit
-        if (!this._isValidId(req.params.id)) {
-            let response = {
-                "message": "Please provide a valid 'id'",
-                "status": 400
-            };
+    delete(req, res, next) {
+        return new Promise(resolve => {
+            // Early exit
+            if (!this._isValidId(req.params._id)) {
+                this.throw("Please provide a valid '_id'", 400);
+            }
 
-            res.status(400).json(this._combineStatus(response));
-        }
+            resolve();
+        })
+        .then(() => this._model.findOne(req.params))
+        .then(doc => doc == null ? this.throw(`Could not find entity with ${JSON.stringify(req.params)}`, 404) : doc)
+        .then(doc => doc.remove())
+        .then(() => res.json(this._combineStatus()))
+        .catch(err => this._errorHandler(res, err));
     }
 
     /*
