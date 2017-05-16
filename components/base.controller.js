@@ -1,3 +1,4 @@
+let MongooseError = require("mongoose").Error;
 let autoBind = require("./utilities").autoBind;
 let ExtendableError = require("./exterror");
 
@@ -31,7 +32,7 @@ class BaseController {
     }
 
     // Todo 2 times status
-    _combineStatus(toCombine) {
+    _combineStatus(toCombine = {}) {
         let response = {
             "success": (toCombine.status || this._BaseResponse.status) === 200
         };
@@ -40,13 +41,11 @@ class BaseController {
     }
 
     _errorHandler(res, error) {
-        // Assume this is now a MongoError
-        if (error.constructor === Error) {
-            let mongoError = this._createMongoError(error);
+        console.error(error);
 
-            // create new object (will be restructured according the _BaseResponse as expected)
-            error = {};
-            error.mongo = mongoError;
+        // Assume this is now a MongoError
+        if (error.constructor === MongooseError) {
+            error = { "message": error.toString() };
         }
         
         // Any other special exception will just be shown as a string (for example a ReferenceError)
@@ -55,21 +54,10 @@ class BaseController {
             error = { "status": error.status, "message": error.message };
         }
             
-        console.log(error);
         // Assume when the json error object has given (that is structural incorrect), that something wrong happend internally
         error.status = error.status || 500;
 
         return res.status(error.status).json(this._combineStatus(error));
-    }
-
-    _createMongoError(errorMongo) {
-        errorMongo = errorMongo.toJSON();
-
-        // Delete properties then we do not want to expose
-        delete errorMongo.op;
-        delete errorMongo.index;
-
-        return errorMongo;
     }
 
     throw(msg, status) {
@@ -97,7 +85,15 @@ class BaseController {
     }
 
     create(req, res, next) {
+        let model = new this._model(req.body);
         
+        return model.save()
+            .then(() => {
+                return res.json(this._combineStatus());
+            })
+            .catch(err => {
+                this._errorHandler(res, err);
+            });
     }
 
     update(req, res, next) {
