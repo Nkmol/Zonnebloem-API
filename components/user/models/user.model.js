@@ -36,7 +36,8 @@ let userSchema = new Schema({
         "type": String,
         // minlength: 5,
         // maxlength: 25,
-        "required": true
+        "required": true,
+        "select": false
     },
     "email": {
         "type": String,
