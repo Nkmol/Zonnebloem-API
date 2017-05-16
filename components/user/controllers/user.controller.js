@@ -20,19 +20,53 @@ class UserController extends BaseController {
     get(req, res, next) {
         super.get(req, res, next);
         
-        this._model.find({})
-        .then(docs => {
-            if (!docs) {
-                return res.status(404).json(this._combineStatus({
-                    status: res.statusCode,
-                    message: "No users found"
-                }));
-            }
-            return res.json(this._combineStatus({data: docs}));
-        }).catch(e => {
-            // TODO: send an error response
-        })
+
+        // Implement this in a later phase
+        // let limit = req.query.limit || 10;
+        // let page = req.query.page || 1;
+        // let sort = req.query.sort || 'asc';
+        // let sortBy = req.query.sort_by || 'created_at';
+
+        // limit = parseInt(limit);
+        // page = parseInt(page);
+
+        // return this._model.count({})
+        // .then(itemsCount => this.fetchUsers(itemsCount, limit, page, sort, sortBy))
+        // .then(response => {
+
+        //     console.log('response', response);
+
+        //     if (!response.users) {
+        //         return res.status(404).json(this._combineStatus({
+        //             status: res.statusCode,
+        //             message: "No users found"
+        //         }));
+        //     }
+        //     return res.json(this._combineStatus({
+        //         data: {
+        //             total_count: response.itemsCount,
+        //             users: response.users
+        //         }
+        //     }));
+        // })
+        // .catch(e => {
+        //     console.log(e);
+        // })
     }
+
+    // fetchUsers(itemsCount, limit, page, sort, sortBy) {
+    //     let sortObj = {};
+    //     sortObj[sortBy] = sort;
+
+    //     return this._model.find({})
+    //         .skip((page - 1) * limit)
+    //         .limit(limit)
+    //         .sort(sortObj)
+    //         .then(users => {
+    //             console.log('users', users);
+    //             return {itemsCount, users}
+    //         })
+    // }
 
     getOne(req, res, next) {
         super.getOne(req, res, next);
@@ -54,6 +88,39 @@ class UserController extends BaseController {
 
     create(req, res, next) {
         super.create(req, res, next);
+
+        let body = req.body;
+
+        return new Promise((resolve, reject) => {
+            // Check input
+            if (!(body.username && body.password && body.email)) {
+                this.throw("Please provide all the fields required 'username', 'password' and 'email'", 400);
+            }
+
+            resolve();
+        })
+        // @ts-ignore
+        .then(() => this._model.generateHash(body.password))
+        .then(hash => {
+            body.password = hash;
+            body.roles = null; // TODO: add a default role when creating a new user
+
+            let user = new User(body);
+
+            return user.save();
+        })
+        .then(doc => {
+            if (!doc) {       
+                return res.status(400).json(this._combineStatus({
+                    status: res.statusCode,
+                    message: "User not created"
+                }))
+            }
+            return res.status(201).json(this._combineStatus({data: doc}));
+        })
+        .catch(e => {
+            
+        })
     }
 
     update(req, res, next) {
