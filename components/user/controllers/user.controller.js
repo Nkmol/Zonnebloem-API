@@ -17,57 +17,78 @@ class UserController extends BaseController {
         });
     }
 
-    isLoggedIn(req, res, next) {
-        if (req.user) {
-            res.status(200);
-            res.send({ "message": "User is already logged in!" });
-        }
-        else {
-            next();
-        }
+    get(req, res, next) {
+        super.get(req, res, next);
+        
+
+        // Implement this in a later phase
+        // let limit = req.query.limit || 10;
+        // let page = req.query.page || 1;
+        // let sort = req.query.sort || 'asc';
+        // let sortBy = req.query.sort_by || 'created_at';
+
+        // limit = parseInt(limit);
+        // page = parseInt(page);
+
+        // return this._model.count({})
+        // .then(itemsCount => this.fetchUsers(itemsCount, limit, page, sort, sortBy))
+        // .then(response => {
+
+        //     console.log('response', response);
+
+        //     if (!response.users) {
+        //         return res.status(404).json(this._combineStatus({
+        //             status: res.statusCode,
+        //             message: "No users found"
+        //         }));
+        //     }
+        //     return res.json(this._combineStatus({
+        //         data: {
+        //             total_count: response.itemsCount,
+        //             users: response.users
+        //         }
+        //     }));
+        // })
+        // .catch(e => {
+        //     console.log(e);
+        // })
     }
 
-    login(req, res, next) {
-        let body = req.body;
+    // fetchUsers(itemsCount, limit, page, sort, sortBy) {
+    //     let sortObj = {};
+    //     sortObj[sortBy] = sort;
 
-        return new Promise((resolve, reject) => {
-            // Early exit
-            if (!(body.username && body.password)) {
-                this.throw("Please provide 'username' and 'password'", 400);
+    //     return this._model.find({})
+    //         .skip((page - 1) * limit)
+    //         .limit(limit)
+    //         .sort(sortObj)
+    //         .then(users => {
+    //             console.log('users', users);
+    //             return {itemsCount, users}
+    //         })
+    // }
+
+    getOne(req, res, next) {
+        super.getOne(req, res, next);
+        let id = req.params.id;
+
+        this._model.findById(id)
+        .then(doc => {
+            if (!doc) {       
+                return res.status(404).json(this._combineStatus({
+                    status: res.statusCode,
+                    message: "User does not exist"
+                }))
             }
-
-            resolve();
-        })
-        .then(() => User.findOne({ "username": body.username }))
-        .then(doc => {
-            // 'Validate' username
-            if (!doc) {
-                this.throw("The given combination of password and username did not exist.", 401);
-            }
-
-            return doc;
-        })
-        .then(doc => {
-            // Validate password
-            return doc.validatePassword(body.password)
-                .then(result => {
-                    if (!result) {
-                        this.throw("The given combination of password and username did not exist.", 401);
-                    }
-                })
-                .then(() => doc); // continue doc chain
-        })
-        .then(doc => {
-            // Create payload
-            let payload = { "id": doc._id };
-            let token = jwt.sign(payload, JWTConfig.secret);
+            return res.json(this._combineStatus({data: doc}));
+        }).catch(e => {
             
-            res.json(this._combineStatus({ "token": token }));
         })
-        .catch(error => this._errorHandler(res, error));
     }
 
-    register(req, res, next) {
+    create(req, res, next) {
+        super.create(req, res, next);
+
         let body = req.body;
 
         return new Promise((resolve, reject) => {
@@ -79,9 +100,8 @@ class UserController extends BaseController {
             resolve();
         })
         // @ts-ignore
-        .then(() => User.generateHash(body.password))
+        .then(() => this._model.generateHash(body.password))
         .then(hash => {
-            // create user and save
             body.password = hash;
             body.roles = null; // TODO: add a default role when creating a new user
 
@@ -90,28 +110,49 @@ class UserController extends BaseController {
             return user.save();
         })
         .then(doc => {
-            // Check if user is saved
-            if (!doc) {
-                this.throw("The registration of the user has failed.", 400);
+            if (!doc) {       
+                return res.status(400).json(this._combineStatus({
+                    status: res.statusCode,
+                    message: "User not created"
+                }))
             }
-
-            return doc;
+            return res.status(201).json(this._combineStatus({data: doc}));
         })
-        .then(user => {
-            // Generate valid token and return response
-            let token = jwt.sign({ "id": user._id }, JWTConfig.secret);
-
-            return res.json(this._combineStatus({ "token": token })); // Add token to default response
+        .catch(e => {
+            
         })
-        .catch(error => this._errorHandler(res, error));
+    }
+
+    update(req, res, next) {
+        super.update(req, res, next);
+
+        let id = req.params.id;
+        let body = req.body;
+    
+        // Exclude fields from update
+        delete body.username;
+        delete body.password;
+
+        this._model.findByIdAndUpdate(id, { $set: body}, { new: true })
+        .then(doc => {
+            return res.json(this._combineStatus({data: doc}));
+        })
+        .catch(e => {
+            // TODO: handle errors
+        })
+    }
+
+    delete(req, res, next) {
+        super.delete(req, res, next);
     }
 
     me(req, res, next) {
-        console.log("req", req);
-        console.log("res", res);
-        console.log("next", next);
-        // TODO: implement this route
-        res.json({ "user": "me" });
+        let user = req.user;
+        if (user) {
+            user = user.toObject();
+            delete user.password;
+        }
+        return res.json(this._combineStatus({data: user}));
     }
 }
 

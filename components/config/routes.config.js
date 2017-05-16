@@ -1,4 +1,5 @@
 let util = require("../utilities");
+let JWTAuthenticator = require("../passport/middlewares");
 
 class RoutesConfigurator {
 
@@ -7,22 +8,23 @@ class RoutesConfigurator {
     }
 
     configureRoutes() {
-        let UserController = require("../user/controllers/user.controller");
-        let JWTAuthenticator = require("../passport/middlewares");
-
+        
+        /** Authentication **/
+        let LoginController = util.loadComponent("login", "controller");
+        
         this.app.post("/login",
-            UserController.isLoggedIn,
-            UserController.login);
+            LoginController.isLoggedIn,
+            LoginController.login);
         this.app.post("/register",
-            UserController.isLoggedIn,
-            UserController.register);
+            LoginController.isLoggedIn,
+            LoginController.register);
 
-        // TODO: Use unless function to authenticate with JWT
-        this.app.get("/me",
+        /** User **/
+        this.app.use("/users",
             JWTAuthenticator.authenticate,
-            UserController.me);
+            util.loadComponent("user", "route"));
 
-        // Obstacle
+        /** Obstacle **/
         this.app.use("/obstacles",
             JWTAuthenticator.authenticate,
             util.loadComponent("obstacle", "route"));
