@@ -138,7 +138,7 @@ class BaseController {
         })
         .then(() => {
             // Upsert = If the _id does not exists, create a new document
-            return this._model.update({ "_id": req.params._id }, req.body, { "upsert": true });
+            return this._model.update({ "_id": req.params._id }, req.body, { "upsert": true, "overwrite": true });
         })
         .then(() => {
             let newDoc = Object.assign(req.body, { "_id": req.params._id });
