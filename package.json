@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "start-prod": "cross-env NODE_ENV=production node index.js",
     "seeder": "node ./seed/seeder.js",
-    "test": "cross-env NODE_ENV=test mocha components/user/tests/*.test.js"
+    "test": "cross-env NODE_ENV=test mocha components/**/tests/*.test.js"
   },
   "engines": {
     "node": "7.1.0",
