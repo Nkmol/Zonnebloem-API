@@ -10,7 +10,8 @@ router.route("/me")
 
 router.route("/:id")
     .get(controller.getOne)
-    .put(controller.update)
+    .put(controller.put)
+    .patch(controller.patch)
     .delete(controller.delete);
 
 module.exports = router;
