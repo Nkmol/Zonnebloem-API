@@ -89,7 +89,6 @@ class LoginController extends BaseController {
         .then(hash => {
             // create user and save
             body.password = hash;
-            body.roles = null; // TODO: add a default role when creating a new user
 
             let user = new User(body);
 
