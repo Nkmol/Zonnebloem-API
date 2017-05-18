@@ -8,9 +8,6 @@ let ObjectId = Schema.Types.ObjectId;
 let addressSchema = require("../../shared/address.schema");
 
 let departmentSchema = new Schema({
-    "_id": {
-        "type": ObjectId
-    },
     "name": {
         "type": String,
         "required": true
@@ -33,4 +30,4 @@ let departmentSchema = new Schema({
 
 departmentSchema.index({ "location_coordinates": "2dsphere" });
 
-mongoose.model("Department", departmentSchema);
+module.exports = mongoose.model("Department", departmentSchema);

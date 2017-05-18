@@ -1,8 +1,6 @@
 let mongoose = require("mongoose");
 let User = mongoose.model("User");
 let BaseController = require("./../../base.controller");
-let jwt = require("jsonwebtoken");
-let JWTConfig = require("./../../config/config").jwt;
 
 class UserController extends BaseController {
     constructor() {

@@ -28,6 +28,12 @@ class RoutesConfigurator {
         this.app.use("/obstacles",
             JWTAuthenticator.authenticate,
             util.loadComponent("obstacle", "route"));
+            
+        /** Department **/
+        this.app.use('/departments',
+            JWTAuthenticator.authenticate,
+            util.loadComponent("department", "route"));
+
     }
 
 }
