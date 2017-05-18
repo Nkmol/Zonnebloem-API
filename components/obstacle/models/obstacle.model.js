@@ -25,9 +25,6 @@ const LOW = "LOW";
 // });
 
 let obstacleSchema = new Schema({
-    "_id": {
-        "type": ObjectId
-    },
     "title": {
         "type": String,
         "required": true
@@ -36,10 +33,9 @@ let obstacleSchema = new Schema({
         "type": String,
         "required": true
     },
-    "location_coordinates": {
-        "type": { "type": String },
+    "geometry": {
+        "type": { "type": String, "default": "Point" },
         "coordinates": [ Number ]
-
     },
     "created_by": {
         "type": ObjectId, "ref": "User"
