@@ -161,11 +161,11 @@ class BaseController {
             }
             
             if (Util.objectIsEmpty(req.body)) {
-                this.throw("Please provide values with your PUT request", 204);
+                this.throw("Please provide values with your PATCH request", 204);
             }
 
             if (Util.objectIsEmpty(req.params)) {
-                this.throw("Please provide a valid parameter to this PUT request", 400);
+                this.throw("Please provide a valid parameter to this PATCH request", 400);
             }
 
             resolve();
