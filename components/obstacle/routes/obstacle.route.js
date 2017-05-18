@@ -7,6 +7,7 @@ router.route("/")
 
 router.route("/:_id")
     .delete(controller.delete)
+    .get(controller.getOne)
     .put(controller.put)
     .patch(controller.patch);
 

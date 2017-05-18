@@ -62,11 +62,10 @@ var onListening = () => {
  * Module dependencies.
  */
 
-let {app, start} = require('../app'),
+let app = require('../app'),
     debug = require('debug')('zonnebloem-api:server'),
     http = require('http');
 
-start();
 /**
  * Get port from environment and store in Express.
  */

@@ -8,7 +8,7 @@ router.route("/")
 router.route("/me")
     .get(controller.me);
 
-router.route("/:id")
+router.route("/:_id")
     .get(controller.getOne)
     .put(controller.put)
     .patch(controller.patch)

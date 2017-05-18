@@ -40,6 +40,21 @@
  */
 
 /**
+ * @api {get} /obstacles/:id Get Obstacle
+ * @apiVersion 0.0.1
+ * @apiName GetOne
+ * @apiGroup Obstacle
+ *
+ * @apiuse JwtHeader
+ * 
+ * @apiParam (Query) {String} id MongoID
+ *
+ * @apiUse Response
+ * @apiSuccess {Obstacle} data of <a href="#api-Obstacle-Model">Obstacle</a> for the specified id
+ *
+ */
+
+/**
  * @api {post} /obstacles Post Obstacle
  * @apiVersion 0.0.1
  * @apiName Post
