@@ -39,4 +39,4 @@ let reportSchema = new Schema({
     }
 });
 
-mongoose.model("Report", reportSchema);
+module.exports = mongoose.model("Report", reportSchema);

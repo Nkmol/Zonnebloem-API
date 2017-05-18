@@ -34,6 +34,11 @@ class RoutesConfigurator {
             JWTAuthenticator.authenticate,
             util.loadComponent("department", "route"));
 
+        /** Report **/
+        this.app.use('/reports',
+            JWTAuthenticator.authenticate,
+            util.loadComponent("report", "route"));
+
     }
 
 }
