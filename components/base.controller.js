@@ -175,8 +175,6 @@ class BaseController {
         .then(doc => {
             let newDoc = Object.assign(doc, req.body);
 
-            console.log(newDoc);
-
             return this._model.update({ "_id": req.params._id }, newDoc)
                 .then(() => newDoc); // Continue to next chain;
         })
