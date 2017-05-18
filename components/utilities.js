@@ -87,3 +87,5 @@ exports.autoBind = (self) => {
 
     return self;
 };
+
+exports.objectIsEmpty = obj => obj === undefined || Object.keys(obj).length === 0 && obj.constructor === Object;
