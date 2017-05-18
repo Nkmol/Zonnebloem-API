@@ -5,7 +5,7 @@ let logger = require("morgan");
 let cookieParser = require("cookie-parser");
 let bodyParser = require("body-parser");
 let chalk = require("chalk");
-let cors = require('cors');
+let cors = require("cors");
 
 let mongoose = require("./components/database/mongoose");
 let util = require("./components/utilities");
@@ -25,6 +25,8 @@ let start = () => {
         .then(() => console.log(chalk.green("Loaded all models")));
     })
     .then(() => {
+        app.use(express.static("doc"));
+
       // view engine setup
         app.set("views", path.join(__dirname, "views"));
         app.set("view engine", "hbs");
@@ -77,7 +79,7 @@ let start = () => {
         });
     })
     .then(() => console.log(chalk.green("done!")))
-    .catch((err) => console.error(chalk.red(err)));
+    .catch(err => console.error(chalk.red(err)));
 };
 
 module.exports = {
