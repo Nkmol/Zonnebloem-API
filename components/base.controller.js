@@ -183,6 +183,7 @@ class BaseController {
         .then(newDoc => res.json(this._combineStatus({ "data": newDoc })))
         .catch(err => this._errorHandler(res, err));
     }
+
 }
 
 module.exports = BaseController;
