@@ -1,8 +1,8 @@
 {
     "__comment": "apidoc -i components/ -o doc/",  
-    "name": "example",
-    "version": "0.1.0",
-    "description": "apiDoc basic example",
-    "title": "Custom apiDoc browser title",
-    "url" : "https://vogeltracker.herokuapp.com"
+    "name": "Zonnebloem API",
+    "version": "0.0.1",
+    "description": "API that will be used for zonnebloem intergrations",
+    "title": "Zonnebloem API",
+    "url" : "https://zonnebloem-api.herokuapp.com"
 }
