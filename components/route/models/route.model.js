@@ -41,4 +41,4 @@ let routeSchema = new Schema({
 
 routeSchema.index({ "waypoints": "2dsphere" });
 
-mongoose.model("Route", routeSchema);
+module.exports = mongoose.model("Route", routeSchema);
