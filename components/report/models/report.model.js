@@ -8,10 +8,6 @@ let Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId;
 
 let reportSchema = new Schema({
-
-    "_id": {
-        "type": ObjectId
-    },
     "title": {
         "type": String,
         "required": true
