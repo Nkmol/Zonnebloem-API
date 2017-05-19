@@ -11,6 +11,11 @@ config.jwt = {};
 config.jwt.secret = "zonnebloem-secret-8291828373";
 config.jwt.invalidTokenMessage = "Token is invalid or not provided";
 
+// -- filestack --
+config.filestack = {};
+config.filestack.key = "A3irRgEkSdWmwarIAmuDAz";
+config.filestack.base64policy = "YXBwOjNMUlZGVjRWNUZGNVRFUVY2S1lHWUhJNEZN";
+
 module.exports = ((() => {
 
 switch(process.env.NODE_ENV) {
