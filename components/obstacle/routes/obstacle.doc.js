@@ -45,8 +45,9 @@
  * @apiName GetOne
  * @apiGroup Obstacle
  *
+ * @apiUse GetOne
  * @apiuse JwtHeader
- * 
+ *
  * @apiParam (Query) {String} id MongoID
  *
  * @apiUse Response
