@@ -21,6 +21,25 @@ class FilestackService {
 
         return rp(options);
     }
+
+    // ErrorThrower is used to map the Filestack error to the default error
+    // It uses the default throw method
+    // TODO: Move throw method to utility class
+    removeFile(url, errorThrower = null) {
+        let fileID = url.match(/\w+$/g);
+
+        console.log(fileID);
+        const options = {
+            "method": "DELETE",
+            "uri": this.url.delete.replace("{fileID}", fileID),
+            "headers": {
+                "Authorization": this.auth
+            }
+        };
+
+        return rp(options)
+            .catch(err => errorThrower(err.error, err.statusCode));
+    }
 }
 
 module.exports = FilestackService;

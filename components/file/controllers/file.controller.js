@@ -22,7 +22,15 @@ class FileController extends BaseController {
     }
 
     remove(req, res) {
-        
+        // Create promise array of all file remove requests
+        let promisesRemove = req.body.files.map(x => this.service.removeFile(x, this.throw));
+
+        Promise.all(promisesRemove)
+            .then(data => res.json(this._combineStatus({ "data": data })))
+            .catch(err => { 
+                console.log(err);
+                this._errorHandler(res, err);
+            });
     }
 }
 
