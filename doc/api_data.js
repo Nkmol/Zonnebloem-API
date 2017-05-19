@@ -1158,10 +1158,10 @@ define({ "api": [
           },
           {
             "group": "Model",
-            "type": "Double[]",
+            "type": "[Double[]]",
             "optional": false,
             "field": ".coordinates",
-            "description": "<p>containing long and lang double</p>"
+            "description": "<p>Array containing long and lang</p>"
           },
           {
             "group": "Model",

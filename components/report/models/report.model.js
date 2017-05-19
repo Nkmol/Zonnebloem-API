@@ -24,7 +24,7 @@ let reportSchema = new Schema({
         "type": ObjectId, "ref": "Department"
     },
     "attachments": [
-        { "url": String, "required": true } // attachment file url
+        { "url": String } // attachment file url
     ]
 }, {
     "timestamps": {

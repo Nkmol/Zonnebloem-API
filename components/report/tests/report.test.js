@@ -1,7 +1,6 @@
 let Spec = require('../../spec');
 
 let Report = require('../models/report.model');
-
 let chai = require('chai');
 let expect = chai.expect;
 let should = chai.should();

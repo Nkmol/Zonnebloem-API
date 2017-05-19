@@ -22,7 +22,7 @@ let routeSchema = new Schema({
     "waypoints": {
         "type": { "type": String, "enum": [ "LineString" ], "required": true, "default": "LineString" },
         "coordinates": {
-            "type": [ Number ],
+            "type": [ [ Number ] ],
             "required": true
         }
     },

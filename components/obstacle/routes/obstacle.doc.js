@@ -8,7 +8,7 @@
  * @apiSuccess (Model) {String} description
  * @apiSuccess (Model) {GeoJSON} [geometry]
  * @apiSuccess (Model) {String} .type default "Point"
- * @apiSuccess (Model) {Double[]} .coordinates containing long and lang double
+ * @apiSuccess (Model) {[Double[]]} .coordinates Array containing long and lang
  * @apiSuccess (Model) {User} created_by
  * @apiSuccess (Model) {String[]} [images]
  * @apiSuccess (Model) {String} state enum `[ NEW, REPORTED, DECLINED, IN_PORGRESS, SOLVED ]`
