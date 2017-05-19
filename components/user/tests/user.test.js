@@ -100,7 +100,7 @@ context("Users", () => {
 
     })
 
-    describe("PUT /users/id", () => {
+    describe("PUT /users/:id", () => {
 
         let newUser = new User({username: "new_user", email: "new_user@gmail.com", password: "123456"})
         let updatedUser = {username: "new_user_updated", email: "new_user_updated@gmail.com"};

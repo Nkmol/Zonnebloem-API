@@ -66,4 +66,4 @@ let obstacleSchema = new Schema({
 
 obstacleSchema.index({ "location_coordinates": "2dsphere" });
 
-mongoose.model("Obstacle", obstacleSchema);
+module.exports = mongoose.model("Obstacle", obstacleSchema);
