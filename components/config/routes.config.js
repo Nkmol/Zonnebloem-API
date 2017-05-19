@@ -20,7 +20,7 @@ class RoutesConfigurator {
             LoginController.register);
         
         /** File */
-        this.app.use("/",
+        this.app.use("/files",
             JWTAuthenticator.authenticate,
             util.loadComponent("file", "route"));
 

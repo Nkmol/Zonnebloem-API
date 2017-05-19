@@ -15,11 +15,14 @@ class FileController extends BaseController {
         fs.rename(`${file.destination}${file.filename}`, newPath)
             .then(() => this.service.uploadFile(newPath))
             .then(data => res.json(this._combineStatus({ "data": JSON.parse(data) })))
+            .catch(err => this._errorHandler(res, err))
+            // Always remove the file, even if a error has occured
+            .then(() => fs.remove(newPath))
             .catch(err => this._errorHandler(res, err));
     }
 
     remove(req, res) {
-
+        
     }
 }
 
