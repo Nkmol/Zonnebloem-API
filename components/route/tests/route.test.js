@@ -86,11 +86,11 @@ context("Routes", () => {
 
     before(done => {
         routeTest.authorize()
-        .then(done)
-        .catch(done);
+            .then(done)
+            .catch(done);
     })
 
-     describe("GET /routes", () => {
+    describe("GET /routes", () => {
         it("should fetch all routes", done => {
             routeTest.fetchRoutes(done);                
         })
@@ -113,10 +113,10 @@ context("Routes", () => {
 
         before(done => {
             newRoute.save()
-            .then(route => {
-                id = route._id;
-                done();
-            })
+                .then(route => {
+                    id = route._id;
+                    done();
+                })
         })
 
         it("should fetch a single route", done => {

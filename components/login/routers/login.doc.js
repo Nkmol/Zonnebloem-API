@@ -23,9 +23,7 @@
  *
  * @apiHeader Content-Type application/json
  *
- * @apiParam {String} username username login
- * @apiParam {String} password password login
- * @apiParam {String} email emailadress for you account
+ * @apiParam {User} - Able to post a whole <a href="#api-User-Model">User</a>
  *
  * @apiError {JSON} 400/BadRequest `Response.message` : Please provide 'username', 'password' and 'email'
  * @apiError {JSON} 409/ConflictMail `Response.message` : An account has already been registrated to this mailadress.
