@@ -68,6 +68,21 @@
  */
 
 /**
+ * @api {get} /users/:id Get User
+ * @apiVersion 0.0.1
+ * @apiName GetOne
+ * @apiGroup User
+ *
+ * @apiuse JwtHeader
+ * 
+ * @apiParam (Query) {String} id MongoID
+ *
+ * @apiUse Response
+ * @apiSuccess {User} data of <a href="#api-User-Model">User</a> for the specified id
+ *
+ */
+
+/**
  * @api {post} /users Post User
  * @apiVersion 0.0.1
  * @apiName Post
@@ -119,22 +134,6 @@
  * @apiUse Patch
  *
  * @apiuse JwtHeader
- *
- * @apiParam (Query) {String} id MongoID
- *
- * @apiUse Response
- * @apiSuccess {User} data <a href="#api-User-Model">User</a> that has been patched
- *
- */
-
-/**
- * @api {get} /users/:id Get User
- * @apiVersion 0.0.1
- * @apiName Getone
- * @apiGroup User
- *
- * @apiUse GetOne
- * @apiUse JwtHeader
  *
  * @apiParam (Query) {String} id MongoID
  *

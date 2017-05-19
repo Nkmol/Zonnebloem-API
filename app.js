@@ -12,12 +12,9 @@ let util = require("./components/utilities");
 let config = require("./components/config/config");
 
 let passport = require("passport");
-
-
 let app = express();
 
-let start = () => {
-    mongoose.connect()
+mongoose.connect()
     .then(() => {
       // Load models
         console.log(chalk.green("Loading models..."));
@@ -80,10 +77,7 @@ let start = () => {
     })
     .then(() => console.log(chalk.green("done!")))
     .catch(err => console.error(chalk.red(err)));
-};
 
-module.exports = {
-    app,
-    start
-};
+
+module.exports = app;
 

@@ -6,18 +6,25 @@ config.promise = global.Promise;
 // -- Glob* --
 config.models = "components/**/models/*.model.js"; // Used to dynamically load all models
 
-// -- DB --
-config.db = {};
-config.db.user = "user";
-config.db.password = "user";
-config.db.uri = `mongodb://${config.db.user}:${config.db.password}@ds062059.mlab.com:62059/zonnebloem`;
-config.db.options = {
-    
-};
-
 // -- JWT --
 config.jwt = {};
 config.jwt.secret = "zonnebloem-secret-8291828373";
 config.jwt.invalidTokenMessage = "Token is invalid or not provided";
 
-module.exports = config;
+// -- filestack --
+config.filestack = {};
+config.filestack.key = "A3irRgEkSdWmwarIAmuDAz";
+config.filestack.base64policy = "YXBwOjNMUlZGVjRWNUZGNVRFUVY2S1lHWUhJNEZN";
+
+module.exports = ((() => {
+
+switch(process.env.NODE_ENV) {
+    case "production":
+        return Object.assign(require('./config.prod'), config);
+    case "test":
+        return Object.assign(require('./config.test'), config);
+    default:
+        return Object.assign(require('./config.dev'), config);
+}
+
+})());

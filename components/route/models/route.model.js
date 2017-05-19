@@ -8,9 +8,6 @@ let Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId;
 
 let routeSchema = new Schema({
-    "_id": {
-        "type": ObjectId
-    },
     "name": {
         "type": String,
         "required": true
@@ -23,9 +20,9 @@ let routeSchema = new Schema({
         "type": Date
     },
     "waypoints": {
-        "type": { "type": String, "enum": [ "LineString" ], "required": true },
+        "type": { "type": String, "enum": [ "LineString" ], "required": true, "default": "LineString" },
         "coordinates": {
-            "type": Array,
+            "type": [ [ Number ] ],
             "required": true
         }
     },
@@ -41,4 +38,4 @@ let routeSchema = new Schema({
 
 routeSchema.index({ "waypoints": "2dsphere" });
 
-mongoose.model("Route", routeSchema);
+module.exports = mongoose.model("Route", routeSchema);

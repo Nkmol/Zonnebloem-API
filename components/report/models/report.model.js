@@ -1,5 +1,3 @@
-
-
 /**
  * Module dependencies
  */
@@ -8,10 +6,6 @@ let Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId;
 
 let reportSchema = new Schema({
-
-    "_id": {
-        "type": ObjectId
-    },
     "title": {
         "type": String,
         "required": true
@@ -30,7 +24,7 @@ let reportSchema = new Schema({
         "type": ObjectId, "ref": "Department"
     },
     "attachments": [
-        new Schema({ "url": String }) // attachment file url
+        { "url": String } // attachment file url
     ]
 }, {
     "timestamps": {
@@ -39,4 +33,4 @@ let reportSchema = new Schema({
     }
 });
 
-mongoose.model("Report", reportSchema);
+module.exports = mongoose.model("Report", reportSchema);

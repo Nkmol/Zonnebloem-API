@@ -8,7 +8,7 @@
  * @apiSuccess (Model) {String} description
  * @apiSuccess (Model) {GeoJSON} [geometry]
  * @apiSuccess (Model) {String} .type default "Point"
- * @apiSuccess (Model) {Double[]} .coordinates containing long and lang double
+ * @apiSuccess (Model) {[Double[]]} .coordinates Array containing long and lang
  * @apiSuccess (Model) {User} created_by
  * @apiSuccess (Model) {String[]} [images]
  * @apiSuccess (Model) {String} state enum `[ NEW, REPORTED, DECLINED, IN_PORGRESS, SOLVED ]`
@@ -36,6 +36,22 @@
  *
  * @apiUse Response
  * @apiSuccess {Obstacle[]} data Array of <a href="#api-Obstacle-Model">Obstacle</a>s
+ *
+ */
+
+/**
+ * @api {get} /obstacles/:id Get Obstacle
+ * @apiVersion 0.0.1
+ * @apiName GetOne
+ * @apiGroup Obstacle
+ *
+ * @apiUse GetOne
+ * @apiuse JwtHeader
+ *
+ * @apiParam (Query) {String} id MongoID
+ *
+ * @apiUse Response
+ * @apiSuccess {Obstacle} data of <a href="#api-Obstacle-Model">Obstacle</a> for the specified id
  *
  */
 

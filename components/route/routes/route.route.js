@@ -1,12 +1,9 @@
 let router = require("express").Router();
-let controller = require("../controllers/user.controller");
+let controller = require("../controllers/route.controller");
 
 router.route("/")
     .get(controller.get)
     .post(controller.create);
-
-router.route("/me")
-    .get(controller.me);
 
 router.route("/:_id")
     .get(controller.getOne)
