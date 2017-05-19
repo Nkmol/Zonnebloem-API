@@ -1,1 +1,17 @@
-define({  "name": "Zonnebloem API",  "version": "0.0.1",  "description": "API that will be used for zonnebloem intergrations",  "__comment": "apidoc -i components/ -o doc/",  "title": "Zonnebloem API",  "url": "https://zonnebloem-api.herokuapp.com",  "sampleUrl": false,  "defaultVersion": "0.0.0",  "apidoc": "0.3.0",  "generator": {    "name": "apidoc",    "time": "2017-05-18T21:06:09.946Z",    "url": "http://apidocjs.com",    "version": "0.17.5"  }});
+define({
+  "name": "Zonnebloem API",
+  "version": "0.0.1",
+  "description": "API that will be used for zonnebloem intergrations",
+  "__comment": "apidoc -i components/ -o doc/",
+  "title": "Zonnebloem API",
+  "url": "https://zonnebloem-api.herokuapp.com",
+  "sampleUrl": false,
+  "defaultVersion": "0.0.0",
+  "apidoc": "0.3.0",
+  "generator": {
+    "name": "apidoc",
+    "time": "2017-05-19T14:09:42.978Z",
+    "url": "http://apidocjs.com",
+    "version": "0.17.5"
+  }
+});
