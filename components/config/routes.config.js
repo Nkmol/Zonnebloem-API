@@ -18,6 +18,11 @@ class RoutesConfigurator {
         this.app.post("/register",
             LoginController.isLoggedIn,
             LoginController.register);
+        
+        /** File */
+        this.app.use("/files",
+            JWTAuthenticator.authenticate,
+            util.loadComponent("file", "route"));
 
         /** User **/
         this.app.use("/users",

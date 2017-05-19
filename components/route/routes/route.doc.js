@@ -15,7 +15,7 @@
  * @apiSuccess (Model) {Date} [end_time]
  * @apiSuccess (Model) {Object[]} waypoints
  * @apiSuccess (Model) {string} .type <b>Default: </b> "LineString"
- * @apiSuccess (Model) {Double[]} .coordinates containing long and lang double
+ * @apiSuccess (Model) {Number[Number[]]} .coordinates Array of longitude and langitude values, example: <br />`[ [ -110.8571443, 32.4586858 ], [ -109.8571443, 33.4586858 ] ]`
  * @apiSuccess (Model) {obstacles[]} [obstacles] Array of <a href="#api-Obstacle-Model">Obstacle</a>s
  */
 

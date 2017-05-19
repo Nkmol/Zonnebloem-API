@@ -851,6 +851,219 @@ define({ "api": [
     }
   },
   {
+    "type": "post",
+    "url": "/files",
+    "title": "Upload File",
+    "version": "0.0.1",
+    "name": "Post",
+    "group": "File",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>multipart/form-data</p>"
+          },
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>The JWT-token header: &quot;JWT {{ TOKEN }}&quot;.</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "MultipartFile",
+            "optional": false,
+            "field": "file",
+            "description": "<p>The file to be uploaded</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": ".url",
+            "description": "<p>Url to the uploaded file</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": ".size",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": ".type",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": ".filename",
+            "description": "<p>original filename that was used to upload the file</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Indicates if request has been succesfully handled (<code>status === 200</code>)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Response status</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>null</code> on success</p>"
+          }
+        ]
+      }
+    },
+    "filename": "components/file/routes/file.doc.js",
+    "groupTitle": "File",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p><code>Response.message</code> : Token is invalid or not provided</p>"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/files",
+    "title": "Remove File",
+    "version": "0.0.1",
+    "name": "Remove",
+    "group": "File",
+    "description": "<p>This can be really useful for cleaning the asset cloud once you not in need of certain assets anymore</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "optional": false,
+            "field": "String",
+            "description": "<p>of the links you want to delete</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n  \"files\": [\n     \"https://cdn.filestackcontent.com/J8NpRMT2TvuvyiyobRMA\",\n     \"https://cdn.filestackcontent.com/rxMQqQHSzsgV3MfVdVgg\"\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Array of string that indicates for each request if it succeeded (&quot;success&quot;/&quot;failed&quot;)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Indicates if request has been succesfully handled (<code>status === 200</code>)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Response status</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>null</code> on success</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"success\": true,\n    \"status\": 200,\n    \"message\": null,\n    \"data\": [\n        \"success\",\n        \"success\"\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "components/file/routes/file.doc.js",
+    "groupTitle": "File",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>The JWT-token header: &quot;JWT {{ TOKEN }}&quot;.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p><code>Response.message</code> : Token is invalid or not provided</p>"
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "delete",
     "url": "/obstacles/:id",
     "title": "Delete Obstacle",
@@ -2414,10 +2627,10 @@ define({ "api": [
           },
           {
             "group": "Model",
-            "type": "Double[]",
+            "type": "Number[Number[]]",
             "optional": false,
             "field": ".coordinates",
-            "description": "<p>containing long and lang double</p>"
+            "description": "<p>Array of longitude and langitude values, example: <br /><code>[ [ -110.8571443, 32.4586858 ], [ -109.8571443, 33.4586858 ] ]</code></p>"
           },
           {
             "group": "Model",

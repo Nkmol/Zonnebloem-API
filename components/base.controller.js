@@ -32,7 +32,6 @@ class BaseController {
         return id && id.match(/^[0-9a-fA-F]{24}$/);
     }
 
-    // Todo 2 times status
     _combineStatus(toCombine = {}) {
         let response = {
             "success": (toCombine.status || this._BaseResponse.status) === 200
@@ -76,6 +75,7 @@ class BaseController {
     getOne(req, res, next) {
         let id = `${req.params._id}`;
         // Early exit
+
         if (!this._isValidId(id)) {
             let response = {
                 "message": "Please provide a valid 'id'",
