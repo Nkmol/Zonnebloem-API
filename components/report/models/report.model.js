@@ -1,5 +1,3 @@
-
-
 /**
  * Module dependencies
  */
@@ -26,7 +24,7 @@ let reportSchema = new Schema({
         "type": ObjectId, "ref": "Department"
     },
     "attachments": [
-        new Schema({ "url": String }) // attachment file url
+        { "url": String } // attachment file url
     ]
 }, {
     "timestamps": {
