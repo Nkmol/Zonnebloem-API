@@ -114,24 +114,10 @@
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "User",
             "optional": false,
-            "field": "username",
-            "description": "<p>username login</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "password",
-            "description": "<p>password login</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>emailadress for you account</p>"
+            "field": "-",
+            "description": "<p>Able to post a whole <a href=\"#api-User-Model\">User</a></p>"
           }
         ]
       }
