@@ -8,9 +8,6 @@ let Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId;
 
 let routeSchema = new Schema({
-    "_id": {
-        "type": ObjectId
-    },
     "name": {
         "type": String,
         "required": true

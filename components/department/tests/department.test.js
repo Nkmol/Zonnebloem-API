@@ -104,7 +104,6 @@ context("Departments", () => {
         let id = null;
 
         before(done => {
-            // create a test user
             newDepartment.save()
             .then(department => {
                 id = department._id;
@@ -117,7 +116,6 @@ context("Departments", () => {
         })
 
         after(done => {
-            // remove the test user
             newDepartment.remove()
             .then(department => {
                 done();
@@ -133,7 +131,6 @@ context("Departments", () => {
         let id = null;
 
         before(done => {
-             // create a test user
             newDepartment.save()
             .then(department => {
                 id = department._id;
@@ -146,7 +143,6 @@ context("Departments", () => {
         })
 
         after(done => {
-            // remove the test user
             newDepartment.remove()
             .then(department => {
                 done();
@@ -162,7 +158,6 @@ context("Departments", () => {
         let id = null;
 
         before(done => {
-             // create a test user
             newDepartment.save()
             .then(department => {
                 id = department._id;
@@ -175,7 +170,6 @@ context("Departments", () => {
         })
 
         after(done => {
-            // remove the test user
             newDepartment.remove()
             .then(department => {
                 done();

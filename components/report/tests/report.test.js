@@ -84,7 +84,7 @@ class ReportTest extends Spec {
 
 let reportTest = new ReportTest(Report);
 
-context("Departments", () => {
+context("Reports", () => {
 
     before(done => {
         reportTest.authorize()
@@ -104,7 +104,6 @@ context("Departments", () => {
         let id = null;
 
         before(done => {
-            // create a test user
             newReport.save()
             .then(report => {
                 id = report._id;
@@ -117,7 +116,6 @@ context("Departments", () => {
         })
 
         after(done => {
-            // remove the test user
             newReport.remove()
             .then(report => {
                 done();
@@ -133,7 +131,6 @@ context("Departments", () => {
         let id = null;
 
         before(done => {
-             // create a test user
             newReport.save()
             .then(report => {
                 id = report._id;
@@ -141,12 +138,11 @@ context("Departments", () => {
             })
         })
 
-        it("should update the department", done => {
+        it("should update the route", done => {
             reportTest.updateReport(id, updatedReport, done);
         })
 
         after(done => {
-            // remove the test user
             newReport.remove()
             .then(report => {
                 done();
@@ -162,7 +158,6 @@ context("Departments", () => {
         let id = null;
 
         before(done => {
-             // create a test user
             newReport.save()
             .then(report => {
                 id = report._id;
@@ -175,7 +170,6 @@ context("Departments", () => {
         })
 
         after(done => {
-            // remove the test user
             newReport.remove()
             .then(report => {
                 done();
@@ -191,8 +185,8 @@ context("Departments", () => {
 
         before(done => {
             newReport.save()
-            .then(department => {
-                id = department._id;
+            .then(route => {
+                id = route._id;
                 done();
             })
         });
