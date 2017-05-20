@@ -3,22 +3,159 @@
     "documents": [
         {
             "_id": "507f1f77bcf86cd799439022",
-            "title": "Gat in wegdek markt",
-            "description": "Best wel raar geval",
-            "location_coordinates": {
-                "type": "Point",
+            "title": "Test: Gat in wegdek markt",
+            "description": "Belemmering op locatie: Grote Markt, Breda",
+            "factor": "MEDIUM",
+            "state": "NEW",
+            "images": [
+                "https://futurism.com/wp-content/uploads/2013/09/001.jpg"
+            ],
+            "geometry": {
                 "coordinates": [
                     51.58821,
                     4.77571
                 ]
-            },
+            }
+        },
+        {
+            "_id": "117f1f77bcf11cd799439022",
+            "title": "Test: Minderbroedersstraat Breda, Hoge stoeprand",
+            "description": "Belemmering op locatie: Minderbroedersstraat Breda, Hoge stoeprand",
+            "factor": "LOW",
+            "state": "IN_PROGRESS",
+            "images": [
+                "https://futurism.com/wp-content/uploads/2013/09/001.jpg"
+            ],
+            "geometry": {
+                "coordinates": [
+                    51.5871648,
+                    4.7731474
+                ]
+            }
+        },
+        {
+            "_id": "447f1f77bcf11cd799439022",
+            "title": "Test: Gravinnen van Nassauboulevard 45, Hoge stoeprand",
+            "description": "Belemmering op locatie: Gravinnen van Nassauboulevard 45, Breda station Hoge stoeprand",
+            "factor": "LOW",
+            "state": "IN_PROGRESS",
+            "images": [
+                "https://futurism.com/wp-content/uploads/2013/09/001.jpg"
+            ],
+            "geometry": {
+                "coordinates": [
+                    51.596582,
+                    4.780335
+                ]
+            }
+        },
+        {
+            "_id": "227f1f77bcf86cd799439022",
+            "title": "Test: Vlaszak, Breda, hoge drempel",
+            "description": "Belemmering op locatie: Vlaszak 47, 4881 GX Breda",
+            "factor": "MEDIUM",
+            "state": "NEW",
+            "images": [
+                "https://futurism.com/wp-content/uploads/2013/09/001.jpg"
+            ],
+            "geometry": {
+                "coordinates": [
+                    51.589001,
+                    4.780756
+                ]
+            }
+        },
+        {
+            "_id": "337f1f77bcf86cd799439022",
+            "title": "Test: Fellennoordstraat, Breda, hoge drempel",
+            "description": "Belemmering op locatie: Fellennoordstraat 93, 4881 TH Breda",
+            "factor": "MEDIUM",
+            "state": "NEW",
             "images": [
                 "https://futurism.com/wp-content/uploads/2013/09/001.jpg",
                 "https://futurism.com/wp-content/uploads/2013/09/001.jpg",
                 "https://futurism.com/wp-content/uploads/2013/09/001.jpg"
             ],
+            "geometry": {
+                "coordinates": [
+                    51.584359,
+                    4.771090
+                ]
+            }
+        },
+        {
+            "_id": "591eea214751cb00113e34f5",
+            "title": "Test: Lange Brugstraat 2A",
+            "description": "Belemmering op locatie: Lange Brugstraat 2A, Breda, 4811 WR Breda",
+            "factor": "HIGH",
             "state": "NEW",
-            "factor": "MEDIUM"
+            "images": [
+                "https://futurism.com/wp-content/uploads/2013/09/001.jpg",
+                "https://futurism.com/wp-content/uploads/2013/09/001.jpg",
+                "https://futurism.com/wp-content/uploads/2013/09/001.jpg"
+            ],
+            "geometry": {
+                "coordinates": [
+                    51.588229,
+                    4.775188
+                ]
+            }
+        },
+        {
+            "_id": "651b4dd270ee3f28d881d1c7",
+            "title": "Test: Koud en sneeuw",
+            "description": "Koud en sneeuw, Antarctica",
+            "factor": "HIGH",
+            "state": "NEW",
+            "images": [],
+            "geometry": {
+                "coordinates": [
+                    -110.8571443,
+                    32.4586858
+                ]
+            }
+        },
+        {
+            "_id": "231b4dd270ee3f28d881d1c7",
+            "title": "Test: Veemarktstraat 2A, Breda",
+            "description": "Belemmering op locatie: Veemarktstraat 2A, Breda, 4811 ZE Breda",
+            "factor": "HIGH",
+            "state": "DECLINED",
+            "images": [],
+            "geometry": {
+                "coordinates": [
+                    51.588062,
+                    4.776556
+                ]
+            }
+        },
+        {
+            "_id": "541b4dd270ee3f28d881d1c7",
+            "title": "Test: Torrenstraat 2, Breda",
+            "description": "Belemmering op locatie: Torrenstraat 2, Breda, 4811 XX Breda",
+            "factor": "HIGH",
+            "state": "REPORTED",
+            "images": [],
+            "geometry": {
+                "coordinates": [
+                    51.588226,
+                    4.775313
+                ]
+            }
+        },
+        {
+            "_id": "432b4dd270ee3f28d881d1c7",
+            "title": "Test: Karrestraat 1",
+            "description": "Belemmering op locatie: Karrestraaat 1, Breda, 4811 WT Breda",
+            "factor": "HIGH",
+            "state": "SOLVED",
+            "images": [],
+            "geometry": {
+                "coordinates": [
+                    51.588167,
+                    4.775310
+                ]
+            }
         }
     ]
 }
