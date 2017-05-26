@@ -52,3 +52,101 @@
  *          ]
  *      }
  */
+
+/**
+ * @api {post} /files Upload File(s)
+ * @apiVersion 0.0.2
+ * @apiName Post
+ * @apiGroup File
+ *
+ * @apiuse JwtHeader
+ *
+ * @apiParam {MultipartFile} files The files to be uploaded
+ *
+ * @apiParamExample {Multipart Form} Request-Example:
+ *     {
+ *       "files": Multipart_file.txt,
+ *       "files": Another_multipart_file.txt
+ *     }
+ *
+ * @apiSuccess {Object[]} - Array of response objects
+ * @apiSuccess {Boolean} .success Indicates if request has been succesfully handled (`status === 200`)
+ * @apiSuccess {Integer} .status Response status
+ * @apiSuccess {String} .message `null` on success
+ * @apiSuccess {Object} .data
+ * @apiSuccess {String} ..url Url to the uploaded file
+ * @apiSuccess {Integer} ..size
+ * @apiSuccess {String} ..type
+ * @apiSuccess {String} ..filename original filename that was used to upload the file
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *      HTTP/1.1 200 OK
+ *      [
+ *      	{
+ *      		"success": true,
+ *      		"status": 200,
+ *      		"message": null,
+ *      		"data": {
+ *      			"url": "https://cdn.filestackcontent.com/JxBCgRnyQE2zMT0pEGsn",
+ *      			"size": 0,
+ *      			"type": "text/plain",
+ *      			"filename": "gi.txt"
+ *      		}
+ *      	},
+ *      	{
+ *      		"success": true,
+ *      		"status": 200,
+ *      		"message": null,
+ *      		"data": {
+ *      			"url": "https://cdn.filestackcontent.com/SaLefEZCRUKBtCShikQg",
+ *      			"size": 599,
+ *      			"type": "text/plain",
+ *      			"filename": "Circuit1_FullAdder.txt"
+ *      		}
+ *      	}
+ *      ]
+ */
+
+/**
+ * @api {delete} /files Remove File(s)
+ * @apiVersion 0.0.2
+ * @apiName Remove
+ * @apiGroup File
+ *
+ * @apiuse JwtHeader
+ *
+ * @apiDescription This can be really useful for cleaning the asset cloud once you not in need of certain assets anymore
+ *
+ * @apiParam {String[]} String of the links you want to delete
+ *
+ * @apiParamExample {json} Request-Example:
+ *     {
+ *       "files": [
+ *          "https://cdn.filestackcontent.com/J8NpRMT2TvuvyiyobRMA",
+ *          "https://cdn.filestackcontent.com/rxMQqQHSzsgV3MfVdVgg"
+ *       ]
+ *     }
+ *
+ * @apiSuccess {Object[]} - Array of response objects
+ * @apiSuccess {Boolean} .success Indicates if request has been succesfully handled (`status === 200`)
+ * @apiSuccess {Integer} .status Response status
+ * @apiSuccess {String} .message status of the request from the cloud ("failed"/"success")
+ * @apiSuccess {null} .data
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *      HTTP/1.1 200 OK
+ *      [
+ *      	{
+ *      		"success": true,
+ *      		"status": 200,
+ *      		"message": "success",
+ *      		"data": null
+ *      	},
+ *      	{
+ *      		"success": true,
+ *      		"status": 200,
+ *      		"message": "success",
+ *      		"data": null
+ *      	}
+ *      ]
+ */
