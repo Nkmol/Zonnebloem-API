@@ -40,7 +40,7 @@ class FileController extends BaseController {
     remove(req, res) {
         // Create aync promise function
         let prom = file => this.service.removeFile(file, this.throw)
-            .then(data => this._combineStatus({ "data": data }))
+            .then(fileStatus => this._combineStatus({ "message": fileStatus }))
             // Dont stop the chain of promises, just create an error response
             .catch(err => this._createErrorMessage(err));
 
