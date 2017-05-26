@@ -13,7 +13,7 @@ class FileController extends BaseController {
         let prom = (oldPath, newPath) => fs.rename(oldPath, newPath)
             .then(() => this.service.uploadFile(newPath))
             .then(data => this._combineStatus({ "data": JSON.parse(data) }))
-            .catch(err => this._errorHandler(res, err))
+            .catch(err => this._createErrorMessage(err))
             // Always remove the file, even if a error has occured
             .then(data => fs.remove(newPath).then(() => data));
 
@@ -22,7 +22,18 @@ class FileController extends BaseController {
 
         // Listen to promises
         Promise.all(promisesPost)
-            .then(data => res.json(data))
+            .then(data => {
+                // Because the errors has been catched as a normal JSON error response
+                // We now check for those error responses
+                let errors = data.filter(x => x.status !== 200);
+                console.log(errors);
+                if (errors.length > 0) {
+                    res.status(errors[ 0 ].status).json(data);
+                }
+                else {
+                    res.json(data);
+                }
+            })
             .catch(err => this._errorHandler(res, err));
     }
 
@@ -39,11 +50,11 @@ class FileController extends BaseController {
         // Listen to array of promises
         Promise.all(promisesRemove)
             .then(data => {
-                // Because the errors has been catched in a normal JSON error response
+                // Because the errors has been catched as a normal JSON error response
                 // We now check for those error responses
                 let errors = data.filter(x => x.status !== 200);
 
-                if (errors.length >= 0) {
+                if (errors.length > 0) {
                     res.status(errors[ 0 ].status).json(data);
                 }
                 else {
