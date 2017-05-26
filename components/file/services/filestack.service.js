@@ -28,7 +28,6 @@ class FilestackService {
     removeFile(url, errorThrower = null) {
         let fileID = url.match(/\w+$/g);
 
-        console.log(fileID);
         const options = {
             "method": "DELETE",
             "uri": this.url.delete.replace("{fileID}", fileID),
