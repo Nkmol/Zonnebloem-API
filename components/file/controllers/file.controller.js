@@ -9,15 +9,20 @@ class FileController extends BaseController {
     }
 
     upload(req, res) {
-        let file = req.file;
-        let newPath = `${file.destination}${file.originalname}`;
-        
-        fs.rename(`${file.destination}${file.filename}`, newPath)
+        // Create async promise function
+        let seq = (oldPath, newPath) => fs.rename(oldPath, newPath)
             .then(() => this.service.uploadFile(newPath))
-            .then(data => res.json(this._combineStatus({ "data": JSON.parse(data) })))
+            .then(data => this._combineStatus({ "data": JSON.parse(data) }))
             .catch(err => this._errorHandler(res, err))
             // Always remove the file, even if a error has occured
-            .then(() => fs.remove(newPath))
+            .then(data => fs.remove(newPath).then(() => data));
+
+        // Create promise array of all file post requests
+        let promisesPost = req.files.map(file => seq(`${file.destination}${file.filename}`, `${file.destination}${file.originalname}`));
+
+        // Listen to promises
+        Promise.all(promisesPost)
+            .then(data => res.json(data))
             .catch(err => this._errorHandler(res, err));
     }
 
