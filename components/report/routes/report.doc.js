@@ -43,7 +43,7 @@
  * @apiParam (Query) {String} id MongoID
  *
  * @apiUse Response
- * @apiSuccess {Report} data of <a href="#api-report-Model">report</a> for the specified id
+ * @apiSuccess {Report} data <a href="#api-report-Model">Report</a> for the specified id
  *
  */
 

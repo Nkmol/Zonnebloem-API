@@ -48,8 +48,8 @@
  * @apiSuccess (Model) {String}     .city
  * @apiSuccess (Model) {String}     .zip_code
  * @apiSuccess (Model) {Object[]} [roles] A user can have multiple roles in multiple departments. <br /><b>Default: </b> one Role `{"role": "GUEST", "department": null}`
- * @apiSuccess (Model) {String}     .role enum `[ "ADMIN", "MODERATOR", "CONTROLER", "VOLUNTEER", "GUEST"]`
- * @apiSuccess (Model) {Department} [.department]
+ * @apiSuccess (Model) {String="ADMIN", "MODERATOR", "CONTROLER", "VOLUNTEER", "GUEST"} .role
+ * @apiSuccess (Model) {Department} [.department] <a href="#api-Department-Model">Department</a> where the role applies to
  * @apiSuccess (Model) {String} [profile_image]
  * @apiSuccess (Model) {Boolean} [is_active]
  */
@@ -74,11 +74,11 @@
  * @apiGroup User
  *
  * @apiuse JwtHeader
- * 
+ *
  * @apiParam (Query) {String} id MongoID
  *
  * @apiUse Response
- * @apiSuccess {User} data of <a href="#api-User-Model">User</a> for the specified id
+ * @apiSuccess {User} data <a href="#api-User-Model">User</a> for the specified id
  *
  */
 

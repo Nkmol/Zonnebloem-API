@@ -14,9 +14,9 @@
  * @apiSuccess (Model) {Date} [start_time]
  * @apiSuccess (Model) {Date} [end_time]
  * @apiSuccess (Model) {Object[]} waypoints
- * @apiSuccess (Model) {string} .type <b>Default: </b> "LineString"
+ * @apiSuccess (Model) {string} [.type] <b>Default: </b> `LineString`
  * @apiSuccess (Model) {Number[Number[]]} .coordinates Array of longitude and langitude values, example: <br />`[ [ -110.8571443, 32.4586858 ], [ -109.8571443, 33.4586858 ] ]`
- * @apiSuccess (Model) {obstacles[]} [obstacles] Array of <a href="#api-Obstacle-Model">Obstacle</a>s
+ * @apiSuccess (Model) {Obstacle[]} [obstacles] Array of <a href="#api-Obstacle-Model">Obstacle</a>s
  */
 
 /**
@@ -44,7 +44,7 @@
  * @apiParam (Query) {String} id MongoID
  *
  * @apiUse Response
- * @apiSuccess {Route} data of <a href="#api-Route-Model">Route</a> for the specified id
+ * @apiSuccess {Route} data <a href="#api-Route-Model">Route</a> for the specified id
  *
  */
 
