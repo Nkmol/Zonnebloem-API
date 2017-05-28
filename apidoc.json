@@ -4,5 +4,8 @@
     "version": "0.0.1",
     "description": "API that will be used for zonnebloem intergrations",
     "title": "Zonnebloem API",
-    "url" : "https://zonnebloem-api.herokuapp.com"
+    "url" : "https://zonnebloem-api.herokuapp.com",
+    "order": [
+        "Model"
+    ]
 }
