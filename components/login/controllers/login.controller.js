@@ -30,6 +30,8 @@ class LoginController extends BaseController {
 
     login(req, res, next) {
         let body = req.body;
+        
+        body.username = body.username.toLowerCase();
 
         return new Promise((resolve, reject) => {
             // Early exit
