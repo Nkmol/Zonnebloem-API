@@ -40,10 +40,8 @@ class BaseController {
         return Object.assign(this._BaseResponse, toCombine, response);
     }
 
-    _errorHandler(res, error) {
-        console.error(error);
-
-        // Assume this is now a MongoError
+    _createErrorMessage(error) {
+         // Assume this is now a MongoError
         if (error.constructor === MongooseError) {
             error = { "message": error.toString() };
         }
@@ -57,7 +55,15 @@ class BaseController {
         // Assume when the json error object has given (that is structural incorrect), that something wrong happend internally
         error.status = error.status || 500;
 
-        return res.status(error.status).json(this._combineStatus(error));
+        return this._combineStatus(error);
+    }
+
+    _errorHandler(res, error) {
+        console.error(error);
+
+        error = this._createErrorMessage(error);
+       
+        return res.status(error.status).json(error);
     }
 
     throw(msg, status) {
