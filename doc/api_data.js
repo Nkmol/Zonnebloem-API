@@ -853,6 +853,137 @@ define({ "api": [
   {
     "type": "post",
     "url": "/files",
+    "title": "Upload File(s)",
+    "version": "0.0.2",
+    "name": "Post",
+    "group": "File",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "MultipartFile",
+            "optional": false,
+            "field": "files",
+            "description": "<p>The files to be uploaded</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "{Multipart Form} Request-Example:",
+          "content": "{\n  \"files\": Multipart_file.txt,\n  \"files\": Another_multipart_file.txt\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Array of response objects</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": ".success",
+            "description": "<p>Indicates if request has been succesfully handled (<code>status === 200</code>)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": ".status",
+            "description": "<p>Response status</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": ".message",
+            "description": "<p><code>null</code> on success</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": ".data",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "..url",
+            "description": "<p>Url to the uploaded file</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "..size",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "..type",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "..filename",
+            "description": "<p>original filename that was used to upload the file</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n[\n\t{\n\t\t\"success\": true,\n\t\t\"status\": 200,\n\t\t\"message\": null,\n\t\t\"data\": {\n\t\t\t\"url\": \"https://cdn.filestackcontent.com/JxBCgRnyQE2zMT0pEGsn\",\n\t\t\t\"size\": 0,\n\t\t\t\"type\": \"text/plain\",\n\t\t\t\"filename\": \"gi.txt\"\n\t\t}\n\t},\n\t{\n\t\t\"success\": true,\n\t\t\"status\": 200,\n\t\t\"message\": null,\n\t\t\"data\": {\n\t\t\t\"url\": \"https://cdn.filestackcontent.com/SaLefEZCRUKBtCShikQg\",\n\t\t\t\"size\": 599,\n\t\t\t\"type\": \"text/plain\",\n\t\t\t\"filename\": \"Circuit1_FullAdder.txt\"\n\t\t}\n\t}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "components/file/routes/file.doc.js",
+    "groupTitle": "File",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>The JWT-token header: &quot;JWT {{ TOKEN }}&quot;.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p><code>Response.message</code> : Token is invalid or not provided</p>"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "post",
+    "url": "/files",
     "title": "Upload File",
     "version": "0.0.1",
     "name": "Post",
@@ -952,6 +1083,110 @@ define({ "api": [
     },
     "filename": "components/file/routes/file.doc.js",
     "groupTitle": "File",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p><code>Response.message</code> : Token is invalid or not provided</p>"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/files",
+    "title": "Remove File(s)",
+    "version": "0.0.2",
+    "name": "Remove",
+    "group": "File",
+    "description": "<p>This can be really useful for cleaning the asset cloud once you not in need of certain assets anymore</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "optional": false,
+            "field": "String",
+            "description": "<p>of the links you want to delete</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n  \"files\": [\n     \"https://cdn.filestackcontent.com/J8NpRMT2TvuvyiyobRMA\",\n     \"https://cdn.filestackcontent.com/rxMQqQHSzsgV3MfVdVgg\"\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Array of response objects</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": ".success",
+            "description": "<p>Indicates if request has been succesfully handled (<code>status === 200</code>)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": ".status",
+            "description": "<p>Response status</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": ".message",
+            "description": "<p>status of the request from the cloud (&quot;failed&quot;/&quot;success&quot;)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "null",
+            "optional": false,
+            "field": ".data",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n[\n\t{\n\t\t\"success\": true,\n\t\t\"status\": 200,\n\t\t\"message\": \"success\",\n\t\t\"data\": null\n\t},\n\t{\n\t\t\"success\": true,\n\t\t\"status\": 200,\n\t\t\"message\": \"success\",\n\t\t\"data\": null\n\t}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "components/file/routes/file.doc.js",
+    "groupTitle": "File",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>The JWT-token header: &quot;JWT {{ TOKEN }}&quot;.</p>"
+          }
+        ]
+      }
+    },
     "error": {
       "fields": {
         "Error 4xx": [
