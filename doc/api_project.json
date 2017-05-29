@@ -5,12 +5,15 @@
   "__comment": "apidoc -i components/ -o doc/",
   "title": "Zonnebloem API",
   "url": "https://zonnebloem-api.herokuapp.com",
+  "order": [
+    "Model"
+  ],
   "sampleUrl": false,
   "defaultVersion": "0.0.0",
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2017-05-26T17:17:25.565Z",
+    "time": "2017-05-28T15:53:05.856Z",
     "url": "http://apidocjs.com",
     "version": "0.17.5"
   }

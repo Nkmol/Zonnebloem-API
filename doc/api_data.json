@@ -372,7 +372,7 @@
             "type": "Department",
             "optional": false,
             "field": "data",
-            "description": "<p>of <a href=\"#api-Department-Model\">Department</a> for the specified id</p>"
+            "description": "<p><a href=\"#api-Department-Model\">Department</a> for the specified id</p>"
           },
           {
             "group": "Success 200",
@@ -492,14 +492,14 @@
           },
           {
             "group": "Model",
-            "type": "GeoJSON",
+            "type": "<a href=\"http://geojson.org/\">GeoJSON</a>",
             "optional": true,
             "field": "location_coordinates",
             "description": ""
           },
           {
             "group": "Model",
-            "type": "Object",
+            "type": "String",
             "optional": true,
             "field": ".type",
             "description": "<p><b>Default: </b> <code>Point</code></p>"
@@ -507,6 +507,7 @@
           {
             "group": "Model",
             "type": "Number[]",
+            "size": "2",
             "optional": false,
             "field": ".coordinates",
             "description": "<p><b>Default: </b> <code>[0, 0]</code></p>"
@@ -1217,7 +1218,7 @@
             "type": "String[]",
             "optional": false,
             "field": "String",
-            "description": "<p>of the links you want to delete</p>"
+            "description": "<p>Array of the links you want to delete</p>"
           }
         ]
       },
@@ -1477,7 +1478,7 @@
             "type": "Obstacle",
             "optional": false,
             "field": "data",
-            "description": "<p>of <a href=\"#api-Obstacle-Model\">Obstacle</a> for the specified id</p>"
+            "description": "<p><a href=\"#api-Obstacle-Model\">Obstacle</a> for the specified id</p>"
           },
           {
             "group": "Success 200",
@@ -1592,7 +1593,7 @@
           },
           {
             "group": "Model",
-            "type": "GeoJSON",
+            "type": "<a href=\"http://geojson.org/\">GeoJSON</a>",
             "optional": true,
             "field": "geometry",
             "description": ""
@@ -1600,16 +1601,17 @@
           {
             "group": "Model",
             "type": "String",
-            "optional": false,
+            "optional": true,
             "field": ".type",
-            "description": "<p>default &quot;Point&quot;</p>"
+            "description": "<p><b>Default: </b> <code>Point</code></p>"
           },
           {
             "group": "Model",
-            "type": "[Double[]]",
+            "type": "Number[]",
+            "size": "2",
             "optional": false,
             "field": ".coordinates",
-            "description": "<p>Array containing long and lang</p>"
+            "description": "<p>Array containing longitude and langitude</p>"
           },
           {
             "group": "Model",
@@ -1628,16 +1630,28 @@
           {
             "group": "Model",
             "type": "String",
+            "allowedValues": [
+              "\"NEW\"",
+              "\"REPORTED\"",
+              "\"DECLINED\"",
+              "\"IN_PROGRESS\"",
+              "\"SOLVED\""
+            ],
             "optional": false,
             "field": "state",
-            "description": "<p>enum <code>[ NEW, REPORTED, DECLINED, IN_PORGRESS, SOLVED ]</code></p>"
+            "description": "<p>defines the state of the reported obstacle</p>"
           },
           {
             "group": "Model",
             "type": "String",
+            "allowedValues": [
+              "\"HIGH\"",
+              "\"MEDIUM\"",
+              "\"LOW\""
+            ],
             "optional": false,
             "field": "factor",
-            "description": "<p>enum <code>[ HIGH, MEDIUM, LOW ]</code></p>"
+            "description": "<p>defines the factor of the reported obstacle</p>"
           }
         ]
       }
@@ -2106,7 +2120,7 @@
             "type": "Report",
             "optional": false,
             "field": "data",
-            "description": "<p>of <a href=\"#api-report-Model\">report</a> for the specified id</p>"
+            "description": "<p><a href=\"#api-report-Model\">Report</a> for the specified id</p>"
           },
           {
             "group": "Success 200",
@@ -2721,7 +2735,7 @@
             "type": "Route",
             "optional": false,
             "field": "data",
-            "description": "<p>of <a href=\"#api-Route-Model\">Route</a> for the specified id</p>"
+            "description": "<p><a href=\"#api-Route-Model\">Route</a> for the specified id</p>"
           },
           {
             "group": "Success 200",
@@ -2856,9 +2870,9 @@
           {
             "group": "Model",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": ".type",
-            "description": "<p><b>Default: </b> &quot;LineString&quot;</p>"
+            "description": "<p><b>Default: </b> <code>LineString</code></p>"
           },
           {
             "group": "Model",
@@ -2869,7 +2883,7 @@
           },
           {
             "group": "Model",
-            "type": "obstacles[]",
+            "type": "Obstacle[]",
             "optional": true,
             "field": "obstacles",
             "description": "<p>Array of <a href=\"#api-Obstacle-Model\">Obstacle</a>s</p>"
@@ -3343,7 +3357,7 @@
             "type": "User",
             "optional": false,
             "field": "data",
-            "description": "<p>of <a href=\"#api-User-Model\">User</a> for the specified id</p>"
+            "description": "<p><a href=\"#api-User-Model\">User</a> for the specified id</p>"
           },
           {
             "group": "Success 200",
@@ -3513,16 +3527,23 @@
           {
             "group": "Model",
             "type": "String",
+            "allowedValues": [
+              "\"ADMIN\"",
+              "\"MODERATOR\"",
+              "\"CONTROLER\"",
+              "\"VOLUNTEER\"",
+              "\"GUEST\""
+            ],
             "optional": false,
             "field": ".role",
-            "description": "<p>enum <code>[ &quot;ADMIN&quot;, &quot;MODERATOR&quot;, &quot;CONTROLER&quot;, &quot;VOLUNTEER&quot;, &quot;GUEST&quot;]</code></p>"
+            "description": ""
           },
           {
             "group": "Model",
             "type": "Department",
             "optional": true,
             "field": ".department",
-            "description": ""
+            "description": "<p><a href=\"#api-Department-Model\">Department</a> where the role applies to</p>"
           },
           {
             "group": "Model",

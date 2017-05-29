@@ -12,9 +12,9 @@
  * @apiSuccess (Model) {String} name
  * @apiSuccess (Model) {String} [code]
  * @apiSuccess (Model) {String} [tel]
- * @apiSuccess (Model) {GeoJSON} [location_coordinates]
- * @apiSuccess (Model) {Object}     [.type] <b>Default: </b> `Point`
- * @apiSuccess (Model) {Number[]}   .coordinates <b>Default: </b> `[0, 0]`
+ * @apiSuccess (Model) {[GeoJSON](http://geojson.org/)} [location_coordinates]
+ * @apiSuccess (Model) {String}     [.type] <b>Default: </b> `Point`
+ * @apiSuccess (Model) {Number[]{2}}   .coordinates <b>Default: </b> `[0, 0]`
  * @apiSuccess (Model) {Object} [address]
  * @apiSuccess (Model) {String}     .street
  * @apiSuccess (Model) {String}     .house_number
@@ -49,7 +49,7 @@
  * @apiParam (Query) {String} id MongoID
  *
  * @apiUse Response
- * @apiSuccess {Department} data of <a href="#api-Department-Model">Department</a> for the specified id
+ * @apiSuccess {Department} data <a href="#api-Department-Model">Department</a> for the specified id
  *
  */
 
