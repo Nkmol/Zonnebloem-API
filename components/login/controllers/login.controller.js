@@ -31,21 +31,21 @@ class LoginController extends BaseController {
     login(req, res, next) {
         let body = req.body;
         
-        body.username = body.username.toLowerCase();
+        body.email = body.email.toLowerCase();
 
         return new Promise((resolve, reject) => {
             // Early exit
-            if (!(body.username && body.password)) {
-                this.throw("Please provide 'username' and 'password'", 400);
+            if (!(body.email && body.password)) {
+                this.throw("Please provide 'email' and 'password'", 400);
             }
 
             resolve();
         })
-        .then(() => User.findOne({ "username": body.username }).select("+password"))
+        .then(() => User.findOne({ "email": body.email }).select("+password"))
         .then(doc => {
-            // 'Validate' username
+            // 'Validate' email
             if (!doc) {
-                this.throw("The given combination of password and username did not exist.", 401);
+                this.throw("The given combination of password and email did not exist.", 401);
             }
 
             return doc;
@@ -80,13 +80,12 @@ class LoginController extends BaseController {
 
         return new Promise((resolve, reject) => {
             // Check input
-            if (!(body.username && body.password && body.email)) {
-                this.throw("Please provide all the fields required 'username', 'password' and 'email'", 400);
+            if (!(body.password && body.email)) {
+                this.throw("Please provide all the fields required 'email' and 'password'", 400);
             }
 
             resolve();
         })
-        // @ts-ignore
         .then(() => User.generateHash(body.password))
         .then(hash => {
             // create user and save
