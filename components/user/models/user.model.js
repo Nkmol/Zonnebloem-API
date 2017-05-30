@@ -28,14 +28,6 @@ let userRoleSchema = new Schema({
 }, { "_id": false });
 
 let userSchema = new Schema({
-    "username": {
-        "type": String,
-        "minlength": 1,
-        "unique": true,
-        "required": true,
-        "lowercase": true,
-        "trim": true
-    },
     "password": {
         "type": String,
         "minlength": 1,
@@ -44,6 +36,8 @@ let userSchema = new Schema({
     },
     "email": {
         "type": String,
+        "minlength": 5,
+        "unique": true,
         "required": true,
         "lowercase": true,
         "trim": true

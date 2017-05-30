@@ -5,6 +5,97 @@
     "title": "Login",
     "name": "Login",
     "group": "Authorization",
+    "version": "0.0.2",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>username login</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>email login</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "JSON",
+            "optional": false,
+            "field": "400/BadRequest",
+            "description": "<p><code>Response.message</code> : Please provide 'email' and 'password'</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "JSON",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p><code>Response.message</code> : The given combination of password and email did not exist.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "User",
+            "optional": false,
+            "field": "data",
+            "description": "<p><a href=\"#api-User-Model\">User</a> that has been logged in</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>The JWT-token for your user</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Indicates if request has been succesfully handled (<code>status === 200</code>)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Response status</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>null</code> on success</p>"
+          }
+        ]
+      }
+    },
+    "filename": "components/login/routers/login.doc.js",
+    "groupTitle": "Authorization"
+  },
+  {
+    "type": "post",
+    "url": "/login",
+    "title": "Login",
+    "name": "Login",
+    "group": "Authorization",
     "version": "0.0.1",
     "parameter": {
       "fields": {
@@ -42,6 +133,102 @@
             "optional": false,
             "field": "401/Unauthorized",
             "description": "<p><code>Response.message</code> : The given combination of password and username did not exist.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "User",
+            "optional": false,
+            "field": "data",
+            "description": "<p><a href=\"#api-User-Model\">User</a> that has been logged in</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>The JWT-token for your user</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Indicates if request has been succesfully handled (<code>status === 200</code>)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Response status</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>null</code> on success</p>"
+          }
+        ]
+      }
+    },
+    "filename": "components/login/routers/login.doc.js",
+    "groupTitle": "Authorization"
+  },
+  {
+    "type": "post",
+    "url": "/register",
+    "title": "Register",
+    "name": "Register",
+    "group": "Authorization",
+    "version": "0.0.2",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>application/json</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "User",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Able to post a whole <a href=\"#api-User-Model\">User</a></p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "JSON",
+            "optional": false,
+            "field": "400/BadRequest",
+            "description": "<p><code>Response.message</code> : Please provide 'password' and 'email'</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "JSON",
+            "optional": false,
+            "field": "409/ConflictMail",
+            "description": "<p><code>Response.message</code> : An account has already been registrated to this mailadress.</p>"
           }
         ]
       }
@@ -3410,6 +3597,153 @@
         ]
       }
     }
+  },
+  {
+    "type": "none",
+    "url": "/",
+    "title": "Model Structure",
+    "version": "0.0.3",
+    "name": "Model",
+    "group": "User",
+    "deprecated": {
+      "content": "This is only used to define the model."
+    },
+    "success": {
+      "fields": {
+        "Model Autogenerated": [
+          {
+            "group": "Model Autogenerated",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>MongoID this is autogenerated depending on the HTTP method</p>"
+          },
+          {
+            "group": "Model Autogenerated",
+            "type": "String",
+            "optional": false,
+            "field": "updated_at",
+            "description": "<p>Indicated when the document has been updated</p>"
+          },
+          {
+            "group": "Model Autogenerated",
+            "type": "String",
+            "optional": false,
+            "field": "created_at",
+            "description": "<p>Indicated when the document has been created</p>"
+          }
+        ],
+        "Model": [
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": true,
+            "field": "firstname",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": true,
+            "field": "lastname",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": true,
+            "field": "tel",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "Object",
+            "optional": true,
+            "field": "address",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": false,
+            "field": ".street",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": false,
+            "field": ".house_number",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": false,
+            "field": ".city",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": false,
+            "field": ".zip_code",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "Object[]",
+            "optional": true,
+            "field": "roles",
+            "description": "<p>A user can have multiple roles in multiple departments. <br /><b>Default: </b> one Role <code>{&quot;role&quot;: &quot;GUEST&quot;, &quot;department&quot;: null}</code></p>"
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "allowedValues": [
+              "\"ADMIN\"",
+              "\"MODERATOR\"",
+              "\"CONTROLER\"",
+              "\"VOLUNTEER\"",
+              "\"GUEST\""
+            ],
+            "optional": false,
+            "field": ".role",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "Department",
+            "optional": true,
+            "field": ".department",
+            "description": "<p><a href=\"#api-Department-Model\">Department</a> where the role applies to</p>"
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": true,
+            "field": "profile_image",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "Boolean",
+            "optional": true,
+            "field": "is_active",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "components/user/routes/user.doc.js",
+    "groupTitle": "User"
   },
   {
     "type": "none",
