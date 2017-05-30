@@ -59,7 +59,7 @@ class LoginController extends BaseController {
                     console.log('result', result);
 
                     if (!result) {
-                        this.throw("The given combination of password and username did not exist.", 401);
+                        this.throw("The given combination of password and email did not exist.", 401);
                     }
                 })
                 .then(() => doc); // continue doc chain
