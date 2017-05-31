@@ -27,7 +27,7 @@
  *
  * @apiDescription This can be really useful for cleaning the asset cloud once you not in need of certain assets anymore
  *
- * @apiParam {String[]} String of the links you want to delete
+ * @apiParam {String[]} String Array of the links you want to delete
  *
  * @apiParamExample {json} Request-Example:
  *     {

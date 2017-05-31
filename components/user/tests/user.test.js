@@ -33,7 +33,6 @@ class UserTest extends Spec {
             .expect(res => {
                 expect(res.body).to.be.a("Object");
                 expect(res.body.data).to.be.a("Object");
-                expect(res.body.data.username).to.equal(expectedUser.username); 
                 expect(res.body.data.email).to.equal(expectedUser.email);
             })
             .end(done);
@@ -48,7 +47,6 @@ class UserTest extends Spec {
             .expect(res => {
                 expect(res.body).to.be.a("Object");
                 expect(res.body.data).to.be.a("Object");
-                expect(res.body.data.username).to.equal(expectedUser.username);
                 expect(res.body.data.email).to.equal(expectedUser.email);
             })
             .end(done);
@@ -74,16 +72,18 @@ context("Users", () => {
 
     describe("GET /users/:id", () => {
 
-        let newUser = new User({username: "new_user", email: "new_user@gmail.com", password: "123456"})
+        let newUser = new User({email: "new_user@gmail.com", password: "123456"})
         let id = null;
 
         before(done => {
+            console.log(newUser);
             // create a test user
             newUser.save()
             .then(user => {
                 id = user._id;
                 done();
             })
+            .catch(console.error);
         })
 
         it("should fetch a single user", done => {
@@ -102,8 +102,8 @@ context("Users", () => {
 
     describe("PUT /users/:id", () => {
 
-        let newUser = new User({username: "new_user", email: "new_user@gmail.com", password: "123456"})
-        let updatedUser = {username: "new_user_updated", email: "new_user_updated@gmail.com"};
+        let newUser = new User({email: "new_user@gmail.com", password: "123456"})
+        let updatedUser = {email: "new_user_updated@gmail.com"};
         let id = null;
 
         before(done => {

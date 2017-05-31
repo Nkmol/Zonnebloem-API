@@ -5,6 +5,97 @@ define({ "api": [
     "title": "Login",
     "name": "Login",
     "group": "Authorization",
+    "version": "0.0.2",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>username login</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>email login</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "JSON",
+            "optional": false,
+            "field": "400/BadRequest",
+            "description": "<p><code>Response.message</code> : Please provide 'email' and 'password'</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "JSON",
+            "optional": false,
+            "field": "401/Unauthorized",
+            "description": "<p><code>Response.message</code> : The given combination of password and email did not exist.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "User",
+            "optional": false,
+            "field": "data",
+            "description": "<p><a href=\"#api-User-Model\">User</a> that has been logged in</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>The JWT-token for your user</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Indicates if request has been succesfully handled (<code>status === 200</code>)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Response status</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>null</code> on success</p>"
+          }
+        ]
+      }
+    },
+    "filename": "components/login/routers/login.doc.js",
+    "groupTitle": "Authorization"
+  },
+  {
+    "type": "post",
+    "url": "/login",
+    "title": "Login",
+    "name": "Login",
+    "group": "Authorization",
     "version": "0.0.1",
     "parameter": {
       "fields": {
@@ -42,6 +133,102 @@ define({ "api": [
             "optional": false,
             "field": "401/Unauthorized",
             "description": "<p><code>Response.message</code> : The given combination of password and username did not exist.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "User",
+            "optional": false,
+            "field": "data",
+            "description": "<p><a href=\"#api-User-Model\">User</a> that has been logged in</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>The JWT-token for your user</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Indicates if request has been succesfully handled (<code>status === 200</code>)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Response status</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p><code>null</code> on success</p>"
+          }
+        ]
+      }
+    },
+    "filename": "components/login/routers/login.doc.js",
+    "groupTitle": "Authorization"
+  },
+  {
+    "type": "post",
+    "url": "/register",
+    "title": "Register",
+    "name": "Register",
+    "group": "Authorization",
+    "version": "0.0.2",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>application/json</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "User",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Able to post a whole <a href=\"#api-User-Model\">User</a></p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "JSON",
+            "optional": false,
+            "field": "400/BadRequest",
+            "description": "<p><code>Response.message</code> : Please provide 'password' and 'email'</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "type": "JSON",
+            "optional": false,
+            "field": "409/ConflictMail",
+            "description": "<p><code>Response.message</code> : An account has already been registrated to this mailadress.</p>"
           }
         ]
       }
@@ -372,7 +559,7 @@ define({ "api": [
             "type": "Department",
             "optional": false,
             "field": "data",
-            "description": "<p>of <a href=\"#api-Department-Model\">Department</a> for the specified id</p>"
+            "description": "<p><a href=\"#api-Department-Model\">Department</a> for the specified id</p>"
           },
           {
             "group": "Success 200",
@@ -492,14 +679,14 @@ define({ "api": [
           },
           {
             "group": "Model",
-            "type": "GeoJSON",
+            "type": "<a href=\"http://geojson.org/\">GeoJSON</a>",
             "optional": true,
             "field": "location_coordinates",
             "description": ""
           },
           {
             "group": "Model",
-            "type": "Object",
+            "type": "String",
             "optional": true,
             "field": ".type",
             "description": "<p><b>Default: </b> <code>Point</code></p>"
@@ -507,6 +694,7 @@ define({ "api": [
           {
             "group": "Model",
             "type": "Number[]",
+            "size": "2",
             "optional": false,
             "field": ".coordinates",
             "description": "<p><b>Default: </b> <code>[0, 0]</code></p>"
@@ -1217,7 +1405,7 @@ define({ "api": [
             "type": "String[]",
             "optional": false,
             "field": "String",
-            "description": "<p>of the links you want to delete</p>"
+            "description": "<p>Array of the links you want to delete</p>"
           }
         ]
       },
@@ -1477,7 +1665,7 @@ define({ "api": [
             "type": "Obstacle",
             "optional": false,
             "field": "data",
-            "description": "<p>of <a href=\"#api-Obstacle-Model\">Obstacle</a> for the specified id</p>"
+            "description": "<p><a href=\"#api-Obstacle-Model\">Obstacle</a> for the specified id</p>"
           },
           {
             "group": "Success 200",
@@ -1592,7 +1780,7 @@ define({ "api": [
           },
           {
             "group": "Model",
-            "type": "GeoJSON",
+            "type": "<a href=\"http://geojson.org/\">GeoJSON</a>",
             "optional": true,
             "field": "geometry",
             "description": ""
@@ -1600,16 +1788,17 @@ define({ "api": [
           {
             "group": "Model",
             "type": "String",
-            "optional": false,
+            "optional": true,
             "field": ".type",
-            "description": "<p>default &quot;Point&quot;</p>"
+            "description": "<p><b>Default: </b> <code>Point</code></p>"
           },
           {
             "group": "Model",
-            "type": "[Double[]]",
+            "type": "Number[]",
+            "size": "2",
             "optional": false,
             "field": ".coordinates",
-            "description": "<p>Array containing long and lang</p>"
+            "description": "<p>Array containing longitude and langitude</p>"
           },
           {
             "group": "Model",
@@ -1628,16 +1817,28 @@ define({ "api": [
           {
             "group": "Model",
             "type": "String",
+            "allowedValues": [
+              "\"NEW\"",
+              "\"REPORTED\"",
+              "\"DECLINED\"",
+              "\"IN_PROGRESS\"",
+              "\"SOLVED\""
+            ],
             "optional": false,
             "field": "state",
-            "description": "<p>enum <code>[ NEW, REPORTED, DECLINED, IN_PORGRESS, SOLVED ]</code></p>"
+            "description": "<p>defines the state of the reported obstacle</p>"
           },
           {
             "group": "Model",
             "type": "String",
+            "allowedValues": [
+              "\"HIGH\"",
+              "\"MEDIUM\"",
+              "\"LOW\""
+            ],
             "optional": false,
             "field": "factor",
-            "description": "<p>enum <code>[ HIGH, MEDIUM, LOW ]</code></p>"
+            "description": "<p>defines the factor of the reported obstacle</p>"
           }
         ]
       }
@@ -2106,7 +2307,7 @@ define({ "api": [
             "type": "Report",
             "optional": false,
             "field": "data",
-            "description": "<p>of <a href=\"#api-report-Model\">report</a> for the specified id</p>"
+            "description": "<p><a href=\"#api-report-Model\">Report</a> for the specified id</p>"
           },
           {
             "group": "Success 200",
@@ -2721,7 +2922,7 @@ define({ "api": [
             "type": "Route",
             "optional": false,
             "field": "data",
-            "description": "<p>of <a href=\"#api-Route-Model\">Route</a> for the specified id</p>"
+            "description": "<p><a href=\"#api-Route-Model\">Route</a> for the specified id</p>"
           },
           {
             "group": "Success 200",
@@ -2856,9 +3057,9 @@ define({ "api": [
           {
             "group": "Model",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": ".type",
-            "description": "<p><b>Default: </b> &quot;LineString&quot;</p>"
+            "description": "<p><b>Default: </b> <code>LineString</code></p>"
           },
           {
             "group": "Model",
@@ -2869,7 +3070,7 @@ define({ "api": [
           },
           {
             "group": "Model",
-            "type": "obstacles[]",
+            "type": "Obstacle[]",
             "optional": true,
             "field": "obstacles",
             "description": "<p>Array of <a href=\"#api-Obstacle-Model\">Obstacle</a>s</p>"
@@ -3343,7 +3544,7 @@ define({ "api": [
             "type": "User",
             "optional": false,
             "field": "data",
-            "description": "<p>of <a href=\"#api-User-Model\">User</a> for the specified id</p>"
+            "description": "<p><a href=\"#api-User-Model\">User</a> for the specified id</p>"
           },
           {
             "group": "Success 200",
@@ -3396,6 +3597,153 @@ define({ "api": [
         ]
       }
     }
+  },
+  {
+    "type": "none",
+    "url": "/",
+    "title": "Model Structure",
+    "version": "0.0.3",
+    "name": "Model",
+    "group": "User",
+    "deprecated": {
+      "content": "This is only used to define the model."
+    },
+    "success": {
+      "fields": {
+        "Model Autogenerated": [
+          {
+            "group": "Model Autogenerated",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>MongoID this is autogenerated depending on the HTTP method</p>"
+          },
+          {
+            "group": "Model Autogenerated",
+            "type": "String",
+            "optional": false,
+            "field": "updated_at",
+            "description": "<p>Indicated when the document has been updated</p>"
+          },
+          {
+            "group": "Model Autogenerated",
+            "type": "String",
+            "optional": false,
+            "field": "created_at",
+            "description": "<p>Indicated when the document has been created</p>"
+          }
+        ],
+        "Model": [
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": true,
+            "field": "firstname",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": true,
+            "field": "lastname",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": true,
+            "field": "tel",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "Object",
+            "optional": true,
+            "field": "address",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": false,
+            "field": ".street",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": false,
+            "field": ".house_number",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": false,
+            "field": ".city",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": false,
+            "field": ".zip_code",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "Object[]",
+            "optional": true,
+            "field": "roles",
+            "description": "<p>A user can have multiple roles in multiple departments. <br /><b>Default: </b> one Role <code>{&quot;role&quot;: &quot;GUEST&quot;, &quot;department&quot;: null}</code></p>"
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "allowedValues": [
+              "\"ADMIN\"",
+              "\"MODERATOR\"",
+              "\"CONTROLER\"",
+              "\"VOLUNTEER\"",
+              "\"GUEST\""
+            ],
+            "optional": false,
+            "field": ".role",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "Department",
+            "optional": true,
+            "field": ".department",
+            "description": "<p><a href=\"#api-Department-Model\">Department</a> where the role applies to</p>"
+          },
+          {
+            "group": "Model",
+            "type": "String",
+            "optional": true,
+            "field": "profile_image",
+            "description": ""
+          },
+          {
+            "group": "Model",
+            "type": "Boolean",
+            "optional": true,
+            "field": "is_active",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "components/user/routes/user.doc.js",
+    "groupTitle": "User"
   },
   {
     "type": "none",
@@ -3513,16 +3861,23 @@ define({ "api": [
           {
             "group": "Model",
             "type": "String",
+            "allowedValues": [
+              "\"ADMIN\"",
+              "\"MODERATOR\"",
+              "\"CONTROLER\"",
+              "\"VOLUNTEER\"",
+              "\"GUEST\""
+            ],
             "optional": false,
             "field": ".role",
-            "description": "<p>enum <code>[ &quot;ADMIN&quot;, &quot;MODERATOR&quot;, &quot;CONTROLER&quot;, &quot;VOLUNTEER&quot;, &quot;GUEST&quot;]</code></p>"
+            "description": ""
           },
           {
             "group": "Model",
             "type": "Department",
             "optional": true,
             "field": ".department",
-            "description": ""
+            "description": "<p><a href=\"#api-Department-Model\">Department</a> where the role applies to</p>"
           },
           {
             "group": "Model",

@@ -14,6 +14,7 @@ let userRoleSchema = new Schema({
     "role": {
         "type": String,
         "enum": {
+            "uppercase": true,
             "values": ROLES,
             "default": "GUEST",
             "message": "`{VALUE}` is not a valid user role."
@@ -27,23 +28,19 @@ let userRoleSchema = new Schema({
 }, { "_id": false });
 
 let userSchema = new Schema({
-    "username": {
-        "type": String,
-        // minlength: 5,
-        // maxlength: 25,
-        "index": { "unique": true },
-        "required": true
-    },
     "password": {
         "type": String,
-        // minlength: 5,
-        // maxlength: 25,
+        "minlength": 1,
         "required": true,
         "select": false
     },
     "email": {
         "type": String,
-        "required": true
+        "minlength": 5,
+        "unique": true,
+        "required": true,
+        "lowercase": true,
+        "trim": true
     },
     "firstname": {
         "type": String
