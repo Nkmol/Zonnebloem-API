@@ -13,15 +13,15 @@
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "username",
-            "description": "<p>username login</p>"
+            "field": "email",
+            "description": "<p>email login</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "email",
-            "description": "<p>email login</p>"
+            "field": "password",
+            "description": "<p>password login</p>"
           }
         ]
       }

@@ -21,8 +21,8 @@
  * @apiGroup Authorization
  * @apiVersion 0.0.2
  *
- * @apiParam {String} username username login
  * @apiParam {String} email email login
+ * @apiParam {String} password password login
  *
  * @apiError {JSON} 400/BadRequest `Response.message` : Please provide 'email' and 'password'
  * @apiError {JSON} 401/Unauthorized `Response.message` : The given combination of password and email did not exist.
