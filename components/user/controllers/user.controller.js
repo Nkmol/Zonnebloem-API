@@ -59,14 +59,6 @@ class UserController extends BaseController {
     //         })
     // }
 
-    put(req, res, next) {
-        // Exclude fields from update
-        delete req.body.username;
-        delete req.body.password;
-
-        super.put(req, res, next);
-    }
-
     me(req, res, next) {
         let user = req.user;
         if (user) {

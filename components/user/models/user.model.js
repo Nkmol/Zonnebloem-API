@@ -8,7 +8,7 @@ let addressSchema = require("../../shared/address.schema");
 let bcrypt = require("bcrypt-nodejs");
 
 // User roles
-let ROLES = [ "ADMIN", "MODERATOR", "CONTROLER", "VOLUNTEER", "GUEST" ];
+let ROLES = [ "SUPER-ADMIN", "ADMIN", "MODERATOR", "CONTROLER", "VOLUNTEER", "GUEST" ];
 
 let userRoleSchema = new Schema({
     "role": {
@@ -80,6 +80,16 @@ userSchema.pre("save", false, function(next) {
 
     next();
 });
+
+var autoPopulateFields = function(next) {
+    this.populate("roles.department");
+    next();
+}
+
+userSchema
+    .pre('findById', autoPopulateFields)
+    .pre('findOne', autoPopulateFields)
+    .pre('find', autoPopulateFields)
 
 userSchema.statics.generateHash = function(password) {
     return new Promise((resolve, reject) => {
