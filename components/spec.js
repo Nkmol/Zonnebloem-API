@@ -16,7 +16,12 @@ let User = require('./user/models/user.model');
 const testUser = {
     username: 'test',
     email: 'test@gmail.com',
-    password: '123456'
+    password: '123456',
+    roles: [
+        {
+            role: "SUPER-ADMIN"
+        }
+    ]
 }
 
 // Wait unit the server is initialized 

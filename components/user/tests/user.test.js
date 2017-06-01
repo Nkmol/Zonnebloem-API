@@ -48,7 +48,7 @@ class UserTest extends Spec {
             .expect(res => {
                 expect(res.body).to.be.a("Object");
                 expect(res.body.data).to.be.a("Object");
-                expect(res.body.data.username).to.not.equal(expectedUser.username);
+                expect(res.body.data.username).to.equal(expectedUser.username);
                 expect(res.body.data.email).to.equal(expectedUser.email);
             })
             .end(done);
