@@ -8,7 +8,7 @@ let addressSchema = require("../../shared/address.schema");
 let bcrypt = require("bcrypt-nodejs");
 
 // User roles
-let ROLES = [ "SUPER-ADMIN", "ADMIN", "MODERATOR", "CONTROLER", "VOLUNTEER", "GUEST" ];
+let ROLES = [ "ADMIN", "MODERATOR", "CONTROLER", "VOLUNTEER", "GUEST" ];
 
 let userRoleSchema = new Schema({
     "role": {

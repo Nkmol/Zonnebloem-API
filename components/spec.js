@@ -19,7 +19,7 @@ const testUser = {
     password: '123456',
     roles: [
         {
-            role: "SUPER-ADMIN"
+            role: "ADMIN"
         }
     ]
 }

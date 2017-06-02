@@ -53,13 +53,24 @@ mongoose.connect()
         app.use(passport.initialize());
         require("./components/passport/jwt"); // implement JWT strategy
 
-        let {guards, roles} = require('./components/config/roles.config');
+        let {sharedGuards, roles} = require('./components/config/roles.config');
 
         let RoutesConfigurator = require("./components/config/routes.config");
         let routesConfigurator = new RoutesConfigurator(app);
         routesConfigurator.configureRoutes();
 
-        roles.use(guards.superAdmin.action);
+        roles.use((req) => {
+            let user = req.user;
+            if (user.roles && user.roles.length > 0) {
+                let isSuperAdmin = false;
+                user.roles.forEach(function(userRole) {
+                    if (userRole.role == "ADMIN") {
+                        isSuperAdmin = true;
+                    }
+                });
+                if (isSuperAdmin) return true;
+            }
+        });
      
       // catch 404 and forward to error handler
         app.use((req, res, next) => {
