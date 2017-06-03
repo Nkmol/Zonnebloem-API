@@ -3,6 +3,7 @@ let User = mongoose.model("User");
 let BaseController = require("./../../base.controller");
 let jwt = require("jsonwebtoken");
 let JWTConfig = require("./../../config/config").jwt;
+let mailService = require('../../services/mail.service');
 
 class LoginController extends BaseController {
 
@@ -104,6 +105,10 @@ class LoginController extends BaseController {
             return doc;
         })
         .then(user => {
+            // Notify the user that the registration is succeeded 
+            let subject = "Zonnebloem - Registratie voltooid";
+            let message = `Beste ${user.firstname},\n\nBedankt voor uw registratie.\n\nMet vriendelijke groeten,\nHet Zonnebloem team`;
+            mailService.sendMail(user.email, subject, message, null);
             // Generate valid token and return response
             let token = jwt.sign({ "id": user._id }, JWTConfig.secret);
             // Execlude the password from the response
