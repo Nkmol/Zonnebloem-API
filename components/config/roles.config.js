@@ -11,13 +11,4 @@ let rolesOptions = {
     }
 }
 
-let sharedGuards = {
-    me: {
-        key: "adjust user",
-        action: (req) => {
-            
-        }
-    }
-}
-
 module.exports =   new ConnectRoles(rolesOptions);
