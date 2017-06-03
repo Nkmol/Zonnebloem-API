@@ -8,7 +8,7 @@ class RoutesConfigurator {
     }
 
     configureRoutes() {
-        
+
         /** Authentication **/
         let LoginController = util.loadComponent("login", "controller");
         
