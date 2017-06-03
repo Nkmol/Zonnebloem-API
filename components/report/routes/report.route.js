@@ -24,7 +24,7 @@ roles.use('adjust report', (req) => {
     }
 })
 
-// the moderator is allowed to modify the obstacles
+// the moderator is allowed to modify the report
 roles.use((req) => {
     let me = req.user;
     if (me && (me.roles && me.roles.length > 0)) {
