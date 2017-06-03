@@ -15,11 +15,9 @@ let sharedGuards = {
     me: {
         key: "adjust user",
         action: (req) => {
-            if (req.params._id == req.user._id) return true;
+            
         }
     }
 }
 
-let roles = new ConnectRoles(rolesOptions);
-
-module.exports = {sharedGuards, roles}
+module.exports =   new ConnectRoles(rolesOptions);

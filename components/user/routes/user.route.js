@@ -1,12 +1,14 @@
 let router = require("express").Router();
 let controller = require("../controllers/user.controller");
-let {sharedGuards, roles} = require("../../config/roles.config");
+let roles = require("../../config/roles.config");
 let User = require('../models/user.model');
 
 router.use(roles.middleware());
 
 // SELF
-roles.use(sharedGuards.me.key, sharedGuards.me.action);
+roles.use('adjust user', (req) => {
+    if (req.params._id == req.user._id) return true;
+});
 // Moderator
 roles.use((req) => {
     let userId = req.params._id;
@@ -38,8 +40,8 @@ router.route("/me")
 
 router.route("/:_id")
     .get(controller.getOne)
-    .put(roles.can(sharedGuards.me.key), controller.put)
-    .patch(roles.can(sharedGuards.me.key), controller.patch)
-    .delete(roles.can(sharedGuards.me.key), controller.delete);
+    .put(roles.can('adjust user'), controller.put)
+    .patch(roles.can('adjust user'), controller.patch)
+    .delete(roles.can('adjust user'), controller.delete);
 
 module.exports = router;
