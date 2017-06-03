@@ -1,6 +1,7 @@
 let router = require("express").Router();
 let controller = require("../controllers/department.controller");
 let roles = require("../../config/roles.config");
+let JWTAuthenticator = require("../../passport/middlewares");
 
 router.use(roles.middleware());
 
@@ -21,12 +22,12 @@ roles.use('adjust department', (req) => {
 
 router.route("/")
     .get(controller.get)
-    .post(controller.create);
+    .post(JWTAuthenticator.authenticate, controller.create);
 
 router.route("/:_id")
     .get(controller.getOne)
-    .put(roles.can('adjust department'), controller.put)
-    .patch(roles.can('adjust department'), controller.patch)
-    .delete(roles.can('adjust department'), controller.delete);
+    .put([JWTAuthenticator.authenticate, roles.can('adjust department')], controller.put)
+    .patch([JWTAuthenticator.authenticate, roles.can('adjust department')], controller.patch)
+    .delete([JWTAuthenticator.authenticate, roles.can('adjust department')], controller.delete);
 
 module.exports = router;
