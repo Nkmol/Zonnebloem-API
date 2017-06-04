@@ -6,6 +6,8 @@ let cookieParser = require("cookie-parser");
 let bodyParser = require("body-parser");
 let chalk = require("chalk");
 let cors = require("cors");
+let flash = require('express-flash');
+let session = require('express-session');
 
 let mongoose = require("./components/database/mongoose");
 let util = require("./components/utilities");
@@ -24,6 +26,7 @@ mongoose.connect()
         .then(() => console.log(chalk.green("Loaded all models")));
     })
     .then(() => {
+        app.use(session({ secret: 'thezonnebloemisagreatorganization' }));
         app.use(express.static("doc"));
 
       // view engine setup
@@ -44,6 +47,7 @@ mongoose.connect()
         }));
         app.use(express.static(path.join(__dirname, "public")));
         app.use(cors());
+        app.use(flash());
     })
     .then(() => {
       // Setup routing

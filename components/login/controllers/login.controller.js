@@ -4,6 +4,7 @@ let BaseController = require("./../../base.controller");
 let jwt = require("jsonwebtoken");
 let JWTConfig = require("./../../config/config").jwt;
 let mailService = require('../../services/mail.service');
+let crypto = require('crypto');
 
 class LoginController extends BaseController {
 
@@ -116,6 +117,103 @@ class LoginController extends BaseController {
             return res.json(this._combineStatus({ "token": token, "data": user })); // Add token to default response
         })
         .catch(error => this._errorHandler(res, error));
+    }
+
+    forgot(req, res, next) {
+        return new Promise((resolve, reject) => {
+            crypto.randomBytes(20, (e, buf) => {
+                if (e) reject(e);
+                let token = buf.toString('hex');
+                resolve(token);
+            })
+        }).then(token => {
+            return User.findOne({ email: req.body.email })
+                .then(user => {
+                    if (!user) {
+                        return res.status(404).json(this._combineStatus({ message: "User does not exist for the provided email", status: res.statusCode }));
+                    }
+                    user.resetPasswordToken = token;
+                    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+                    return user.save().then(() => {
+                        return {token, user}
+                    })
+                }) 
+        }).then(({token, user}) => {
+            let to = user.email;
+            let subject = "Zonnebloem wachtwoord resetten"
+
+            let proto = req.connection.encrypted ? 'https' : 'http';
+            let host = req.headers.host;
+            let message = 
+                'U krijgt deze mail omdat u (of iemand anders) een verzoek heeft gedaan om het wachtwoord te veranderen\n\n' +
+                'Klik op de volgende link, om dit proces te voltooien:\n\n' + 
+                proto + '://' + host + '/reset/' + token + '\n\n' + 
+                'Heeft u geen verzoek gedaan tot het resetten van het wachtwoord? Dan kunt u deze email negeren en uw wachtwoord blijft onveranderd.';
+            return mailService.sendMail(to, subject, message, null);
+        }).then(info => {
+            return res.json(this._combineStatus({ message: "Een email is verstuurd naar de gebruiker" }));
+        }).catch(e => {
+            return res.status(400).json(this._combineStatus({ status: res.statusCode }));
+        })
+        
+    }
+
+    showReset(req, res, next) {
+        res.render('reset/index', {
+            token: req.params.token
+        });
+    }
+
+    reset(req, res, next) {
+        let token = req.params.token;
+        let password = req.body.password;
+        let confirm = req.body.confirm;
+
+        if (!password || !confirm) {
+            req.flash('error', 'Beide velden zijn verplicht');
+            return res.redirect('back');
+        }
+
+        User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } })
+            .then(user => {
+                if (!user) {
+                    req.flash('error', 'De token om het wachtwoord te resetten is ongeldig of is al verlopen!');
+                    return res.redirect('back');
+                }
+                if (password !== confirm) {
+                    req.flash('error', 'Het wachtwoord combinatie komt niet overeen!');
+                    return res.redirect('back');
+                }
+                return User.generateHash(password).then(hash => { return {user, hash} });
+            })
+            .then(({user, hash}) => {
+                user.password = hash;
+                user.resetPasswordToken = undefined;
+                user.resetPasswordExpires = undefined;
+
+                return user.save();
+            })
+            .then(userDoc => {
+
+                let recipientName = (userDoc.firstname) ? userDoc.firstname : 'lid van de Zonnebloem';
+                
+
+                let to = userDoc.email;
+                let subject = 'Uw wachtwoord is veranderd';
+                let message = 'Beste ' + userDoc.firstname + ',\n\n' +
+                'Dit is een bevestiging dat het wachtwoord voor uw account ' + userDoc.email + ' is aangepast.\n\n' +
+                'Met vriendelijke groeten,\n' +
+                'Het Zonnebloem team';
+                mailService.sendMail(to, subject, message, null).then(info => {
+                    req.flash('success', 'Uw wachtwoord is aangepast.');
+                    res.redirect('back');
+                });
+            })
+            .catch(e => {
+                res.redirect(`/reset/${token}`);
+            })
+
     }
 
 }
