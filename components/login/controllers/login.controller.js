@@ -32,14 +32,14 @@ class LoginController extends BaseController {
 
     login(req, res, next) {
         let body = req.body;
-        
-        body.email = body.email.toLowerCase();
 
         return new Promise((resolve, reject) => {
             // Early exit
             if (!(body.email && body.password)) {
                 this.throw("Please provide 'email' and 'password'", 400);
             }
+
+            body.email = body.email.toLowerCase();
 
             resolve();
         })
