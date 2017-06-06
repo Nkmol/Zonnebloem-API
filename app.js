@@ -6,6 +6,8 @@ let cookieParser = require("cookie-parser");
 let bodyParser = require("body-parser");
 let chalk = require("chalk");
 let cors = require("cors");
+let flash = require('express-flash');
+let session = require('express-session');
 
 let mongoose = require("./components/database/mongoose");
 let util = require("./components/utilities");
@@ -13,6 +15,8 @@ let config = require("./components/config/config");
 
 let passport = require("passport");
 let app = express();
+
+let ConnectRoles = require('connect-roles');
 
 mongoose.connect()
     .then(() => {
@@ -22,6 +26,7 @@ mongoose.connect()
         .then(() => console.log(chalk.green("Loaded all models")));
     })
     .then(() => {
+        app.use(session({ secret: 'thezonnebloemisagreatorganization' }));
         app.use(express.static("doc"));
 
       // view engine setup
@@ -42,6 +47,7 @@ mongoose.connect()
         }));
         app.use(express.static(path.join(__dirname, "public")));
         app.use(cors());
+        app.use(flash());
     })
     .then(() => {
       // Setup routing
@@ -51,10 +57,24 @@ mongoose.connect()
         app.use(passport.initialize());
         require("./components/passport/jwt"); // implement JWT strategy
 
+        let roles = require('./components/config/roles.config');
+
         let RoutesConfigurator = require("./components/config/routes.config");
         let routesConfigurator = new RoutesConfigurator(app);
-
         routesConfigurator.configureRoutes();
+
+        roles.use((req) => {
+            let user = req.user;
+            if (user.roles && user.roles.length > 0) {
+                let isAdmin = false;
+                user.roles.forEach(function(userRole) {
+                    if (userRole.role == "ADMIN") {
+                        isAdmin = true;
+                    }
+                });
+                if (isAdmin) return true;
+            }
+        });
      
       // catch 404 and forward to error handler
         app.use((req, res, next) => {

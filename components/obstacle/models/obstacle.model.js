@@ -64,6 +64,15 @@ let obstacleSchema = new Schema({
     }
 });
 
+var autoPopulateFields = function(next) {
+    this.populate("created_by");
+    next();
+}
+
 obstacleSchema.index({ "location_coordinates": "2dsphere" });
+obstacleSchema
+    .pre('find', autoPopulateFields)
+    .pre('findById', autoPopulateFields)
+    .pre('findOne', autoPopulateFields);
 
 module.exports = mongoose.model("Obstacle", obstacleSchema);

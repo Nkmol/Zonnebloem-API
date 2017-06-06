@@ -8,7 +8,7 @@ class RoutesConfigurator {
     }
 
     configureRoutes() {
-        
+
         /** Authentication **/
         let LoginController = util.loadComponent("login", "controller");
         
@@ -18,6 +18,14 @@ class RoutesConfigurator {
         this.app.post("/register",
             LoginController.isLoggedIn,
             LoginController.register);
+
+        this.app.post("/forgot",
+            LoginController.forgot);
+        
+        this.app.get('/reset/:token',
+            LoginController.showReset);
+        this.app.post('/reset/:token',
+            LoginController.reset);
         
         /** File */
         this.app.use("/files",
@@ -36,7 +44,6 @@ class RoutesConfigurator {
             
         /** Department **/
         this.app.use('/departments',
-            JWTAuthenticator.authenticate,
             util.loadComponent("department", "route"));
 
         /** Report **/

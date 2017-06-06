@@ -58,14 +58,17 @@ let userSchema = new Schema({
     },
     "is_active": {
         "type": Boolean
-    }
+    },
+    "resetPasswordToken": String,
+    "resetPasswordExpires": Date
 },
     {
         "timestamps": {
             "createdAt": "created_at",
             "updatedAt": "updated_at"
         }
-    });
+    }
+    );
    
 // Load default user role if none are specified
 userSchema.pre("save", false, function(next) {
@@ -74,9 +77,18 @@ userSchema.pre("save", false, function(next) {
         this.roles = [];
         this.roles.push({ "role": "GUEST" });
     }
-
     next();
 });
+
+var autoPopulateFields = function(next) {
+    this.populate("roles.department");
+    next();
+}
+
+userSchema
+    .pre('findById', autoPopulateFields)
+    .pre('findOne', autoPopulateFields)
+    .pre('find', autoPopulateFields)
 
 userSchema.statics.generateHash = function(password) {
     return new Promise((resolve, reject) => {

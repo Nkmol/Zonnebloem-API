@@ -21,8 +21,8 @@
  * @apiGroup Authorization
  * @apiVersion 0.0.2
  *
+ * @apiParam {String} username username login
  * @apiParam {String} email email login
- * @apiParam {String} password password login
  *
  * @apiError {JSON} 400/BadRequest `Response.message` : Please provide 'email' and 'password'
  * @apiError {JSON} 401/Unauthorized `Response.message` : The given combination of password and email did not exist.
@@ -67,4 +67,21 @@
  * @apiUse Response
  * @apiSuccess {User} data <a href="#api-User-Model">User</a> that has been logged in
  * @apiSuccess {String} token The JWT-token for your user
+ */
+
+/**
+ * @api {post} /forgot Forgot
+ * @apiName Forgot
+ * @apiGroup Authorization
+ * @apiVersion 0.0.2
+ *
+ * @apiHeader Content-Type application/json
+ *
+ * @apiParam {String} Email The user's email
+ *
+ * @apiError {JSON} 404/NotFound `Response.message` : User does not exist for the provided email
+ * @apiError {JSON} 400/BadRequest
+ *
+ * @apiUse Response
+ * @apiSuccess {String} message Email is verstuurd naar de gebruiker
  */
