@@ -71,7 +71,25 @@ class BaseController {
     }
     
     get(req, res, next) {
-        return this._model.find(req.params)
+
+        let paginationOptions = {
+            "page": 1,
+            "limit": 5
+        };
+
+        if (req.query.page) {
+            paginationOptions.page = parseInt(req.query.page);
+        }
+
+        if (req.query.limit) {
+            paginationOptions.limit = parseInt(req.query.limit);
+        }
+
+        if (req.query.sort) {
+            paginationOptions.sort = req.query.sort;
+        }
+
+        return this._model.paginate({}, paginationOptions)
             .then(doc => {
                 res.json(this._combineStatus({ "data": doc }));
                 return doc;
