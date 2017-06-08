@@ -2,6 +2,7 @@ let router = require("express").Router();
 let controller = require("../controllers/user.controller");
 let roles = require("../../config/roles.config");
 let User = require('../models/user.model');
+let filterMiddleware = require("../../filterMiddleware");
 
 router.use(roles.middleware());
 
@@ -32,8 +33,12 @@ roles.use((req) => {
 });
 
 router.route("/")
-    .get(controller.get)
+    .get(filterMiddleware([ "firstname", "lastname", "roles.role", "email", "is_active" ]), controller.get)
     .post(controller.create);
+
+// deep filtering users by role or deparment
+router.route("/roles")
+    .get(filterMiddleware([ "roles.role" ]), controller.get);
 
 router.route("/me")
     .get(controller.me);

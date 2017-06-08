@@ -71,7 +71,10 @@ class BaseController {
     }
     
     get(req, res, next) {
-        return this._model.find(req.params)
+
+        let filter = (req.filter) ? req.filter : req.params;
+
+        return this._model.find(filter)
             .then(doc => {
                 res.json(this._combineStatus({ "data": doc }));
                 return doc;

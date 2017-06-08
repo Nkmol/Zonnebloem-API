@@ -2,6 +2,7 @@ let router = require("express").Router();
 let controller = require("../controllers/obstacle.controller");
 let roles = require("../../config/roles.config");
 let Obstacle = require('../models/obstacle.model');
+let filterMiddleware = require("../../filterMiddleware");
 
 router.use(roles.middleware());
 
@@ -39,7 +40,7 @@ roles.use((req) => {
 })
 
 router.route("/")
-    .get(controller.get)
+    .get(filterMiddleware([ "title", "state", "factor" ]), controller.get)
     .post(controller.create);
 
 router.route("/:_id")
