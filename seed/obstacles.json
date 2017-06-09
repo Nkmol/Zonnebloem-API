@@ -15,7 +15,8 @@
                     4.77571,
                     51.58821
                 ]
-            }
+            },
+            "created_by": "5920429515f8fa0011c96b87"
         },
         {
             "_id": "117f1f77bcf11cd799439022",
@@ -31,7 +32,8 @@
                     4.7731474,
                     51.5871648
                 ]
-            }
+            },
+            "created_by": "5920429515f8fa0011c96b87"
         },
         {
             "_id": "447f1f77bcf11cd799439022",
@@ -47,7 +49,8 @@
                     4.780335,
                     51.596582
                 ]
-            }
+            },
+            "created_by": "5920429515f8fa0011c96b87"
         },
         {
             "_id": "227f1f77bcf86cd799439022",
@@ -61,9 +64,10 @@
             "geometry": {
                 "coordinates": [
                     4.780756,
-                    51.589001                
+                    51.589001
                 ]
-            }
+            },
+            "created_by": "5920429515f8fa0011c96b87"
         },
         {
             "_id": "337f1f77bcf86cd799439022",
@@ -81,7 +85,8 @@
                     4.771090,
                     51.584359
                 ]
-            }
+            },
+            "created_by": "5920429515f8fa0011c96b87"
         },
         {
             "_id": "591eea214751cb00113e34f5",
@@ -99,7 +104,8 @@
                     4.775188,
                     51.588229
                 ]
-            }
+            },
+            "created_by": "5920429515f8fa0011c96b87"
         },
         {
             "_id": "651b4dd270ee3f28d881d1c7",
@@ -113,7 +119,8 @@
                     -110.8571443,
                     32.4586858
                 ]
-            }
+            },
+            "created_by": "5920429515f8fa0011c96b87"
         },
         {
             "_id": "231b4dd270ee3f28d881d1c7",
@@ -127,7 +134,8 @@
                     4.776556,
                     51.588062
                 ]
-            }
+            },
+            "created_by": "5920429515f8fa0011c96b87"
         },
         {
             "_id": "541b4dd270ee3f28d881d1c7",
@@ -141,7 +149,8 @@
                     4.775313,
                     51.588226
                 ]
-            }
+            },
+            "created_by": "5920429515f8fa0011c96b87"
         },
         {
             "_id": "432b4dd270ee3f28d881d1c7",
@@ -155,7 +164,349 @@
                     4.775310,
                     51.588167
                 ]
+            },
+            "created_by": "5920429515f8fa0011c96b87"
+        },
+        {
+            "_id": "593846949c8bb3001140f050",
+            "title": "Mijn mac zit in de weg",
+            "description": "Adieu",
+            "created_by": "5937eb9c9c8bb3001140f04f",
+            "state": "NEW",
+            "factor": "MEDIUM",
+            "created_at": "2017-06-07T18:31:48.380Z",
+            "updated_at": "2017-06-07T18:31:48.380Z",
+            "images": [
+                "https://cdn.filestackcontent.com/ywp5CH6xT6idoBwB0wB9",
+                "https://cdn.filestackcontent.com/is8LLwTaQgGIGaIQxFd7",
+                "https://cdn.filestackcontent.com/8hLHoL1oRgyqfDn9Go5N"
+            ],
+            "geometry": {
+                "coordinates": [
+                    5.3114146,
+                    51.6994168
+                ],
+                "type": "Point"
             }
+        },
+        {
+            "_id": "5936abcb6c85040011a3840e",
+            "title": "Ferry zit in de weg!",
+            "description": "Manmanmanmanmanman",
+            "created_by": "5937eb9c9c8bb3001140f04f",
+            "state": "NEW",
+            "factor": "HIGH",
+            "created_at": "2017-06-06T13:19:07.123Z",
+            "updated_at": "2017-06-06T13:19:07.123Z",
+            "images": [
+                "https://cdn.filestackcontent.com/zzuTF6mMS7aRCfaKKyBj"
+            ],
+            "geometry": {
+                "coordinates": [
+                    5.2859526,
+                    51.6880811
+                ],
+                "type": "Point"
+            }
+        },
+        {
+            "_id": "59318add90c97700119d7798",
+            "title": "Belemmering bij deuren",
+            "description": "Jsjsjszz",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.39909572509944,
+                    51.8731780120614
+                ]
+            },
+            "created_by": "5937eb9c9c8bb3001140f04f",
+            "images": [
+                "https://cdn.filestackcontent.com/Sefl5trT5KthA6u3Aul0"
+            ],
+            "state": "NEW",
+            "factor": "HIGH",
+            "created_at": "2017-06-02T15:57:17.412Z",
+            "updated_at": "2017-06-02T15:57:17.412Z"
+        },
+        {
+            "_id": "5928538f2bea4d001101f1c2",
+            "title": "Boom staat in de weg",
+            "description": "Test",
+            "created_by": "5937eb9c9c8bb3001140f04f",
+            "state": "NEW",
+            "factor": "HIGH",
+            "created_at": "2017-05-26T16:10:55.513Z",
+            "updated_at": "2017-05-26T16:10:55.513Z",
+            "images": [
+                "https://cdn.filestackcontent.com/YQmw5DkjTFKYawazX4Qj"
+            ],
+            "geometry": {
+                "coordinates": [
+                    0,
+                    0
+                ],
+                "type": "Point"
+            }
+        },
+        {
+            "_id": "59284e1b2bea4d001101f1bd",
+            "title": "Jamam zit in de weg!",
+            "description": "TEST",
+            "created_by": "5930810190c97700119d778f",
+            "state": "NEW",
+            "factor": "HIGH",
+            "created_at": "2017-05-26T15:47:39.463Z",
+            "updated_at": "2017-05-26T15:47:39.463Z",
+            "images": [
+                "https://cdn.filestackcontent.com/eOAiPDJiRpWi9bC5Nxy9"
+            ],
+            "geometry": {
+                "coordinates": [
+                    0,
+                    0
+                ],
+                "type": "Point"
+            }
+        },
+        {
+            "_id": "59284fc32bea4d001101f1c0",
+            "title": "Staat allemaal in de weg!!",
+            "description": "Test",
+            "created_by": "5930810190c97700119d778f",
+            "state": "NEW",
+            "factor": "LOW",
+            "created_at": "2017-05-26T15:54:43.354Z",
+            "updated_at": "2017-05-26T15:54:43.354Z",
+            "images": [
+                "https://cdn.filestackcontent.com/UiusCaNvRD2qQg3LBK7W"
+            ],
+            "geometry": {
+                "coordinates": [
+                    0,
+                    0
+                ],
+                "type": "Point"
+            }
+        },
+        {
+            "_id": "592b4327c5da510011d4c935",
+            "title": "Boom staat in de weg!!",
+            "description": "Test",
+            "created_by": "5930810190c97700119d778f",
+            "state": "NEW",
+            "factor": "HIGH",
+            "created_at": "2017-05-28T21:37:43.980Z",
+            "updated_at": "2017-05-28T21:37:43.980Z",
+            "images": [
+                "https://cdn.filestackcontent.com/jvU5hJjRQ8ZYYCKWLVxQ"
+            ],
+            "geometry": {
+                "coordinates": [
+                    0,
+                    0
+                ],
+                "type": "Point"
+            }
+        },
+        {
+            "_id": "592c010b3b67bf00119523b0",
+            "title": "Noob op aoe2",
+            "description": "Slechte farms",
+            "created_by": "5930810190c97700119d778f",
+            "state": "NEW",
+            "factor": "HIGH",
+            "created_at": "2017-05-29T11:07:55.694Z",
+            "updated_at": "2017-05-29T11:07:55.694Z",
+            "images": [
+                "https://cdn.filestackcontent.com/bqRB090BSbSWfsBDUsGY"
+            ],
+            "geometry": {
+                "coordinates": [
+                    0,
+                    0
+                ],
+                "type": "Point"
+            }
+        },
+        {
+            "_id": "592c0fb03b67bf00119523ba",
+            "title": "Vuuur",
+            "description": "Hai",
+            "created_by": "5931394b90c97700119d7795",
+            "state": "NEW",
+            "factor": "MEDIUM",
+            "created_at": "2017-05-29T12:10:24.550Z",
+            "updated_at": "2017-05-29T12:10:24.550Z",
+            "images": [
+                "https://cdn.filestackcontent.com/KcPhv9BnQSBYJsOnK5wD",
+                "https://cdn.filestackcontent.com/QLlNnM3REg3Cnh6egfQy"
+            ],
+            "geometry": {
+                "coordinates": [
+                    0,
+                    0
+                ],
+                "type": "Point"
+            }
+        },
+        {
+            "_id": "592c1970fc6fa80011679586",
+            "title": "Test",
+            "description": "Gsh",
+            "created_by": "5931394b90c97700119d7795",
+            "state": "NEW",
+            "factor": "MEDIUM",
+            "created_at": "2017-05-29T12:52:00.598Z",
+            "updated_at": "2017-05-29T12:52:00.598Z",
+            "images": [
+                "https://cdn.filestackcontent.com/ScUFjHpOSwKpxmd0W5Je"
+            ],
+            "geometry": {
+                "coordinates": [
+                    0,
+                    0
+                ],
+                "type": "Point"
+            }
+        },
+        {
+            "_id": "592c3534fc6fa80011679587",
+            "title": "Tafel in de weg",
+            "description": "Blabla",
+            "created_by": "5931394b90c97700119d7795",
+            "state": "NEW",
+            "factor": "HIGH",
+            "created_at": "2017-05-29T14:50:28.692Z",
+            "updated_at": "2017-05-29T14:50:28.692Z",
+            "images": [
+                "https://cdn.filestackcontent.com/p7dH9adFTlCN6pdTi7y1"
+            ],
+            "geometry": {
+                "coordinates": [
+                    0,
+                    0
+                ],
+                "type": "Point"
+            }
+        },
+        {
+            "_id": "592d3b5bfc6fa80011679588",
+            "title": "Aaazzzz",
+            "description": "sSs\n",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.398815,
+                    51.87329
+                ]
+            },
+            "created_by": "5937eb9c9c8bb3001140f04f",
+            "images": [
+                "https://cdn.filestackcontent.com/oN0X3YuWSQyMmFHyKWZp"
+            ],
+            "state": "IN_PROGRESS",
+            "factor": "HIGH",
+            "created_at": "2017-05-30T09:28:59.937Z",
+            "updated_at": "2017-05-30T09:28:59.937Z"
+        },
+        {
+            "_id": "592d5361fc6fa80011679589",
+            "title": "Bellumerung",
+            "description": "Lorem ipsum",
+            "created_by": "5931394b90c97700119d7795",
+            "state": "NEW",
+            "factor": "MEDIUM",
+            "created_at": "2017-05-30T11:11:29.282Z",
+            "updated_at": "2017-05-30T11:11:29.282Z",
+            "images": [
+                "https://cdn.filestackcontent.com/fuvLa2wCR1aXX4VOnwsX"
+            ],
+            "geometry": {
+                "coordinates": [
+                    5.227874,
+                    51.94622
+                ],
+                "type": "Point"
+            }
+        },
+        {
+            "_id": "592d7d021b04e100116e5294",
+            "title": "Lelijk hoofd",
+            "description": "Honder euro boete",
+            "created_by": "5931394b90c97700119d7795",
+            "state": "NEW",
+            "factor": "HIGH",
+            "created_at": "2017-05-30T14:09:06.099Z",
+            "updated_at": "2017-05-30T14:09:06.099Z",
+            "images": [
+                "https://cdn.filestackcontent.com/sHRL4M47TE6gCWMSweba"
+            ],
+            "geometry": {
+                "coordinates": [
+                    5.2864953,
+                    51.6878544
+                ],
+                "type": "Point"
+            }
+        },
+        {
+            "_id": "5937eb9c9c8bb3001140f04f",
+            "title": "Belemmering van de belemmering melding",
+            "description": "Inception! ",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.2877828,
+                    51.6901493
+                ]
+            },
+            "created_by": "5937eb9c9c8bb3001140f04f",
+            "images": [],
+            "state": "SOLVED",
+            "factor": "HIGH",
+            "created_at": "2017-05-31T17:48:57.443Z",
+            "updated_at": "2017-05-31T17:48:57.443Z"
+        },
+        {
+            "_id": "592fd77644f2a300111cccbc",
+            "title": "Fbsjszzzz",
+            "description": "Jsjsj",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.39884043404299,
+                    51.8732849422451
+                ]
+            },
+            "created_by": "5937eb9c9c8bb3001140f04f",
+            "images": [
+                "https://cdn.filestackcontent.com/BY3ftL80QEiNW8LTG2YH"
+            ],
+            "state": "NEW",
+            "factor": "LOW",
+            "created_at": "2017-06-01T08:59:34.539Z",
+            "updated_at": "2017-06-01T08:59:34.539Z"
+        },
+        {
+            "_id": "592ff02344f2a300111cccbd",
+            "title": "Sjsj",
+            "description": "Sjsjsj",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5.3986402325951,
+                    51.8733035091389
+                ]
+            },
+            "created_by": "5937eb9c9c8bb3001140f04f",
+            "images": [
+                "https://cdn.filestackcontent.com/kCBs5rqUTAmo837rZqgk"
+            ],
+            "state": "NEW",
+            "factor": "HIGH",
+            "created_at": "2017-06-01T10:44:51.998Z",
+            "updated_at": "2017-06-01T10:44:51.998Z"
         }
     ]
 }
