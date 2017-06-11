@@ -91,17 +91,12 @@ class BaseController {
 
         return this._model.paginate({}, paginationOptions)
             .then(result => {
-
-                let combinedResult = this._combineStatus({ "data": result.docs });
-
-                combinedResult.meta = {
+                res.json(this._combineStatus({ "data": result.docs, "meta": {
                     "total": result.total,
                     "limit": result.limit,
                     "page": result.page,
                     "pages": result.pages
-                };
-
-                res.json(combinedResult);
+                } }));
                 return result.docs;
             });
     }
