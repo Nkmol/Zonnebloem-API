@@ -40,9 +40,9 @@ roles.use((req) => {
 })
 
 router.route("/")
-    .get(filterMiddleware([ "title", "state", "factor" ]), controller.get)
+    .get(filterMiddleware(), controller.get)
     .post(controller.create);
-
+    
 router.route("/:_id")
     .get(controller.getOne)
     .put(roles.can('adjust obstacle'), controller.put)

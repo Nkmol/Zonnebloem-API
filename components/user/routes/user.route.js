@@ -33,13 +33,9 @@ roles.use((req) => {
 });
 
 router.route("/")
-    .get(filterMiddleware([ "firstname", "lastname", "roles.role", "email", "is_active" ]), controller.get)
+    .get(filterMiddleware(), controller.get)
     .post(controller.create);
-
-// deep filtering users by role or deparment
-router.route("/roles")
-    .get(filterMiddleware([ "roles.role" ]), controller.get);
-
+    
 router.route("/me")
     .get(controller.me);
 

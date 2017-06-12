@@ -40,7 +40,7 @@ roles.use((req) => {
 })
 
 router.route("/")
-    .get(filterMiddleware([ "", "" ]), controller.get)
+    .get(filterMiddleware(), controller.get)
     .post(controller.create);
 
 router.route("/created_by")

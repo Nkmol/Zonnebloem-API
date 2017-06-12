@@ -3,7 +3,7 @@ let filterMiddleware = require("../../filterMiddleware");
 let controller = require("../controllers/route.controller");
 
 router.route("/")
-    .get(filterMiddleware([ "name", "start_time", "end_time" ]), controller.get)
+    .get(filterMiddleware(), controller.get)
     .post(controller.create);
 
 router.route("/:_id")
