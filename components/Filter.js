@@ -6,64 +6,64 @@ module.exports = class Filter {
 
         this._filter = filters;
         this._model = model;
-        this._paths = {};
         this._excludedFields = [ "limit", "sort", "page" ];
-        this._preFilters = [];
-        this._postFilters = [];
+        this._fields = []; // contains model fields which are populated
+        this._referencedFields = []; // contains referenced model fields wich aren't populated before query
+        this._preFilter = {};
+        this._postFilter = {};
         this.setPrePostFields();
+        this.setFilters();
     }
 
     setPrePostFields() {
 
-        // Get reference props
+        // Get fields from model and check which are referenced fields
         this._model.schema.eachPath((path, pathType) => {
 
             if (pathType.options.ref) {
-                this._postFilters.push(path);
+                this._referencedFields.push(path);
             }
 
             else {
-                this._preFilters.push(path);
+                this._fields.push(path);
             }
         });
     }
 
-    getPreFilter() {
-
-        let filter = {};
+    setFilters() {
 
         Object.keys(this._filter).forEach((path) => {
 
             let pathSplit = path.split(".");
 
-            if (this._preFilters.indexOf(pathSplit[ 0 ]) > -1 && this._excludedFields.indexOf(pathSplit[ 0 ]) < 0) {
-                filter[ path ] = this._filter[ path ];
+            // If first part of path is a normal prop or subdocument field and not in excluded 
+            if (this._fields.indexOf(pathSplit[ 0 ]) > -1 && this._excludedFields.indexOf(pathSplit[ 0 ]) < 0) {
+                this._preFilter[ path ] = this._filter[ path ];
+            }
+            
+            // If first part of the path is a referenced (unpopulated) field and not excluded
+            if (this._referencedFields.indexOf(pathSplit[ 0 ]) > -1 && this._excludedFields.indexOf(pathSplit[ 0 ]) < 0) {
+                this._postFilter[ path ] = this._filter[ path ];
             }
 
         });
-
-        return filter;
 
     }
 
-    getPostFilter(model) {
+    // Gets a filter object for mongoose query
+    getPreFilter() {
+        return this._preFilter;
+    }
 
-        let filter = {};
+    matched(document) {
+
         let matched = true;
 
-        Object.keys(this._filter).forEach((key) => {
+        // loop trough filter properties;
+        Object.keys(this._postFilter).forEach((path) => {
 
-            let pathSplit = key.split(".");
-
-            if (this._postFilters.indexOf(pathSplit[ 0 ]) > -1 && this._excludedFields.indexOf(pathSplit[ 0 ]) < 0) {
-                filter[ key ] = this._filter[ key ];
-            }
-
-        });
-
-        Object.keys(filter).forEach((key) => {
-
-            if (Util.deepFind(model, key) !== filter[ key ]) {
+            // Compare document value with filter value
+            if (Util.deepFind(document, path) !== this._postFilter[ path ]) {
                 matched = false;
                 return;
             }
