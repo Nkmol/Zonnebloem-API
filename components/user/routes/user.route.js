@@ -2,6 +2,7 @@ let router = require("express").Router();
 let controller = require("../controllers/user.controller");
 let roles = require("../../config/roles.config");
 let User = require('../models/user.model');
+let filterMiddleware = require("../../filterMiddleware");
 
 router.use(roles.middleware());
 
@@ -32,9 +33,9 @@ roles.use((req) => {
 });
 
 router.route("/")
-    .get(controller.get)
+    .get(filterMiddleware(), controller.get)
     .post(controller.create);
-
+    
 router.route("/me")
     .get(controller.me);
 

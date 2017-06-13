@@ -1,7 +1,9 @@
 let { Mongoose, "Error": MongooseError } = require("mongoose");
+let mon = require("mongoose");
 let autoBind = require("./utilities").autoBind;
 let ExtendableError = require("./exterror");
 let Util = require("./utilities");
+let Filter = require("./Filter");
 
 // Not exported
 class ResponseError extends ExtendableError {
@@ -29,7 +31,7 @@ class BaseController {
     }
 
     _isValidId(id) {
-        return id && id.match(/^[0-9a-fA-F]{24}$/);
+        return mon.Types.ObjectId.isValid(id);
     }
 
     _combineStatus(toCombine = {}) {
@@ -71,10 +73,24 @@ class BaseController {
     }
     
     get(req, res, next) {
-        return this._model.find(req.params)
+
+        // set filter helper object with current model and filter from querystring
+        let filter = new Filter((req.filter) ? req.filter : req.params, this._model);
+
+        return this._model.find(filter.getPreFilter())
             .then(doc => {
-                res.json(this._combineStatus({ "data": doc }));
-                return doc;
+                
+                let postFiltered = doc.filter((model) => {
+                    
+                    // apply filter for populated fields
+                    if (filter.matched(model)) {
+                        return model;
+                    }
+                });
+                
+                res.json(this._combineStatus({ "data": postFiltered }));
+                return postFiltered;
+               
             });
     }
 

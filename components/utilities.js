@@ -88,4 +88,22 @@ exports.autoBind = (self) => {
     return self;
 };
 
+exports.deepFind = (obj, path) => {
+    
+    let paths = path.split(".");
+    let current = obj;
+    let i;
+    
+    for (i = 0; i < paths.length; ++i) {
+        
+        if (current[ paths[ i ] ] === undefined) {
+            return undefined;
+        }
+        
+        current = current[ paths[ i ] ];
+    }
+    
+    return current;
+};
+
 exports.objectIsEmpty = obj => obj === undefined || Object.keys(obj).length === 0 && obj.constructor === Object;
