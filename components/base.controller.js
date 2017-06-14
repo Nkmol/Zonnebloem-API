@@ -73,7 +73,7 @@ class BaseController {
     }
     
     get(req, res, next) {
-
+        
         // set filter helper object with current model and filter from querystring
         let filter = new Filter((req.filter) ? req.filter : req.params, this._model);
         let paginationOptions = {
