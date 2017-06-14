@@ -94,9 +94,9 @@ class BaseController {
         }
 
         return this._model.paginate(filter.getPreFilter(), paginationOptions)
-            .then(doc => {
+            .then(result => {
                 
-                let postFiltered = doc.docs.filter((model) => {
+                let postFiltered = result.docs.filter((model) => {
                     
                     // apply filter for populated fields
                     if (filter.matched(model)) {
@@ -104,7 +104,16 @@ class BaseController {
                     }
                 });
                 
-                res.json(this._combineStatus({ "data": postFiltered }));
+                res.json(this._combineStatus({
+                    "data": postFiltered,
+                    "meta": {
+                        "total": result.total,
+                        "limit": result.limit,
+                        "page": result.page,
+                        "pages": result.pages
+                    }
+                }));
+
                 return postFiltered;
                
             });
