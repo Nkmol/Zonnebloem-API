@@ -76,11 +76,27 @@ class BaseController {
 
         // set filter helper object with current model and filter from querystring
         let filter = new Filter((req.filter) ? req.filter : req.params, this._model);
+        let paginationOptions = {
+            "page": 1,
+            "limit": 5
+        };
 
-        return this._model.find(filter.getPreFilter())
+        if (req.query.page) {
+            paginationOptions.page = parseInt(req.query.page);
+        }
+
+        if (req.query.limit) {
+            paginationOptions.limit = parseInt(req.query.limit);
+        }
+
+        if (req.query.sort) {
+            paginationOptions.sort = req.query.sort;
+        }
+
+        return this._model.paginate(filter.getPreFilter(), paginationOptions)
             .then(doc => {
                 
-                let postFiltered = doc.filter((model) => {
+                let postFiltered = doc.docs.filter((model) => {
                     
                     // apply filter for populated fields
                     if (filter.matched(model)) {
