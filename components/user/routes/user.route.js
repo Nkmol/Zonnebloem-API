@@ -10,16 +10,19 @@ router.use(roles.middleware());
 roles.use('adjust user', (req) => {
     if (req.params._id == req.user._id) return true;
 });
+
+// TODO Optimise
 // Moderator
 roles.use((req) => {
-    let userId = req.params._id;
+    // let userId = req.params._id;
     let me = req.user;
-    return User.findById(userId).then(doc => {
+    
+    return User.findById(me._id).then(doc => {
         let isAdmin = false;
         if ((doc.roles && me.roles) && (doc.roles.length > 0 && me.roles.length > 0)) {
             doc.roles.forEach(function(userRole) {
                 me.roles.forEach(function(myRole) {
-                    if ((userRole.department._id.equals(myRole.department._id)) && myRole.role == "MODERATOR") {
+                    if (userRole.department && (userRole.department._id.equals(myRole.department._id)) && myRole.role == "MODERATOR") {
                         isAdmin = true;
                     }
                 })
