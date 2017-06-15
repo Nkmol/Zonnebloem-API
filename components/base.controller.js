@@ -192,12 +192,10 @@ class BaseController {
         })
         .then(() => {
             // Upsert = If the _id does not exists, create a new document
-            return this._model.update({ "_id": req.params._id }, req.body, { "upsert": true, "overwrite": true });
+            return this._model.findOneAndUpdate({ "_id": req.params._id }, req.body, { "upsert": true, "overwrite": true });
         })
-        .then(() => {
-            let newDoc = Object.assign(req.body, { "_id": req.params._id });
-
-            return res.json(this._combineStatus({ "data": newDoc }));
+        .then(doc => {
+            return res.json(this._combineStatus({ "data": doc }));
         })
         .catch(err => this._errorHandler(res, err));
     }
@@ -229,8 +227,7 @@ class BaseController {
         .then(doc => {
             let newDoc = Object.assign(doc, req.body);
 
-            return this._model.update({ "_id": req.params._id }, newDoc)
-                .then(() => newDoc); // Continue to next chain;
+            return this._model.findOneAndUpdate({ "_id": req.params._id }, newDoc);
         })
         .then(newDoc => res.json(this._combineStatus({ "data": newDoc })))
         .catch(err => this._errorHandler(res, err));
