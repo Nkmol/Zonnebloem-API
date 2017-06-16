@@ -1,10 +1,12 @@
 let mongoose = require("mongoose");
+let mongoosePaginate = require("mongoose-paginate");
 let config = require("../config/config");
 let chalk = require("chalk");
 
 class Mongoose {
     constructor() {
         mongoose.Promise = config.promise;
+        mongoose.plugin(mongoosePaginate);
     }
 
     connect() {
