@@ -3,7 +3,6 @@
     "documents": [
         {
             "_id": "5920429515f8fa0011c96b87",
-            "username": "test",
             "password": "$2a$08$Inp.P4WVV6SMhYCRq2jrnud7StbgYbrCfMwnQSfYmi53HfNZi1zay",
             "email": "test@test.nl",
             "firstname": "tester",
@@ -17,13 +16,12 @@
             "roles": [
                 {
                     "role": "VOLUNTEER",
-                    "department": "407f1f77bcf86cd799439011"
+                    "department": "590fa19ff0da801f445e3736"
                 }
             ]
         },
         {
             "_id": "591ed9014751cb00113e34f4",
-            "username": "test2",
             "password": "$2a$08$VaVWYP6A3h6iiZDJHj1bcuC6TLvnlHvgBTxVPbxrcCCFDpd4tpSom",
             "email": "test@test2.nl",
             "address": {
@@ -35,13 +33,12 @@
             "roles": [
                 {
                     "role": "VOLUNTEER",
-                    "department": "407f1f77bcf86cd799439011"
+                    "department": "590fa19ff0da801f445e3736"
                 }
             ]
         },
         {
             "_id": "591f04574751cb00113e34f6",
-            "username": "adminFerry",
             "password": "$2a$08$q4KwecPIS7N9.X8SMukF9ege7OHy8KcU78IecTuzgUvnSynEOlqc.",
             "email": "temp@emial.nl",
             "address": {
@@ -53,7 +50,82 @@
             "roles": [
                 {
                     "role": "VOLUNTEER",
-                    "department": "407f1f77bcf86cd799439011"
+                    "department": "590fa19ff0da801f445e3736"
+                }
+            ]
+        },
+        {
+            "_id": "5932b5a402c02b31aa11f677",
+            "updated_at": "2017-06-06T11:07:06.555Z",
+            "created_at": "2017-06-04T18:06:09.330Z",
+            "firstname": "Mohammed",
+            "lastname": "Al Waili",
+            "email": "mohammed.alwaili@gmail.com",
+            "password": "$2a$08$xn3ftEbLvRL0v1BzzjiJpedrTP0HKedYeFS9Jw9TnKE7DmpidfhQa",
+            "roles": [
+                {
+                    "department": "590fa19ff0da801f445e3736",
+                    "role": "MODERATOR"
+                }
+            ]
+        },
+        {
+            "_id": "5937eb9c9c8bb3001140f04f",
+            "updated_at": "2017-06-07T12:07:37.548Z",
+            "created_at": "2017-06-07T12:03:40.260Z",
+            "email": "jarric_25_6@hotmail.com",
+            "password": "$2a$08$mC80Qjd2vP7v12itsz56TeMQpQsGslfzGGbFtFgPheJ9Fk3zwJNwW",
+            "firstname": "Jarric",
+            "lastname": "van Krieken",
+            "roles": [
+                {
+                    "role": "MODERATOR",
+                    "department": "590fa19ff0da801f445e3736"
+                }
+            ]
+        },
+        {
+            "_id": "5930810190c97700119d778f",
+            "updated_at": "2017-06-01T21:02:57.999Z",
+            "created_at": "2017-06-01T21:02:57.999Z",
+            "password": "$2a$08$Inp.P4WVV6SMhYCRq2jrnud7StbgYbrCfMwnQSfYmi53HfNZi1zay",
+            "email": "herman@zonnebloem.nl",
+            "firstname": "Herman",
+            "lastname": "De Beuker",
+            "roles": [
+                {
+                    "role": "MODERATOR",
+                    "department": "590fa19ff0da801f445e3736"
+                }
+            ]
+        },
+        {
+            "_id": "5931394b90c97700119d7795",
+            "updated_at": "2017-06-02T10:09:15.291Z",
+            "created_at": "2017-06-02T10:09:15.291Z",
+            "password": "$2a$08$Inp.P4WVV6SMhYCRq2jrnud7StbgYbrCfMwnQSfYmi53HfNZi1zay",
+            "email": "karel@degrote.nl",
+            "firstname": "Karel",
+            "lastname": "Hendrikse",
+            "roles": [
+                {
+                    "role": "MODERATOR",
+                    "department": "590fa19ff0da801f445e3736"
+                }
+            ]
+        },
+        {
+            "_id": "59307f5b90c97700119d778e",
+            "updated_at": "2017-06-01T20:55:55.964Z",
+            "created_at": "2017-06-01T20:55:55.964Z",
+            "password": "$2a$08$Inp.P4WVV6SMhYCRq2jrnud7StbgYbrCfMwnQSfYmi53HfNZi1zay",
+            "email": "kees@hotmail.com",
+            "firstname": "kees",
+            "lastname": "Hendriks",
+            "roles": [
+                {
+                    "role": "MODERATOR",
+                    "department": "590fa19ff0da801f445e3736"
                 }
             ]
         }
