@@ -5,6 +5,9 @@ let ExtendableError = require("./exterror");
 let Util = require("./utilities");
 let Filter = require("./Filter");
 
+// The behavior of limit() is undefined for values less than -2^31 and greater than 2^31
+const maxFilter = Math.pow(2, 31);
+
 // Not exported
 class ResponseError extends ExtendableError {
     constructor(msg, status) {
@@ -78,15 +81,19 @@ class BaseController {
         let filter = new Filter((req.filter) ? req.filter : req.params, this._model);
         let paginationOptions = {
             "page": 1,
-            "limit": 5
+            "limit": 50
         };
-
-        if (req.query.page) {
-            paginationOptions.page = parseInt(req.query.page);
-        }
 
         if (req.query.limit) {
             paginationOptions.limit = parseInt(req.query.limit);
+        }
+
+        if (req.query.page) {
+            paginationOptions.page = parseInt(req.query.page);
+        } 
+        else {
+            // If paging is not used, show all results
+            paginationOptions.limit = maxFilter;
         }
 
         if (req.query.sort) {
