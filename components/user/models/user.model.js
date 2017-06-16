@@ -80,15 +80,15 @@ userSchema.pre("save", false, function(next) {
     next();
 });
 
-var autoPopulateFields = function(next) {
+let autoPopulateFields = function(next) {
     this.populate("roles.department");
     next();
-}
+};
 
 userSchema
-    .pre('findById', autoPopulateFields)
-    .pre('findOne', autoPopulateFields)
-    .pre('find', autoPopulateFields)
+    .pre("findById", autoPopulateFields)
+    .pre("findOne", autoPopulateFields)
+    .pre("find", autoPopulateFields);
 
 userSchema.statics.generateHash = function(password) {
     return new Promise((resolve, reject) => {

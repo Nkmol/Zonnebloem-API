@@ -96,7 +96,7 @@ class BaseController {
         return this._model.paginate(filter.getPreFilter(), paginationOptions)
             .then(result => {
                 
-                let postFiltered = result.docs.filter((model) => {
+                let postFiltered = result.docs.filter(model => {
                     
                     // apply filter for populated fields
                     if (filter.matched(model)) {
@@ -136,7 +136,7 @@ class BaseController {
             .then(doc => {
                 res.json(this._combineStatus({ "data": doc }));
                 return doc;
-            })
+            });
     }
 
     create(req, res, next) {
@@ -192,12 +192,10 @@ class BaseController {
         })
         .then(() => {
             // Upsert = If the _id does not exists, create a new document
-            return this._model.update({ "_id": req.params._id }, req.body, { "upsert": true, "overwrite": true });
+            return this._model.findOneAndUpdate({ "_id": req.params._id }, req.body, { "upsert": true, "overwrite": true, "new": true });
         })
-        .then(() => {
-            let newDoc = Object.assign(req.body, { "_id": req.params._id });
-
-            return res.json(this._combineStatus({ "data": newDoc }));
+        .then(doc => {
+            return res.json(this._combineStatus({ "data": doc }));
         })
         .catch(err => this._errorHandler(res, err));
     }
@@ -221,7 +219,7 @@ class BaseController {
             if (Util.objectIsEmpty(req.params)) {
                 this.throw("Please provide a valid parameter to this PATCH request", 400);
             }
-
+            console.log(req.body);
             resolve();
         })
         .then(() => this._model.findOne({ "_id": req.params._id }))
@@ -229,10 +227,12 @@ class BaseController {
         .then(doc => {
             let newDoc = Object.assign(doc, req.body);
 
-            return this._model.update({ "_id": req.params._id }, newDoc)
-                .then(() => newDoc); // Continue to next chain;
+            return this._model.findOneAndUpdate({ "_id": req.params._id }, newDoc, { "new": true });
         })
-        .then(newDoc => res.json(this._combineStatus({ "data": newDoc })))
+        .then(newDoc => {
+            console.log(newDoc);
+            return res.json(this._combineStatus({ "data": newDoc }));
+        })
         .catch(err => this._errorHandler(res, err));
     }
 
