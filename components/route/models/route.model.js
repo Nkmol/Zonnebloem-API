@@ -38,4 +38,15 @@ let routeSchema = new Schema({
 
 routeSchema.index({ "waypoints": "2dsphere" });
 
+let autoPopulateFields = function(next) {
+    this.populate("walked_by");
+    this.populate("obstacles");
+    next();
+};
+
+routeSchema
+    .pre("findById", autoPopulateFields)
+    .pre("findOne", autoPopulateFields)
+    .pre("find", autoPopulateFields);
+
 module.exports = mongoose.model("Route", routeSchema);
