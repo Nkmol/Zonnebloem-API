@@ -93,19 +93,30 @@ exports.deepFind = function deepFind(obj, path) {
     let paths = path.split(".");
     let current = obj;
     let i;
+    let x;
     
     for (i = 0; i < paths.length; ++i) {
+
+        if (current[ paths[ i ] ] === undefined) {
+            return undefined;
+        }
 
         // If object is an array return first element
         if (Array.isArray(current[ paths[ i ] ])) {
 
-            current = current [ paths [ i ] ][ 0 ]; // set first element of array as current object
-            paths = paths.slice(i + 1); // overwrite path with remaining path
-            i = 0; // reset index
-        }
+            for (x = 0; x < current[ paths[ i ] ].length; ++x) {
 
-        if (current[ paths[ i ] ] === undefined) {
-            return undefined;
+                // Returns an object if path is found in element else returns undefined
+                current = deepFind(current[ paths[ i ] ][ x ], paths.slice(i + 1).join("."));
+
+                // Break when path found
+                if (current) {
+                    break;
+                }
+            }
+
+            // All elements have been loopt trough
+            break;
         }
         
         current = current[ paths[ i ] ];
