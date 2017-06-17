@@ -88,16 +88,35 @@ exports.autoBind = (self) => {
     return self;
 };
 
-exports.deepFind = (obj, path) => {
+exports.deepFind = function deepFind(obj, path) {
     
     let paths = path.split(".");
     let current = obj;
     let i;
+    let x;
     
     for (i = 0; i < paths.length; ++i) {
-        
+
         if (current[ paths[ i ] ] === undefined) {
             return undefined;
+        }
+
+        // If object is an array return first element
+        if (Array.isArray(current[ paths[ i ] ])) {
+
+            for (x = 0; x < current[ paths[ i ] ].length; ++x) {
+
+                // Returns an object if path is found in element else returns undefined
+                current = deepFind(current[ paths[ i ] ][ x ], paths.slice(i + 1).join("."));
+
+                // Break when path found
+                if (current) {
+                    break;
+                }
+            }
+
+            // All elements have been loopt trough
+            break;
         }
         
         current = current[ paths[ i ] ];

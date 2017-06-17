@@ -63,7 +63,7 @@ module.exports = class Filter {
         Object.keys(this._postFilter).forEach((path) => {
 
             // Compare document value with filter value
-            if (Util.deepFind(document, path) !== this._postFilter[ path ]) {
+            if (String(Util.deepFind(document, path)) !== this._postFilter[ path ]) {
                 matched = false;
                 return;
             }
